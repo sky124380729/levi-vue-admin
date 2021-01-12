@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>platform</div>
+        <div>test</div>
         <a-input></a-input>
     </div>
 </template>
