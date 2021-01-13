@@ -11,11 +11,4 @@ interface UserRes {
 }
 
 export const createUser = (data: User) => request.post<UserRes>('xxx/user', data)
-
-createUser({
-    name: '1',
-    code: '2'
-}).then((res) => {
-    // console.log(res)
-    res.data.test
-})
+export const updateUser = (data: User) => request.post<UserRes>('xxx/user', data)

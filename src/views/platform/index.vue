@@ -7,10 +7,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import apis from '/@/apis'
 export default defineComponent({
     name: 'platform',
     setup() {
+        console.log(apis)
         return {}
     }
 })
