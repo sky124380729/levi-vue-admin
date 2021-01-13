@@ -1,3 +1,5 @@
+// vue3的keep-alive不会在函数式组件中正常工作，因为他们没有缓存实例，这个页面暂时不用
+
 import { computed, KeepAlive, unref } from 'vue'
 import type { FunctionalComponent } from 'vue'
 import { defineComponent, Transition } from 'vue'
@@ -12,7 +14,6 @@ interface DefaultContext {
 export default defineComponent({
     name: 'Content',
     setup() {
-        // 缓存
         const cachedViews = computed(() => store.getters.getCachedViews)
         return () => {
             return (

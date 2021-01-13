@@ -1,6 +1,6 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 
-import dynamicImport from '../utils/helper/dynamicImport'
+import dynamicImport from './helpers/dynamicImport'
 
 import Login from '/@/views/sys/Login.vue'
 import NotFound from '/@/views/sys/NotFound.vue'

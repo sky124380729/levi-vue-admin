@@ -1,6 +1,6 @@
 import { computed, defineComponent, ref, unref, watchEffect } from 'vue'
 import Sider from './sider'
-import Content from './content'
+import Content from './content/index.vue'
 import NavTags from './header/navTags'
 import Navbar from './header/Navbar'
 import store from '/@/store'
