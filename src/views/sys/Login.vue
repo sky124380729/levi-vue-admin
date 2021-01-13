@@ -6,19 +6,19 @@
         </div>
         <div class="levi-login__body">
             <div class="login-box">
-                <a-form :model="formInline" @submit="handleSubmit" @submit.prevent>
+                <a-form :model="model" @submit="handleLogin" @submit.prevent>
                     <a-form-item>
-                        <a-input v-model:value="formInline.user" placeholder="Username">
+                        <a-input v-model:value="model.username" placeholder="Username">
                             <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
                         </a-input>
                     </a-form-item>
                     <a-form-item>
-                        <a-input v-model:value="formInline.password" type="password" placeholder="Password">
+                        <a-input v-model:value="model.password" type="password" placeholder="Password">
                             <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
                         </a-input>
                     </a-form-item>
                     <a-form-item>
-                        <a-button type="primary" html-type="submit" :disabled="formInline.user === '' || formInline.password === ''"> Log in </a-button>
+                        <a-button type="primary" html-type="submit"> Login </a-button>
                     </a-form-item>
                 </a-form>
             </div>
@@ -29,31 +29,39 @@
         </div>
     </div>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent, reactive } from 'vue'
 import Cookies from 'js-cookie'
 import router from '/@/router/index'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { login } from '/@/apis/modules/login'
 
-export default {
+export default defineComponent({
     components: {
         UserOutlined,
         LockOutlined
     },
-    data() {
-        return {
-            formInline: {
-                user: 'admin1',
-                password: '1234'
-            }
-        }
-    },
-    methods: {
-        handleSubmit() {
-            Cookies.set('token', 'whosyourdaddy')
+    setup() {
+        const model = reactive({
+            username: '',
+            password: ''
+        })
+        const handleLogin = async () => {
+            const { username, password } = model
+            const res = await login({
+                username,
+                password
+            })
+            if (!res) return
+            Cookies.set('token', res.token)
             router.push('/')
         }
+        return {
+            model,
+            handleLogin
+        }
     }
-}
+})
 </script>
 
 <style lang="less" scoped>
