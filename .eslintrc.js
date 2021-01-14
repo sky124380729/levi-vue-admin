@@ -68,6 +68,17 @@ module.exports = {
         // 页面name值定义方式
         'vue/component-definition-name-casing': 'off',
         // vue props给默认值
-        'vue/require-default-prop': 'off'
+        'vue/require-default-prop': 'off',
+        // vue 模板属性配置
+        'vue/max-attributes-per-line': [
+            'error',
+            {
+                singleline: 10,
+                multiline: {
+                    max: 10,
+                    allowFirstLine: false
+                }
+            }
+        ]
     }
 }
