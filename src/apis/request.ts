@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios'
+import { HTTP_STRATEGY } from './tactics'
 import Cookies from 'js-cookie'
 import { message } from 'ant-design-vue'
 
@@ -37,10 +38,11 @@ service.interceptors.response.use(
         }
     },
     (error: AxiosError) => {
-        const { response } = error
-        message.error({
-            content: response?.status
-        })
+        const { status } = error.response!
+        const strategy = HTTP_STRATEGY.get(status)
+        if (typeof strategy === 'function') {
+            strategy(error.response)
+        }
         return Promise.resolve(null)
     }
 )

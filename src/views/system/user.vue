@@ -2,25 +2,36 @@
     <div>
         <a-page-header style="background-color: #fff" title="用户管理">
             <template #extra>
-                <a-button type="primary" @click="handle">
-                    <template #icon><Icon icon="ion:add-outline"></Icon></template>
-                    新增
+                <a-button type="primary" shape="circle" @click="handle">
+                    <template #icon><Icon icon="teenyicons:add-outline"></Icon></template>
                 </a-button>
             </template>
-            <a-descriptions size="small" :column="3">
-                <a-descriptions-item label="Created"> Lili Qu </a-descriptions-item>
-                <a-descriptions-item label="Association">
-                    <a>421421</a>
-                </a-descriptions-item>
-            </a-descriptions>
+            <a-form layout="inline" :model="terms" label-align="right">
+                <a-form-item label="登录名" name="username">
+                    <a-input v-model:value="terms.username" />
+                </a-form-item>
+                <a-form-item label="姓名" name="realName">
+                    <a-input v-model:value="terms.realName" />
+                </a-form-item>
+                <a-form-item>
+                    <a-space>
+                        <a-button type="primary" shape="circle" @click="refresh(true)">
+                            <template #icon><Icon icon="uil:search" /></template>
+                        </a-button>
+                        <a-button type="danger" shape="circle" @click="refresh(false)">
+                            <template #icon><Icon icon="codicon:chrome-close" /></template>
+                        </a-button>
+                    </a-space>
+                </a-form-item>
+            </a-form>
+            <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
+                <template #operation="{ record }">
+                    <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
+                    <a-divider type="vertical" />
+                    <a-button type="link" size="small" @click="remove(record)">删除</a-button>
+                </template>
+            </a-table>
         </a-page-header>
-        <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
-            <template #operation="{ _, record }">
-                <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
-                <a-divider type="vertical" />
-                <a-button type="link" size="small" @click="remove(record)">删除</a-button>
-            </template>
-        </a-table>
 
         <a-modal v-model:visible="visible" title="用户信息" ok-text="确认" cancel-text="取消" width="720px" :after-close="modalAfterClose" @ok="submitForm">
             <a-form ref="ruleForm" :model="model" :rules="rules" label-align="right" scroll-to-first-error :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
@@ -93,7 +104,11 @@ const columns = [
     { title: '邮箱', dataIndex: 'email' },
     { title: '部门', dataIndex: 'dept' },
     { title: '描述', dataIndex: 'note' },
-    { title: '操作', width: '160px', dataIndex: 'id', slots: { customRender: 'operation' } }
+    {
+        title: '操作',
+        width: '160px',
+        slots: { customRender: 'operation' }
+    }
 ]
 
 export default defineComponent({
@@ -102,6 +117,7 @@ export default defineComponent({
         Icon
     },
     setup() {
+        const terms = reactive<any>({})
         const data = ref<any>([])
         const visible = ref<boolean>(false)
         let model = reactive<any>({})
@@ -116,11 +132,20 @@ export default defineComponent({
             defaultCurrent: 1,
             current: 1,
             pageSize: 10,
-            total: 0,
-            showTotal(total: number) {
-                return total
-            }
+            total: 0
+            // showTotal(total: number) {
+            //     return total
+            // }
         })
+
+        const refresh = (withTerms: boolean) => {
+            if (!withTerms) {
+                Object.keys(terms).forEach((key) => {
+                    delete terms[key]
+                })
+            }
+            getList()
+        }
         const tableChange = (p: any) => {
             const { current, pageSize } = p
             pagination.current = current
@@ -129,7 +154,8 @@ export default defineComponent({
         }
         const getList = async () => {
             const { current, pageSize: size } = pagination
-            const res = await fetchUserPage({ current, size })
+            const res = await fetchUserPage({ current, size, query: terms })
+            if (!res) return
             const { total, records } = res
             data.value = records
             pagination.total = total
@@ -188,6 +214,8 @@ export default defineComponent({
             getList()
         })
         return {
+            terms,
+            refresh,
             data,
             columns,
             pagination,

@@ -84,8 +84,8 @@ export const resource: IResource[] = [
                 type: 'MENU',
                 path: 'role',
                 component: '/system/role',
-                icon: 'carbon:user-role',
-                fullscreen: true
+                icon: 'carbon:user-role'
+                // fullscreen: true
             },
             {
                 id: '27b2e6818b1e48a68fc7c59674b4954d',
