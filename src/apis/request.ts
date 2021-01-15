@@ -29,9 +29,9 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         const { data = {} } = response
-        const { data: res, message: msg, success } = data
+        const { message: msg, success } = data
         if (success) {
-            return Promise.resolve(res)
+            return Promise.resolve(data)
         } else {
             message.error(msg)
             return Promise.resolve(null)

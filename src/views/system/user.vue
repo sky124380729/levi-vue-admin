@@ -34,53 +34,53 @@
         </a-page-header>
 
         <a-modal v-model:visible="visible" title="用户信息" ok-text="确认" cancel-text="取消" width="720px" :after-close="modalAfterClose" @ok="submitForm">
-            <a-form ref="ruleForm" :model="model" :rules="rules" label-align="right" scroll-to-first-error :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
+            <a-form ref="ruleForm" :model="form" :rules="rules" label-align="right" scroll-to-first-error :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
                 <a-row>
                     <a-col :span="12">
                         <a-form-item label="登录名" name="username">
-                            <a-input v-model:value="model.username" :disabled="!!model.id" />
+                            <a-input v-model:value="form.username" :disabled="!!form.id" />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="用户编号" name="userNo">
-                            <a-input v-model:value="model.userNo" />
+                            <a-input v-model:value="form.userNo" />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="姓名" name="realName">
-                            <a-input v-model:value="model.realName" />
+                            <a-input v-model:value="form.realName" />
                         </a-form-item>
                     </a-col>
-                    <template v-if="!model.id">
+                    <template v-if="!form.id">
                         <a-col :span="12">
                             <a-form-item label="密码" name="password">
-                                <a-input v-model:value="model.password" />
+                                <a-input v-model:value="form.password" />
                             </a-form-item>
                         </a-col>
                         <a-col :span="12">
                             <a-form-item label="确认密码" name="confirmPassword">
-                                <a-input v-model:value="model.confirmPassword" />
+                                <a-input v-model:value="form.confirmPassword" />
                             </a-form-item>
                         </a-col>
                     </template>
                     <a-col :span="12">
                         <a-form-item label="手机" name="mobile">
-                            <a-input v-model:value="model.mobile" />
+                            <a-input v-model:value="form.mobile" />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="邮箱" name="email">
-                            <a-input v-model:value="model.email" />
+                            <a-input v-model:value="form.email" />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="部门" name="dept">
-                            <a-input v-model:value="model.dept" />
+                            <a-input v-model:value="form.dept" />
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item label="描述" name="note">
-                            <a-textarea v-model:value="model.note" />
+                            <a-textarea v-model:value="form.note" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, createVNode, h, unref } from 'vue'
+import { defineComponent, onMounted, reactive, ref, createVNode, h, unref, toRefs } from 'vue'
 import Icon from '/@/components/Icon'
 import { Modal } from 'ant-design-vue'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
@@ -111,16 +111,23 @@ const columns = [
     }
 ]
 
+interface Model {
+    form: any
+    terms: any
+}
+
 export default defineComponent({
     name: 'system-user',
     components: {
         Icon
     },
     setup() {
-        const terms = reactive<any>({})
         const data = ref<any>([])
         const visible = ref<boolean>(false)
-        let model = reactive<any>({})
+        const model = reactive<Model>({
+            form: {},
+            terms: {}
+        })
         const ruleForm = ref()
         const submitLoading = ref<boolean>(false)
         const rules = reactive({
@@ -140,9 +147,7 @@ export default defineComponent({
 
         const refresh = (withTerms: boolean) => {
             if (!withTerms) {
-                Object.keys(terms).forEach((key) => {
-                    delete terms[key]
-                })
+                model.terms = {}
             }
             getList()
         }
@@ -154,9 +159,9 @@ export default defineComponent({
         }
         const getList = async () => {
             const { current, pageSize: size } = pagination
-            const res = await fetchUserPage({ current, size, query: terms })
+            const res = await fetchUserPage({ current, size, query: model.terms })
             if (!res) return
-            const { total, records } = res
+            const { total, records } = res.data
             data.value = records
             pagination.total = total
         }
@@ -166,9 +171,8 @@ export default defineComponent({
                 .validate()
                 .then(async () => {
                     submitLoading.value = true
-                    const data = unref(model)
-                    const id = data.id
-                    const res = await (id ? updateUser(data) : createUser(data))
+                    const data = model.form
+                    const res = await (data.id ? updateUser(data) : createUser(data))
                     submitLoading.value = false
                     if (!res) return
                     getList()
@@ -179,17 +183,13 @@ export default defineComponent({
         // modal关闭事件
         const modalAfterClose = () => {
             ruleForm.value.clearValidate()
-            Object.keys(model).forEach((key) => {
-                delete model[key]
-            })
+            model.form = {}
         }
-        const handle = async ({ id }) => {
+        const handle = async ({ id }: { id: string }) => {
             if (id) {
                 const res = await getUser(id)
                 if (!res) return
-                Object.keys(res).forEach((key) => {
-                    model[key] = res[key]
-                })
+                model.form = res.data
             }
             visible.value = true
         }
@@ -214,7 +214,6 @@ export default defineComponent({
             getList()
         })
         return {
-            terms,
             refresh,
             data,
             columns,
@@ -224,10 +223,10 @@ export default defineComponent({
             remove,
             visible,
             submitForm,
-            model,
             ruleForm,
             rules,
-            modalAfterClose
+            modalAfterClose,
+            ...toRefs(model)
         }
     }
 })
