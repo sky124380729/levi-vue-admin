@@ -9,7 +9,6 @@ import './permission'
 
 // Vite does not support partial import yet
 import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
 
 // global less
 import '/@/styles/index.less'

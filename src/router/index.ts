@@ -65,7 +65,7 @@ export const resource: IResource[] = [
                 type: 'MENU',
                 path: 'user',
                 component: '/system/user',
-                icon: 'ri:user-3-fill',
+                // icon: 'ri:user-3-fill',
                 noCache: true
             },
             {
@@ -74,8 +74,8 @@ export const resource: IResource[] = [
                 name: 'organization',
                 type: 'MENU',
                 path: 'organization',
-                component: '/system/organization',
-                icon: 'octicon:organization'
+                component: '/system/organization'
+                // icon: 'octicon:organization'
             },
             {
                 id: 'cdaa427913be4206a52bf540f134517c',
@@ -83,8 +83,8 @@ export const resource: IResource[] = [
                 name: 'role',
                 type: 'MENU',
                 path: 'role',
-                component: '/system/role',
-                icon: 'carbon:user-role'
+                component: '/system/role'
+                // icon: 'carbon:user-role'
                 // fullscreen: true
             },
             {
@@ -93,8 +93,8 @@ export const resource: IResource[] = [
                 name: 'resource',
                 type: 'MENU',
                 path: 'resource',
-                component: '/system/resource',
-                icon: 'grommet-icons:resources'
+                component: '/system/resource'
+                // icon: 'grommet-icons:resources'
             }
             // {
             //     id: '424bbbc89b4b4cc7bab0c2733950c550',

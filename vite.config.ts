@@ -22,6 +22,18 @@ const viteConfig: UserConfig = {
     // },
     // The package will be recompiled using rollup, and the new package compiled into the esm module specification will be put into node_modules/.vite_opt_cache
     // fix the problem when import ant-design icons don't works
+    css: {
+        preprocessorOptions: {
+            less: {
+                // modifyVars: {
+                //   // reference:  Avoid repeated references
+                //   hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
+                //   ...modifyVars,
+                // },
+                javascriptEnabled: true
+            }
+        }
+    },
     optimizeDeps: {
         include: ['@ant-design/icons-vue', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US']
     },

@@ -1,7 +1,6 @@
 @import (reference) '../../styles/index.less';
 
-@--menu-width-fullfilled: 200px;
-@--menu-width-collapsed: 80px;
+@--menu-width-fullfilled: 220px;
 
 .levi-layout {
     width: 100vw;
@@ -12,7 +11,7 @@
         float: left;
         height: 100%;
         width: @--menu-width-fullfilled;
-        background-color: @sider-dark-bg-color;
+        background-color: @menu-dark-bg;
         // background-image: url(../assets/images/sidebar.png);
         background-size: 100% 100%;
         .logo {
@@ -20,7 +19,7 @@
             height: 52px;
             align-items: center;
             justify-content: center;
-            background-color: @sider-dark-bg-color;
+            background-color: @menu-dark-bg;
             img {
                 width: 80%;
             }
@@ -28,18 +27,15 @@
         .menu {
             height: calc(100% - 52px);
             overflow: auto;
-            .ant-menu {
-                background-color: transparent;
-            }
             .ant-menu-item {
                 margin-top: 0;
             }
         }
         // 塌陷的样式
         &.isCollapse {
-            width: @--menu-width-collapsed;
+            width: @menu-collapsed-width;
             &+.levi-main {
-                margin-left: @--menu-width-collapsed;
+                margin-left: @menu-collapsed-width;
             }
         }
     }
