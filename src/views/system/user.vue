@@ -19,7 +19,7 @@
                             <template #icon><Icon icon="uil:search" /></template>查询
                         </a-button>
                         <a-button type="danger" shape="round" @click="refresh(false)">
-                            <template #icon><Icon icon="codicon:chrome-close" /></template>清空
+                            <template #icon><Icon icon="mdi:delete" /></template>清空
                         </a-button>
                     </a-space>
                 </a-form-item>
@@ -33,7 +33,7 @@
             </a-table>
         </a-page-header>
 
-        <a-modal v-model:visible="visible" title="用户信息" ok-text="确认" cancel-text="取消" width="720px" :after-close="modalAfterClose" @ok="submitForm">
+        <a-modal v-model:visible="visible" title="用户信息" width="720px" :after-close="modalAfterClose" @ok="submitForm">
             <a-form ref="ruleForm" :model="form" :rules="rules" label-align="right" scroll-to-first-error :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
                 <a-row>
                     <a-col :span="12">
@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, createVNode, h, unref, toRefs } from 'vue'
+import { defineComponent, onMounted, reactive, ref, createVNode, h, toRefs } from 'vue'
 import Icon from '/@/components/Icon'
 import { Modal } from 'ant-design-vue'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
@@ -193,8 +193,6 @@ export default defineComponent({
             Modal.confirm({
                 title: '提示',
                 content: h('div', { style: 'color:#f56c6c' }, [h('p', '确定要删除当前数据吗?')]),
-                okText: '确定',
-                cancelText: '取消',
                 okButtonProps: {
                     loading: submitLoading
                 },

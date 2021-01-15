@@ -3,7 +3,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 import { setApp } from '/@/useApp'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 // auth
 import './permission'
