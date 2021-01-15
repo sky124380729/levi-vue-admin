@@ -2,39 +2,29 @@
     <div>
         <a-page-header style="background-color: #fff" title="用户管理">
             <template #extra>
-                <a-button type="primary" shape="round" @click="handle">
-                    <template #icon><Icon icon="teenyicons:add-outline"></Icon></template>新增
+                <a-button type="primary" @click="handle">
+                    <template #icon><Icon icon="ic:round-add-circle-outline"></Icon></template>新增
                 </a-button>
             </template>
-            <a-form layout="inline" :model="terms" label-align="right">
-                <a-form-item label="登录名" name="username">
-                    <a-input v-model:value="terms.username" />
+            <a-form layout="inline" :model="terms" class="levi-search-form" label-align="right">
+                <a-form-item name="username">
+                    <a-input v-model:value="terms.username" placeholder="请输入用户名" />
                 </a-form-item>
-                <a-form-item label="姓名" name="realName">
-                    <a-input v-model:value="terms.realName" />
+                <a-form-item name="realName">
+                    <a-input v-model:value="terms.realName" placeholder="请输入姓名" />
                 </a-form-item>
                 <a-form-item>
                     <a-space :size="10">
-                        <a-button type="primary" shape="round" @click="refresh(true)">
+                        <a-button type="primary" @click="refresh(true)">
                             <template #icon><Icon icon="uil:search" /></template>查询
                         </a-button>
-                        <a-button type="danger" shape="round" @click="refresh(false)">
+                        <a-button type="danger" @click="refresh(false)">
                             <template #icon><Icon icon="mdi:delete" /></template>清空
                         </a-button>
                     </a-space>
                 </a-form-item>
             </a-form>
-            <a-table
-                style="margin-top: 10px"
-                row-key="id"
-                :columns="columns"
-                :data-source="data"
-                borderd
-                size="middle"
-                :pagination="pagination"
-                align="center"
-                @change="tableChange"
-            >
+            <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
                 <template #operation="{ record }">
                     <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
                     <a-divider type="vertical" />
@@ -235,3 +225,11 @@ export default defineComponent({
     }
 })
 </script>
+
+<style lang="less">
+.levi-search-form {
+    padding: 2px 16px;
+    margin: 0 2px 10px;
+    box-shadow: 0 0 5px 1px rgba(0, 21, 41, 0.08);
+}
+</style>

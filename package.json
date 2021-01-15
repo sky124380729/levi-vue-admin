@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "lint": "eslint src/**/*.* --fix"
+        "lint": "eslint src/**/*.{vue,tsx} --fix"
     },
     "dependencies": {
         "@iconify/iconify": "^2.0.0-rc.2",
