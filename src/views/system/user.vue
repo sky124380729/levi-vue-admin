@@ -2,8 +2,8 @@
     <div>
         <a-page-header style="background-color: #fff" title="用户管理">
             <template #extra>
-                <a-button type="primary" shape="circle" @click="handle">
-                    <template #icon><Icon icon="teenyicons:add-outline"></Icon></template>
+                <a-button type="primary" shape="round" @click="handle">
+                    <template #icon><Icon icon="teenyicons:add-outline"></Icon></template>新增
                 </a-button>
             </template>
             <a-form layout="inline" :model="terms" label-align="right">
@@ -15,11 +15,11 @@
                 </a-form-item>
                 <a-form-item>
                     <a-space>
-                        <a-button type="primary" shape="circle" @click="refresh(true)">
-                            <template #icon><Icon icon="uil:search" /></template>
+                        <a-button type="primary" shape="round" @click="refresh(true)">
+                            <template #icon><Icon icon="uil:search" /></template>查询
                         </a-button>
-                        <a-button type="danger" shape="circle" @click="refresh(false)">
-                            <template #icon><Icon icon="codicon:chrome-close" /></template>
+                        <a-button type="danger" shape="round" @click="refresh(false)">
+                            <template #icon><Icon icon="codicon:chrome-close" /></template>清空
                         </a-button>
                     </a-space>
                 </a-form-item>
