@@ -104,11 +104,7 @@ const columns = [
     { title: '邮箱', dataIndex: 'email' },
     { title: '部门', dataIndex: 'dept' },
     { title: '描述', dataIndex: 'note' },
-    {
-        title: '操作',
-        width: '160px',
-        slots: { customRender: 'operation' }
-    }
+    { title: '操作', width: '160px', slots: { customRender: 'operation' } }
 ]
 
 interface Model {
