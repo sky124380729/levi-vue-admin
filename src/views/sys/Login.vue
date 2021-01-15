@@ -6,21 +6,23 @@
         </div>
         <div class="levi-login__body">
             <div class="login-box">
-                <a-form :model="model" @submit="handleLogin" @submit.prevent>
-                    <a-form-item>
-                        <a-input v-model:value="model.username" placeholder="Username">
-                            <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-                        </a-input>
-                    </a-form-item>
-                    <a-form-item>
-                        <a-input v-model:value="model.password" type="password" placeholder="Password">
-                            <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-                        </a-input>
-                    </a-form-item>
-                    <a-form-item>
-                        <a-button type="primary" html-type="submit"> Login </a-button>
-                    </a-form-item>
-                </a-form>
+                <a-page-header :ghost="false" title="Welcome to Levi Vue Admin">
+                    <a-form layout="vertical" :model="model" @submit="handleLogin" @submit.prevent>
+                        <a-form-item>
+                            <a-input v-model:value="model.username" placeholder="username">
+                                <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+                            </a-input>
+                        </a-form-item>
+                        <a-form-item>
+                            <a-input v-model:value="model.password" type="password" placeholder="password">
+                                <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+                            </a-input>
+                        </a-form-item>
+                        <a-form-item>
+                            <a-button type="primary" html-type="submit"> Login </a-button>
+                        </a-form-item>
+                    </a-form>
+                </a-page-header>
             </div>
         </div>
         <div class="levi-login__footer">
@@ -53,7 +55,7 @@ export default defineComponent({
                 password
             })
             if (!res) return
-            Cookies.set('token', res.token)
+            Cookies.set('token', res.data.token)
             router.push('/')
         }
         return {
@@ -95,7 +97,7 @@ export default defineComponent({
         .login-box {
             background-color: #fff;
             margin-right: 10vw;
-            padding: 4vh 2vw;
+            padding: 2vh 1.2vw;
         }
     }
     &__footer {

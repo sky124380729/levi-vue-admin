@@ -64,9 +64,9 @@ export const resource: IResource[] = [
                 name: 'user',
                 type: 'MENU',
                 path: 'user',
-                component: '/system/user',
+                component: '/system/user'
                 // icon: 'ri:user-3-fill',
-                noCache: true
+                // noCache: true
             },
             {
                 id: 'a3b182d1c12d46658eb497717764d80c',

@@ -14,7 +14,7 @@
                     <a-input v-model:value="terms.realName" />
                 </a-form-item>
                 <a-form-item>
-                    <a-space>
+                    <a-space :size="10">
                         <a-button type="primary" shape="round" @click="refresh(true)">
                             <template #icon><Icon icon="uil:search" /></template>查询
                         </a-button>
@@ -24,7 +24,17 @@
                     </a-space>
                 </a-form-item>
             </a-form>
-            <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
+            <a-table
+                style="margin-top: 10px"
+                row-key="id"
+                :columns="columns"
+                :data-source="data"
+                borderd
+                size="middle"
+                :pagination="pagination"
+                align="center"
+                @change="tableChange"
+            >
                 <template #operation="{ record }">
                     <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
                     <a-divider type="vertical" />
