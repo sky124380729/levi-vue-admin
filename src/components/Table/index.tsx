@@ -20,7 +20,7 @@ export default defineComponent({
         columns: Array,
         terms: [Array, Object]
     },
-    setup(props, { slots }) {
+    setup(props) {
         const loading = ref<boolean>(false)
         const data = ref([])
         const model = reactive<Model>({
@@ -68,6 +68,11 @@ export default defineComponent({
             getList()
         })
 
+        const handleQuery = (terms: any) => {
+            model.terms = terms
+            getList()
+        }
+
         return () => {
             return (
                 <PageHeader style='background-color: #fff' title={props.title}>
@@ -87,7 +92,7 @@ export default defineComponent({
                                 <Spin spinning={unref(loading)}>
                                     <div class='levi-table'>
                                         <div class='levi-table__header'>
-                                            <Search terms={props.terms}></Search>
+                                            <Search terms={props.terms} onQuery={handleQuery}></Search>
                                             <div>settings</div>
                                         </div>
                                         <div class='levi-table__body'>

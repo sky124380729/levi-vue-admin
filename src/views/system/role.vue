@@ -27,11 +27,14 @@ export default defineComponent({
             showLabel: true,
             terms: [
                 {
-                    key: 'name',
+                    key: 'username',
                     label: '姓名',
                     comp: 'Input',
                     slots: {
                         prefix: () => '￥'
+                    },
+                    props: {
+                        allowClear: true
                     }
                 },
                 {

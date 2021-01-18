@@ -83,7 +83,7 @@ export default defineComponent({
                                 <Button type='danger' onClick={() => query(false)}>
                                     {{
                                         default: () => <span>重置</span>,
-                                        icon: () => <Icon icon='uil:search' />
+                                        icon: () => <Icon icon='mdi:delete' />
                                     }}
                                 </Button>
                             </Space>
