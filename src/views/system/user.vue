@@ -24,13 +24,15 @@
                     </a-space>
                 </a-form-item>
             </a-form>
-            <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
-                <template #operation="{ record }">
-                    <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
-                    <a-divider type="vertical" />
-                    <a-button type="link" size="small" @click="remove(record)">删除</a-button>
-                </template>
-            </a-table>
+            <a-spin :spinning="loading">
+                <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
+                    <template #operation="{ record }">
+                        <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
+                        <a-divider type="vertical" />
+                        <a-button type="link" size="small" @click="remove(record)">删除</a-button>
+                    </template>
+                </a-table>
+            </a-spin>
         </a-page-header>
 
         <a-modal v-model:visible="visible" title="用户信息" width="720px" :after-close="modalAfterClose" @ok="submitForm">
@@ -124,6 +126,7 @@ export default defineComponent({
             form: {},
             terms: {}
         })
+        const loading = ref<boolean>(false)
         const ruleForm = ref()
         const submitLoading = ref<boolean>(false)
         const rules = reactive({
@@ -135,10 +138,10 @@ export default defineComponent({
             defaultCurrent: 1,
             current: 1,
             pageSize: 10,
-            total: 0
-            // showTotal(total: number) {
-            //     return total
-            // }
+            total: 0,
+            showTotal(total: number) {
+                return `共 ${total} 条`
+            }
         })
 
         const refresh = (withTerms: boolean) => {
@@ -155,7 +158,9 @@ export default defineComponent({
         }
         const getList = async () => {
             const { current, pageSize: size } = pagination
+            loading.value = true
             const res = await fetchUserPage({ current, size, query: model.terms })
+            loading.value = false
             if (!res) return
             const { total, records } = res.data
             data.value = records
@@ -208,6 +213,7 @@ export default defineComponent({
             getList()
         })
         return {
+            loading,
             refresh,
             data,
             columns,

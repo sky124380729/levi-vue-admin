@@ -1,4 +1,40 @@
-// {
-//     "vue3snippets.enable-compile-vue-file-on-did-save-code": true,
-//     "editor.codeActionsOnSave": null
-// }
+{
+    //===========================================
+    //============= emmet =======================
+    //===========================================
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.showAbbreviationSuggestions": true,
+    "emmet.showExpandedAbbreviation": "always",
+    "emmet.syntaxProfiles": {
+        "vue-html": "html",
+        "vue": "html",
+        "javascript": "javascriptreact",
+        "xml": {
+        "attr_quotes": "single"
+        }
+    },
+    "emmet.includeLanguages": {
+        "jsx-sublime-babel-tags": "javascriptreact"
+    },
+    // ===========================================
+    // ================ Eslint ===================
+    // ===========================================
+    // "eslint.enable": true,
+    // "editor.codeActionsOnSave": {
+    //     "source.fixAll.eslint": true
+    // },
+    // "eslint.alwaysShowStatus": true,
+    // "eslint.options": {
+    //     // 配置
+    //     "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
+    //     "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
+    // },
+    // "eslint.validate": [
+    //     "javascript",
+    //     "typescript",
+    //     "reacttypescript",
+    //     "reactjavascript",
+    //     "html",
+    //     "vue"
+    // ],
+}
