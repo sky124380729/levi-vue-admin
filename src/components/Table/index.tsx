@@ -30,7 +30,7 @@ export default defineComponent({
             default: []
         }
     },
-    setup(props, { slots }) {
+    setup(props, { slots, attrs }) {
         const loading = ref<boolean>(false)
         const data = ref([])
         const model = reactive<Model>({
@@ -49,6 +49,7 @@ export default defineComponent({
                 return `共 ${total} 条`
             }
         })
+
         const getList = async () => {
             const { current, pageSize: size } = pagination
             loading.value = true
@@ -59,6 +60,7 @@ export default defineComponent({
             data.value = records
             pagination.total = total
         }
+
         const tableChange = (p: any) => {
             const { current, pageSize } = p
             pagination.current = current
@@ -67,6 +69,9 @@ export default defineComponent({
         }
 
         const handle = async ({ id }: { id: string }) => {
+            if (typeof attrs.onAdd === 'function') {
+                attrs.onAdd('sds')
+            }
             if (id) {
                 // const res = await getUser(id)
                 const res = null

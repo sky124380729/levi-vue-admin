@@ -1,17 +1,9 @@
 <template>
     <Table title="角色管理" :terms="terms" :columns="columns" :action="action" :operation="['add']">
-        <template #operation="{ record }">
-            <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
+        <template #operation>
+            <a-button type="link" size="small">编辑</a-button>
             <a-divider type="vertical" />
             <a-button type="link" size="small">删除</a-button>
-        </template>
-        <template #extra>
-            <a-button type="primary" @click="handle">
-                <template #icon> <Icon icon="ic:round-add-circle-outline"></Icon></template>11
-            </a-button>
-            <a-button type="primary" @click="handle">
-                <template #icon> <Icon icon="ic:round-add-circle-outline"></Icon></template>22
-            </a-button>
         </template>
     </Table>
 </template>
@@ -41,13 +33,9 @@ export default defineComponent({
                 component: 'Input'
             }
         ]
-        const handle = (x) => {
-            console.log(x)
-        }
         return {
             columns,
             terms,
-            handle,
             action: fetchRolePage
         }
     }
