@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { defineComponent, onMounted, reactive, ref, unref, PropType } from 'vue'
 // import type { PropType } from 'vue'
-import { PageHeader, Spin, Table } from 'ant-design-vue'
+import { PageHeader, Table } from 'ant-design-vue'
 import Icon from '/@/components/Icon'
 import Search from '/@/components/Search'
 import './index.less'
@@ -11,6 +12,7 @@ interface Model {
     form: any
     terms: any
 }
+type OperationType = 'add' | 'edit' | 'delete'
 
 export default defineComponent({
     name: 'Levi-Table',
@@ -22,9 +24,13 @@ export default defineComponent({
         action: {
             required: true,
             type: Function as PropType<(data: any) => any>
+        },
+        operation: {
+            type: Array as PropType<OperationType[]>,
+            default: []
         }
     },
-    setup(props) {
+    setup(props, { slots }) {
         const loading = ref<boolean>(false)
         const data = ref([])
         const model = reactive<Model>({
@@ -78,30 +84,45 @@ export default defineComponent({
             getList()
         }
 
+        const getTableSlots = () => {
+            // eslint-disable-next-line no-unused-vars
+            const { extra, ...tableSlots } = slots
+            return { ...tableSlots }
+        }
+
+        const getExtraSlots = () => {
+            const extraSlots: any[] = []
+            slots.extra && extraSlots.push(slots.extra())
+            const hasAddBtn = props.operation.includes('add')
+            hasAddBtn &&
+                extraSlots.push(
+                    <a-button type='primary' onClick={handle}>
+                        {{
+                            icon: () => <Icon icon='ic:round-add-circle-outline'></Icon>,
+                            default: () => <span>新增</span>
+                        }}
+                    </a-button>
+                )
+            return () => extraSlots
+        }
+
         return () => {
             return (
                 <PageHeader style='background-color: #fff' title={props.title}>
                     {{
-                        extra: () => (
-                            <a-button type='primary' onClick={handle}>
-                                {{
-                                    icon: () => <Icon icon='ic:round-add-circle-outline'></Icon>,
-                                    default: () => <span>新增</span>
-                                }}
-                            </a-button>
-                        ),
+                        extra: getExtraSlots(),
                         default: () => (
-                            <Spin spinning={unref(loading)}>
-                                <div class='levi-table'>
-                                    <div class='levi-table__header'>
-                                        <Search terms={props.terms} onQuery={handleQuery}></Search>
-                                        <div>settings</div>
-                                    </div>
-                                    <div class='levi-table__body'>
-                                        <Table rowKey='id' columns={props.columns} pagination={pagination} onChange={tableChange} dataSource={unref(data)}></Table>
-                                    </div>
+                            <div class='levi-table'>
+                                <div class='levi-table__header'>
+                                    <Search terms={props.terms} onQuery={handleQuery}></Search>
+                                    <div>settings</div>
                                 </div>
-                            </Spin>
+                                <div class='levi-table__body'>
+                                    <Table rowKey='id' loading={unref(loading)} columns={props.columns} pagination={pagination} onChange={tableChange} dataSource={unref(data)}>
+                                        {getTableSlots()}
+                                    </Table>
+                                </div>
+                            </div>
                         )
                     }}
                 </PageHeader>
