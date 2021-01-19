@@ -1,9 +1,13 @@
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref, unref } from 'vue'
 import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from './componentMap'
 
 import Icon from '/@/components/Icon'
+interface FormProps {
+    validate: () => Promise<any>
+    resetFields: () => void
+}
 
 // 支持数组或者对象，使用数组的话使用对象的默认配置
 export default defineComponent({
@@ -19,6 +23,8 @@ export default defineComponent({
             terms: []
         }
         const model = reactive<any>({})
+        const ruleForm = ref<FormProps | null>(null)
+        // 合并配置项
         function mergeConfig(config: any): any {
             if (Array.isArray(config)) {
                 defaultSettings.terms = config
@@ -26,18 +32,23 @@ export default defineComponent({
             }
             return config
         }
+        // 查询
         const query = (withTerms: boolean) => {
-            if (!withTerms) {
-                Object.keys(model).forEach((key) => {
-                    delete model[key]
+            const form = unref(ruleForm)
+            if (!form) return
+            form.validate()
+                .then(() => {
+                    if (!withTerms) {
+                        form.resetFields()
+                    }
+                    emit('query', model)
                 })
-            }
-            emit('query', model)
+                .catch(() => null)
         }
         // 渲染组件
         const renderComp = (config: any) => {
-            const { comp, key, label, width, props, slots } = config
-            const isCheck = ['Switch', 'Checkbox'].includes(comp)
+            const { component, key, label, width, props, slots } = config
+            const isCheck = ['Switch', 'Checkbox'].includes(component)
             const eventKey = 'onChange'
             const bindValue = {
                 [isCheck ? 'checked' : 'value']: model[key]
@@ -54,9 +65,9 @@ export default defineComponent({
                 ...bindValue,
                 ...props
             }
-            const Comp = componentMap.get(comp) as typeof defineComponent
+            const Comp = componentMap.get(component) as typeof defineComponent
             return (
-                <Comp {...compAttr} style={{ width: width || '200px' }} placeholder={(comp === 'Select' ? '请选择' : '请输入') + label}>
+                <Comp {...compAttr} style={{ width: width || '200px' }} placeholder={(component === 'Select' ? '请选择' : '请输入') + label}>
                     {{ ...slots }}
                 </Comp>
             )
@@ -66,9 +77,9 @@ export default defineComponent({
             if (!terms || !terms.length) return
             return (
                 <div class='levi-search'>
-                    <Form layout='inline'>
+                    <Form model={model} layout='inline' ref={ruleForm}>
                         {terms.map((v: any) => (
-                            <Form.Item name={v.key} label={showLabel ? v.label : void 0}>
+                            <Form.Item rules={v.rules} name={v.key} label={showLabel ? v.label : void 0}>
                                 {renderComp(v)}
                             </Form.Item>
                         ))}

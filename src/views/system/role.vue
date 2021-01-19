@@ -1,10 +1,11 @@
 <template>
-    <Table title="角色管理" :terms="terms" :columns="columns"> </Table>
+    <Table title="角色管理" :terms="terms" :columns="columns" :action="action"></Table>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Table from '/@/components/Table'
+import { fetchRolePage } from '/@/apis/modules/role'
 
 export default defineComponent({
     name: 'system-role',
@@ -13,46 +14,21 @@ export default defineComponent({
     },
     setup() {
         const columns = [
-            { title: '登录名', dataIndex: 'username' },
-            { title: '用户编号', dataIndex: 'userNo' },
-            { title: '姓名', dataIndex: 'realName' },
-            { title: '手机号', dataIndex: 'mobile' },
-            { title: '邮箱', dataIndex: 'email' },
-            { title: '部门', dataIndex: 'dept' },
-            { title: '描述', dataIndex: 'note' },
+            { title: '角色名称', dataIndex: 'roleName', width: '40%' },
+            { title: '角色描述', dataIndex: 'note', ellipsis: true },
             { title: '操作', width: '160px', slots: { customRender: 'operation' } }
         ]
-        const terms = {
-            size: 'large',
-            showLabel: true,
-            terms: [
-                {
-                    key: 'username',
-                    label: '姓名',
-                    comp: 'Input',
-                    slots: {
-                        prefix: () => '￥'
-                    },
-                    props: {
-                        allowClear: true
-                    }
-                },
-                {
-                    key: 'code',
-                    label: '编号',
-                    comp: 'Select',
-                    props: {
-                        options: [
-                            { label: 'kkk', value: '111' },
-                            { label: 'mmm', value: '222' }
-                        ]
-                    }
-                }
-            ]
-        }
+        const terms = [
+            {
+                key: 'roleName',
+                label: '角色名称',
+                component: 'Input'
+            }
+        ]
         return {
             columns,
-            terms
+            terms,
+            action: fetchRolePage
         }
     }
 })
