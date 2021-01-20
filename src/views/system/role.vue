@@ -1,5 +1,5 @@
 <template>
-    <Table title="角色管理" :terms="terms" :columns="columns" :action="action" :operation="['add']">
+    <Table title="角色管理" :columns="columns" :action="action" :operation="['add']">
         <template #operation>
             <a-button type="link" size="small">编辑</a-button>
             <a-divider type="vertical" />

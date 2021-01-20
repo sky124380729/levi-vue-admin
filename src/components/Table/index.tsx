@@ -1,12 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { defineComponent, onMounted, reactive, ref, unref, PropType } from 'vue'
-// import type { PropType } from 'vue'
 import { PageHeader, Table } from 'ant-design-vue'
 import Icon from '/@/components/Icon'
 import Search from '/@/components/Search'
 import './index.less'
-
-// import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
 
 interface Model {
     form: any
@@ -20,7 +16,10 @@ export default defineComponent({
         title: String,
         settings: Object,
         columns: Array,
-        terms: [Array, Object],
+        terms: {
+            type: [Array, Object],
+            default: null
+        },
         action: {
             required: true,
             type: Function as PropType<(data: any) => any>
@@ -74,9 +73,9 @@ export default defineComponent({
             }
             if (id) {
                 // const res = await getUser(id)
-                const res = null
-                if (!res) return
-                model.form = res.data
+                // const res = null
+                // if (!res) return
+                // model.form = res.data
             }
             // visible.value = true
         }
@@ -90,7 +89,6 @@ export default defineComponent({
         }
 
         const getTableSlots = () => {
-            // eslint-disable-next-line no-unused-vars
             const { extra, ...tableSlots } = slots
             return { ...tableSlots }
         }
@@ -112,6 +110,7 @@ export default defineComponent({
         }
 
         return () => {
+            const { columns, terms } = props
             return (
                 <PageHeader style='background-color: #fff' title={props.title}>
                     {{
@@ -119,11 +118,11 @@ export default defineComponent({
                         default: () => (
                             <div class='levi-table'>
                                 <div class='levi-table__header'>
-                                    <Search terms={props.terms} onQuery={handleQuery}></Search>
-                                    <div>settings</div>
+                                    <div class='levi-table__search'>{terms && <Search terms={terms} onQuery={handleQuery}></Search>}</div>
+                                    <div class='levi-table__atcion'>settings</div>
                                 </div>
                                 <div class='levi-table__body'>
-                                    <Table rowKey='id' loading={unref(loading)} columns={props.columns} pagination={pagination} onChange={tableChange} dataSource={unref(data)}>
+                                    <Table rowKey='id' loading={unref(loading)} columns={columns} pagination={pagination} onChange={tableChange} dataSource={unref(data)}>
                                         {getTableSlots()}
                                     </Table>
                                 </div>
