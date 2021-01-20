@@ -1,7 +1,7 @@
 import { defineComponent, reactive, ref, unref } from 'vue'
 import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
-import { componentMap } from './componentMap'
+import { componentMap } from '/@/utils/componentMap'
 
 import Icon from '/@/components/Icon'
 interface FormProps {

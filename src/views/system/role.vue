@@ -11,14 +11,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Table from '/@/components/Table'
-import Icon from '/@/components/Icon'
 import { fetchRolePage } from '/@/apis/modules/role'
 
 export default defineComponent({
     name: 'system-role',
     components: {
-        Table,
-        Icon
+        Table
     },
     setup() {
         const columns = [

@@ -1,20 +1,23 @@
 <template>
-    <div>
-        <div>platform</div>
-        <a-input></a-input>
-    </div>
+    <Form :schemas="schemas"></Form>
 </template>
 
 <script lang="ts">
+import Form, { FormSchema } from '/@/components/Form'
 import { defineComponent } from 'vue'
-import apis from '/@/apis'
 export default defineComponent({
     name: 'platform',
+    components: {
+        Form
+    },
     setup() {
-        console.log(apis)
-        return {}
+        const schemas: FormSchema[] = [
+            { key: 'name', label: '姓名', component: 'Input' },
+            { key: 'code', label: '编码', component: 'Input' }
+        ]
+        return {
+            schemas
+        }
     }
 })
 </script>
-
-<style scoped></style>
