@@ -40,3 +40,24 @@ export function filterUniqueByKey<T, K extends keyof T>(arr: T[], key: K): T[] {
 export function ft(deltaTime: number, distance: number, duration = 300) {
     return deltaTime * (distance / duration)
 }
+
+// 延迟函数
+export function debounce(fn, timeout = 300) {
+    let timer
+    return function (...args) {
+        clearTimeout(timer)
+        const ctx = this
+        timer = setTimeout(() => {
+            timer = null
+            fn.apply(ctx, args)
+        }, timeout)
+    }
+}
+
+// 事件绑定
+export const ownAddEventListener = (scope, type, handler, capture = false) => {
+    scope.addEventListener(type, handler, capture)
+    return () => {
+        scope.removeEventListener(type, handler, capture)
+    }
+}
