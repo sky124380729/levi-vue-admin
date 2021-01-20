@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive } from 'vue'
 import type { PropType } from 'vue'
-import { emitter } from './Form.vue'
+import { emitter } from './Form111.vue'
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 interface RuleProp {
     type: 'required' | 'email' | 'custom'

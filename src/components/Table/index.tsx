@@ -112,7 +112,7 @@ export default defineComponent({
         return () => {
             const { columns, terms } = props
             return (
-                <PageHeader style='background-color: #fff' title={props.title}>
+                <PageHeader style='background-color: #fff;' title={props.title}>
                     {{
                         extra: getExtraSlots(),
                         default: () => (

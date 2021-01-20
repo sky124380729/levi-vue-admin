@@ -18,8 +18,8 @@
 <script lang="ts">
 import Dropdown from '/@/components/Dropdown/Dropdown.vue'
 import DropdownItem from '/@/components/Dropdown/DropdownItem.vue'
-import Form from '/@/components/Form/Form.vue'
-import FormItem from '/@/components/Form/FormItem.vue'
+import Form from '/@/components/Form/Form111.vue'
+import FormItem from '/@/components/Form/FormItem111.vue'
 import createMessage from '/@/components/Message/createMessage'
 import Upload from '/@/components/Upload/index.vue'
 import axios from 'axios'
