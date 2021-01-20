@@ -1,33 +1,44 @@
-import { defineComponent, ref, watch, watchEffect } from 'vue'
-import ECharts, { EChartsType } from 'echarts'
+import { defineComponent, onMounted, PropType, ref, watch, watchEffect } from 'vue'
+import type { EChartOption, ECharts } from 'echarts'
+import echarts from 'echarts'
 import { debounce, ownAddEventListener } from '/@/utils'
+import './index.less'
 
 export default defineComponent({
     name: 'Levi-Charts',
     props: {
         options: {
             required: true,
-            type: Object
+            type: Object as PropType<EChartOption>
         }
     },
     setup(props) {
-        const chartRef = ref<HTMLElement | null>(null)
-        const myChart = ref<EChartsType | null>(null)
+        const wrapper = ref<HTMLDivElement | null>(null)
+        const chart = ref<ECharts | null>(null)
+        // 初始化函数
         const init = () => {
-            if (myChart.value) {
-                myChart.value = ECharts.init(chartRef.value!)
-                myChart.value.setOption(props.options)
+            if (wrapper.value) {
+                chart.value = echarts.init(wrapper.value)
+                chart.value.setOption(props.options)
             }
         }
-        watch(props.options, () => {
+        // 参数变化的时候重置
+        watch(
+            () => props.options,
+            () => {
+                init()
+            }
+        )
+        onMounted(() => {
             init()
         })
         watchEffect((onInvalidate) => {
+            // 屏幕变化的时候echarts大小重置
             const resizeEvent = ownAddEventListener(
                 window,
                 'resize',
                 debounce(() => {
-                    myChart.value?.resize()
+                    chart.value && chart.value.resize()
                 })
             )
             onInvalidate(() => {
@@ -35,6 +46,6 @@ export default defineComponent({
             })
         })
 
-        return () => <div class='levi-charts' ref={chartRef}></div>
+        return () => <div class='levi-charts' ref={wrapper}></div>
     }
 })

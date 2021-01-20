@@ -100,7 +100,6 @@ export default defineComponent({
                     ...propsData
                 }
                 const Comp = componentMap.get(component) as typeof defineComponent
-                console.log(slots)
                 return (
                     <Comp {...compAttr} style={{ width: getWidth(width) }}>
                         {{ ...slots }}

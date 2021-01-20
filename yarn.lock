@@ -354,6 +354,13 @@
     core-js "^3.6.5"
     nanopop "^2.1.0"
 
+"@types/echarts@^4.9.3":
+  version "4.9.3"
+  resolved "https://registry.npm.taobao.org/@types/echarts/download/@types/echarts-4.9.3.tgz?cache=0&sync_timestamp=1608263981280&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.9.3.tgz#8a143cf315f6ae88d0778d75a133b378974d37d5"
+  integrity sha1-ihQ88xX2rojQd411oTOzeJdNN9U=
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/js-cookie@^2.2.6":
   version "2.2.6"
   resolved "https://registry.npm.taobao.org/@types/js-cookie/download/@types/js-cookie-2.2.6.tgz#f1a1cb35aff47bc5cfb05cb0c441ca91e914c26f"
@@ -373,6 +380,11 @@
   version "0.2.0"
   resolved "https://registry.npm.taobao.org/@types/nprogress/download/@types/nprogress-0.2.0.tgz#86c593682d4199212a0509cc3c4d562bbbd6e45f"
   integrity sha1-hsWTaC1BmSEqBQnMPE1WK7vW5F8=
+
+"@types/zrender@*":
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/@types/zrender/download/@types/zrender-4.0.0.tgz?cache=0&sync_timestamp=1605057466822&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fzrender%2Fdownload%2F%40types%2Fzrender-4.0.0.tgz#a6806f12ec4eccaaebd9b0d816f049aca6188fbd"
+  integrity sha1-poBvEuxOzKrr2bDYFvBJrKYYj70=
 
 "@typescript-eslint/eslint-plugin@^4.8.0":
   version "4.13.0"
@@ -914,13 +926,12 @@ dom-scroll-into-view@^2.0.0:
   resolved "https://registry.npm.taobao.org/dom-scroll-into-view/download/dom-scroll-into-view-2.0.1.tgz#0decc8522801fd8d3f1c6ba355a74d382c5f989b"
   integrity sha1-DezIUigB/Y0/HGujVadNOCxfmJs=
 
-echarts@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.npm.taobao.org/echarts/download/echarts-5.0.1.tgz#b999ff6f515b1aa851ed09576eaf89686b57ce97"
-  integrity sha1-uZn/b1FbGqhR7QlXbq+JaGtXzpc=
+echarts@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
+  integrity sha1-qbm6oD8Doqcx5jQMVb77V6nhNH0=
   dependencies:
-    tslib "2.0.3"
-    zrender "5.0.3"
+    zrender "4.3.2"
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2035,11 +2046,6 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-tslib@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.npm.taobao.org/tslib/download/tslib-2.0.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
-  integrity sha1-jgdBrEX8DCJuWKF7/D5kubxsphw=
-
 tslib@^1.10.0, tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.14.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
@@ -2203,9 +2209,7 @@ yallist@^4.0.0:
   resolved "https://registry.npm.taobao.org/yallist/download/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI=
 
-zrender@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npm.taobao.org/zrender/download/zrender-5.0.3.tgz?cache=0&sync_timestamp=1610458835064&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fzrender%2Fdownload%2Fzrender-5.0.3.tgz#5e04a55d36455067e4536c8ce9c25093f50f6b68"
-  integrity sha1-XgSlXTZFUGfkU2yM6cJQk/UPa2g=
-  dependencies:
-    tslib "2.0.3"
+zrender@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.npm.taobao.org/zrender/download/zrender-4.3.2.tgz?cache=0&sync_timestamp=1610458835064&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fzrender%2Fdownload%2Fzrender-4.3.2.tgz#ec7432f9415c82c73584b6b7b8c47e1b016209c6"
+  integrity sha1-7HQy+UFcgsc1hLa3uMR+GwFiCcY=
