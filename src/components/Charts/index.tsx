@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, ref, watch, watchEffect } from 'vue'
+import { defineComponent, onActivated, onMounted, PropType, ref, watch, watchEffect } from 'vue'
 import type { EChartOption, ECharts } from 'echarts'
 import echarts from 'echarts'
 import { debounce, ownAddEventListener } from '/@/utils'
@@ -31,6 +31,9 @@ export default defineComponent({
         )
         onMounted(() => {
             init()
+        })
+        onActivated(() => {
+            chart.value && chart.value.resize()
         })
         watchEffect((onInvalidate) => {
             // 屏幕变化的时候echarts大小重置
