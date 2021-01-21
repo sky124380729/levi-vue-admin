@@ -1,8 +1,5 @@
 <template>
     <div class="resource">
-        <a-alert message="Warning" description="This is a warning notice about copywriting." type="warning" show-icon>
-            <template #icon><smile-outlined /></template>
-        </a-alert>
         <a-tree
             v-model:expandedKeys="expandedKeys"
             v-model:selectedKeys="selectedKeys"

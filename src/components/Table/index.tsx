@@ -101,7 +101,7 @@ export default defineComponent({
                 extraSlots.push(
                     <a-button type='primary' onClick={handle}>
                         {{
-                            icon: () => <Icon icon='ic:round-add-circle-outline'></Icon>,
+                            icon: () => <Icon icon='ic:round-add-circle-outline' />,
                             default: () => <span>新增</span>
                         }}
                     </a-button>
@@ -119,7 +119,10 @@ export default defineComponent({
                             <div class='levi-table'>
                                 <div class='levi-table__header'>
                                     <div class='levi-table__search'>{terms && <Search terms={terms} onQuery={handleQuery}></Search>}</div>
-                                    <div class='levi-table__atcion'>settings</div>
+                                    <div class='levi-table__action'>
+                                        <Icon icon='mdi:border-all' />
+                                        <Icon icon='mdi:view-stream'></Icon>
+                                    </div>
                                 </div>
                                 <div class='levi-table__body'>
                                     <Table rowKey='id' loading={unref(loading)} columns={columns} pagination={pagination} onChange={tableChange} dataSource={unref(data)}>
