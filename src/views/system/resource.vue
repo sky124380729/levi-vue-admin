@@ -1,24 +1,33 @@
 <template>
-    <a-tree
-        v-model:expandedKeys="expandedKeys"
-        v-model:selectedKeys="selectedKeys"
-        v-model:checkedKeys="checkedKeys"
-        checkable
-        :tree-data="treeData"
-        :replace-fields="replaceFields"
-        @select="onSelect"
-        @check="onCheck"
-    >
-    </a-tree>
+    <div class="resource">
+        <a-alert message="Warning" description="This is a warning notice about copywriting." type="warning" show-icon>
+            <template #icon><smile-outlined /></template>
+        </a-alert>
+        <a-tree
+            v-model:expandedKeys="expandedKeys"
+            v-model:selectedKeys="selectedKeys"
+            v-model:checkedKeys="checkedKeys"
+            checkable
+            :tree-data="treeData"
+            :replace-fields="replaceFields"
+            @select="onSelect"
+            @check="onCheck"
+        >
+        </a-tree>
+    </div>
 </template>
 
 <script lang="ts">
+import Icon from '/@/components/Icon'
 import { defineComponent, ref } from 'vue'
 
 import { resource } from '/@/router/index'
 
 export default defineComponent({
     name: 'system-resource',
+    components: {
+        Icon
+    },
     setup() {
         const expandedKeys = ref([])
         const selectedKeys = ref([])
