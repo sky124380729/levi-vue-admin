@@ -173,14 +173,7 @@ const routes: RouteRecordRaw[] = [
         path: '/app',
         component: Layout,
         name: 'app',
-        children: [
-            {
-                path: '/homepage',
-                component: Homepage,
-                name: 'homepage',
-                meta: { title: '首页' }
-            }
-        ]
+        children: [{ path: '/homepage', component: Homepage, name: 'homepage', meta: { title: '首页' } }]
     }
 ]
 
