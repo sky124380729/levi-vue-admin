@@ -14,6 +14,7 @@ export default defineComponent({
     name: 'Levi-Table',
     props: {
         title: String,
+        subTitle: String,
         settings: Object,
         columns: Array,
         terms: {
@@ -130,10 +131,10 @@ export default defineComponent({
         }
 
         return () => {
-            const { columns, terms } = props
+            const { columns, terms, title, subTitle } = props
             const { ellipsis, striped, bordered } = tableSettings
             return (
-                <PageHeader style='background-color: #fff;' title={props.title}>
+                <PageHeader style='background-color: #fff;' title={title} subTitle={subTitle}>
                     {{
                         extra: getExtraSlots(),
                         default: () => (
