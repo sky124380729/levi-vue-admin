@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, reactive, ref, unref, PropType } from 'vue'
-import { PageHeader, Table } from 'ant-design-vue'
+import { PageHeader, Table, Tooltip } from 'ant-design-vue'
 import Icon from '/@/components/Icon'
 import Search from '/@/components/Search'
 import './index.less'
@@ -109,23 +109,70 @@ export default defineComponent({
             return () => extraSlots
         }
 
+        const tableSettings = reactive<any>({
+            bordered: false,
+            striped: false,
+            ellipsis: false
+        })
+
+        const setTable = (type: string) => {
+            tableSettings[type] = !tableSettings[type]
+        }
+
+        const processColumns = (columns: any, globalEllipsis: boolean) => {
+            return columns.map((v: any) => {
+                const { ellipsis } = v
+                return {
+                    ...v,
+                    ellipsis: typeof ellipsis === 'undefined' ? globalEllipsis : ellipsis
+                }
+            })
+        }
+
         return () => {
             const { columns, terms } = props
+            const { ellipsis, striped, bordered } = tableSettings
             return (
                 <PageHeader style='background-color: #fff;' title={props.title}>
                     {{
                         extra: getExtraSlots(),
                         default: () => (
-                            <div class='levi-table'>
+                            <div class={['levi-table', { 'levi-table--striped': striped, 'levi-table--bordered': bordered }]}>
                                 <div class='levi-table__header'>
                                     <div class='levi-table__search'>{terms && <Search terms={terms} onQuery={handleQuery}></Search>}</div>
                                     <div class='levi-table__action'>
-                                        <Icon icon='mdi:border-all' />
-                                        <Icon icon='mdi:view-stream'></Icon>
+                                        <Tooltip>
+                                            {{
+                                                default: () => <Icon icon={bordered ? 'mdi:border-all' : 'mdi:border-none'} onClick={() => setTable('bordered')} />,
+                                                title: () => '边框'
+                                            }}
+                                        </Tooltip>
+                                        <Tooltip>
+                                            {{
+                                                default: () => <Icon icon={striped ? 'mdi:view-stream' : 'mdi:view-stream-outline'} onClick={() => setTable('striped')} />,
+                                                title: () => '条纹'
+                                            }}
+                                        </Tooltip>
+                                        <Tooltip>
+                                            {{
+                                                default: () => <Icon icon={ellipsis ? 'uil:ellipsis-h' : 'ion:ellipsis-horizontal-circle'} onClick={() => setTable('ellipsis')} />,
+                                                title: () => '超出省略'
+                                            }}
+                                        </Tooltip>
+                                        <Tooltip>{{ default: () => <Icon icon='radix-icons:enter-full-screen' />, title: () => '全屏' }}</Tooltip>
+                                        <Tooltip>{{ default: () => <Icon icon='ri:refresh-line' onClick={() => getList()} />, title: () => '刷新' }}</Tooltip>
                                     </div>
                                 </div>
                                 <div class='levi-table__body'>
-                                    <Table rowKey='id' loading={unref(loading)} columns={columns} pagination={pagination} onChange={tableChange} dataSource={unref(data)}>
+                                    <Table
+                                        rowKey='id'
+                                        bordered={bordered}
+                                        loading={unref(loading)}
+                                        columns={processColumns(columns, ellipsis)}
+                                        pagination={pagination}
+                                        onChange={tableChange}
+                                        dataSource={unref(data)}
+                                    >
                                         {getTableSlots()}
                                     </Table>
                                 </div>

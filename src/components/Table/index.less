@@ -7,16 +7,30 @@
         padding: 2px 16px;
         min-height: 45px;
         box-shadow: 0 0 5px 1px rgba(0, 21, 41, 0.08);
-        border-bottom:  1px solid #f0f0f0;
-    }
-    &__body {
-
+        border-bottom: 1px solid #f0f0f0;
     }
     &__action {
         .anticon {
-            font-size: 18px !important;
+            font-size: 20px !important;
             margin-left: 10px;
             cursor: pointer;
+            transition: all .3s;
+            &:hover {
+                transform: rotate(180deg);
+                color: #19deec;
+            }
+        }
+    }
+    &--striped {
+        .ant-table-tbody {
+            tr:nth-child(2n) {
+                background-color: #fafafa;
+            }
+        }
+    }
+    &--bordered {
+        .levi-table__body {
+            margin: -1px;
         }
     }
 }
