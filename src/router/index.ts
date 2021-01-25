@@ -68,15 +68,15 @@ export const resource: IResource[] = [
                 // icon: 'ri:user-3-fill',
                 // noCache: true
             },
-            {
-                id: 'a3b182d1c12d46658eb497717764d80c',
-                title: '组织管理',
-                name: 'organization',
-                type: 'MENU',
-                path: 'organization',
-                component: '/system/organization'
-                // icon: 'octicon:organization'
-            },
+            // {
+            //     id: 'a3b182d1c12d46658eb497717764d80c',
+            //     title: '组织管理',
+            //     name: 'organization',
+            //     type: 'MENU',
+            //     path: 'organization',
+            //     component: '/system/organization'
+            //     // icon: 'octicon:organization'
+            // },
             {
                 id: 'cdaa427913be4206a52bf540f134517c',
                 title: '角色管理',
