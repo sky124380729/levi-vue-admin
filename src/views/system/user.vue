@@ -1,39 +1,17 @@
 <template>
     <div>
-        <a-page-header style="background-color: #fff" title="用户管理">
+        <Table ref="tableRef" title="用户管理" :terms="terms" :columns="columns" :action="action">
             <template #extra>
                 <a-button type="primary" @click="handle">
                     <template #icon><Icon icon="ic:round-add-circle-outline"></Icon></template>新增
                 </a-button>
             </template>
-            <a-form layout="inline" :model="terms" class="levi-search-form" label-align="right">
-                <a-form-item name="username">
-                    <a-input v-model:value="terms.username" placeholder="请输入用户名" />
-                </a-form-item>
-                <a-form-item name="realName">
-                    <a-input v-model:value="terms.realName" placeholder="请输入姓名" />
-                </a-form-item>
-                <a-form-item>
-                    <a-space :size="10">
-                        <a-button type="primary" @click="refresh(true)">
-                            <template #icon><Icon icon="uil:search" /></template>查询
-                        </a-button>
-                        <a-button type="danger" @click="refresh(false)">
-                            <template #icon><Icon icon="mdi:delete" /></template>清空
-                        </a-button>
-                    </a-space>
-                </a-form-item>
-            </a-form>
-            <a-spin :spinning="loading">
-                <a-table row-key="id" :columns="columns" :data-source="data" borderd size="middle" :pagination="pagination" align="center" @change="tableChange">
-                    <template #operation="{ record }">
-                        <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
-                        <a-divider type="vertical" />
-                        <a-button type="link" size="small" @click="remove(record)">删除</a-button>
-                    </template>
-                </a-table>
-            </a-spin>
-        </a-page-header>
+            <template #operation="{ record }">
+                <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
+                <a-divider type="vertical" />
+                <a-button type="link" size="small" @click="remove(record)">删除</a-button>
+            </template>
+        </Table>
 
         <a-modal v-model:visible="visible" title="用户信息" width="720px" :after-close="modalAfterClose" @ok="submitForm">
             <a-form ref="ruleForm" :model="form" :rules="rules" label-align="right" scroll-to-first-error :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }">
@@ -92,7 +70,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, createVNode, h, toRefs } from 'vue'
+import { defineComponent, reactive, ref, createVNode, h } from 'vue'
+import Table from '/@/components/Table'
 import Icon from '/@/components/Icon'
 import { Modal } from 'ant-design-vue'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
@@ -109,74 +88,45 @@ const columns = [
     { title: '操作', width: '160px', slots: { customRender: 'operation' } }
 ]
 
-interface Model {
-    form: any
-    terms: any
-}
-
 export default defineComponent({
     name: 'system-user',
     components: {
+        Table,
         Icon
     },
     setup() {
-        const data = ref<any>([])
         const visible = ref<boolean>(false)
-        const model = reactive<Model>({
-            form: {},
-            terms: {}
-        })
+        const form = ref<any>({})
+        const terms = [
+            {
+                key: 'username',
+                label: '用户名',
+                component: 'Input'
+            },
+            {
+                key: 'realName',
+                label: '姓名',
+                component: 'Input'
+            }
+        ]
+        const tableRef = ref(null)
         const loading = ref<boolean>(false)
         const ruleForm = ref()
         const submitLoading = ref<boolean>(false)
         const rules = reactive({
             username: { required: true }
         })
-        const pagination = reactive({
-            size: 'default',
-            showSizeChanger: true,
-            defaultCurrent: 1,
-            current: 1,
-            pageSize: 10,
-            total: 0,
-            showTotal(total: number) {
-                return `共 ${total} 条`
-            }
-        })
-
-        const refresh = (withTerms: boolean) => {
-            if (!withTerms) {
-                model.terms = {}
-            }
-            getList()
-        }
-        const tableChange = (p: any) => {
-            const { current, pageSize } = p
-            pagination.current = current
-            pagination.pageSize = pageSize
-            getList()
-        }
-        const getList = async () => {
-            const { current, pageSize: size } = pagination
-            loading.value = true
-            const res = await fetchUserPage({ current, size, query: model.terms })
-            loading.value = false
-            if (!res) return
-            const { total, records } = res.data
-            data.value = records
-            pagination.total = total
-        }
 
         const submitForm = () => {
             ruleForm.value
                 .validate()
                 .then(async () => {
                     submitLoading.value = true
-                    const data = model.form
+                    const data = form.value
                     const res = await (data.id ? updateUser(data) : createUser(data))
                     submitLoading.value = false
                     if (!res) return
-                    getList()
+                    tableRef.value && tableRef.value.reload()
                     visible.value = false
                 })
                 .catch(() => null)
@@ -184,13 +134,13 @@ export default defineComponent({
         // modal关闭事件
         const modalAfterClose = () => {
             ruleForm.value.clearValidate()
-            model.form = {}
+            form.value = {}
         }
         const handle = async ({ id }: { id: string }) => {
             if (id) {
                 const res = await getUser(id)
                 if (!res) return
-                model.form = res.data
+                form.value = res.data
             }
             visible.value = true
         }
@@ -204,21 +154,14 @@ export default defineComponent({
                 icon: createVNode(ExclamationCircleOutlined),
                 onOk() {
                     removeUser(id).then(() => {
-                        getList()
+                        tableRef.value!.reload()
                     })
                 }
             })
         }
-        onMounted(() => {
-            getList()
-        })
         return {
             loading,
-            refresh,
-            data,
             columns,
-            pagination,
-            tableChange,
             handle,
             remove,
             visible,
@@ -226,7 +169,10 @@ export default defineComponent({
             ruleForm,
             rules,
             modalAfterClose,
-            ...toRefs(model)
+            form,
+            terms,
+            tableRef,
+            action: fetchUserPage
         }
     }
 })

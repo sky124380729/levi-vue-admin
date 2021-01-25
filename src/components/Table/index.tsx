@@ -2,6 +2,7 @@ import { defineComponent, onMounted, reactive, ref, unref, PropType } from 'vue'
 import { PageHeader, Table, Tooltip } from 'ant-design-vue'
 import Icon from '/@/components/Icon'
 import Search from '/@/components/Search'
+import { useExpose } from '/@/hooks/useExpose'
 import './index.less'
 
 interface Model {
@@ -89,6 +90,10 @@ export default defineComponent({
             getList()
         }
 
+        const reload = () => {
+            getList()
+        }
+
         const getTableSlots = () => {
             const { extra, ...tableSlots } = slots
             return { ...tableSlots }
@@ -130,6 +135,10 @@ export default defineComponent({
             })
         }
 
+        useExpose({
+            reload
+        })
+
         return () => {
             const { columns, terms, title, subTitle } = props
             const { ellipsis, striped, bordered } = tableSettings
@@ -161,7 +170,7 @@ export default defineComponent({
                                             }}
                                         </Tooltip>
                                         <Tooltip>{{ default: () => <Icon icon='radix-icons:enter-full-screen' />, title: () => '全屏' }}</Tooltip>
-                                        <Tooltip>{{ default: () => <Icon icon='ri:refresh-line' onClick={() => getList()} />, title: () => '刷新' }}</Tooltip>
+                                        <Tooltip>{{ default: () => <Icon icon='ri:refresh-line' onClick={() => reload()} />, title: () => '刷新' }}</Tooltip>
                                     </div>
                                 </div>
                                 <div class='levi-table__body'>
