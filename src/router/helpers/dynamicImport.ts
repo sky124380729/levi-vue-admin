@@ -15,4 +15,5 @@ export default function dynamicImport(component: string) {
         )
         return
     }
+    return null
 }
