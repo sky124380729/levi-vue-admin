@@ -1,5 +1,8 @@
 import { createStore } from 'vuex'
-import router, { asyncRoutes } from '../router/index'
+import router from '/@/router'
+import generateRoutes from '/@/router/helpers/generateAsyncRoutes'
+import resource from '/@/router/menu.json'
+import { getUserResourceTree } from '/@/apis/modules/resource'
 
 export interface GlobalData {
     authorized: boolean
@@ -30,21 +33,21 @@ const store = createStore<GlobalData>({
         }
     },
     actions: {
-        setAuthority: ({ commit }) => {
-            return new Promise<void>((resolve) => {
-                // add async routes,now is mocking
-                setTimeout(() => {
-                    asyncRoutes.forEach((route) => {
-                        const { parentName } = route.meta!
-                        if (parentName) {
-                            router.addRoute(parentName, route)
-                        } else {
-                            router.addRoute(route)
-                        }
-                    })
-                    commit('setAuthority')
-                    resolve()
-                }, 10)
+        setAuthority: async ({ commit }) => {
+            return new Promise<void>(async (resolve) => {
+                const IS_MOCKING = true
+                const res = IS_MOCKING ? resource : (await getUserResourceTree('admin')).data
+                const asyncRoutes = generateRoutes(res)
+                asyncRoutes.forEach((route: any) => {
+                    const { parentName } = route.meta!
+                    if (parentName) {
+                        router.addRoute(parentName, route)
+                    } else {
+                        router.addRoute(route)
+                    }
+                })
+                commit('setAuthority')
+                resolve()
             })
         }
     },
