@@ -1,10 +1,15 @@
-// for vue
+/**
+ * ===============vue===============
+ */
 declare module '*.vue' {
     import type { DefineComponent } from 'vue'
     const component: DefineComponent<{}, {}, any>
     export default component
 }
 
+/**
+ * ===============JSX===============
+ */
 declare namespace JSX {
     // interface ElementAttributesProperty {
     //     $props: any
@@ -18,6 +23,4 @@ declare namespace JSX {
         [elem: string]: any
     }
 }
-
-// for tsx
 declare const React: string

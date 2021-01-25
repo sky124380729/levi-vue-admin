@@ -12,7 +12,7 @@ declare interface Pagination<T> {
     size: number
 }
 
-declare interface Res<T> {
+declare interface ResponseData<T> {
     code: number
     data: T
     message: string
