@@ -3,6 +3,12 @@ import { Modal, Form, Row, Col } from 'ant-design-vue'
 
 type Column = 1 | 2 | 3
 
+type AttrType = 'modal' | 'form'
+interface AttrModel {
+    modal: Record<string, any>
+    form: Record<string, any>
+}
+
 export interface ModalFormType {
     visible: boolean
     loading: boolean
@@ -53,21 +59,21 @@ export default defineComponent({
             formRef.value && formRef.value.clearValidate()
             modelRef.value = {}
         }
-        const getModalAttrs = () => {
-            const o = Object.create(null)
-            const keys = ['title', 'width']
-            keys.forEach((key) => {
-                o[key] = attrs[key]
+
+        const getAttrs = (type: AttrType) => {
+            const o: AttrModel = {
+                modal: {},
+                form: {}
+            }
+            const modalKeys = ['title', 'width']
+            const formKeys = ['rules']
+            modalKeys.forEach((key) => {
+                o.modal[key] = attrs[key]
             })
-            return o
-        }
-        const getFormAttrs = () => {
-            const o = Object.create(null)
-            const keys = ['rules']
-            keys.forEach((key) => {
-                o[key] = attrs[key]
+            formKeys.forEach((key) => {
+                o.form[key] = attrs[key]
             })
-            return o
+            return o[type]
         }
 
         const onOk = () => {
@@ -103,8 +109,8 @@ export default defineComponent({
             const { column } = props
             if (slots && typeof slots.default === 'function') {
                 const items = getChildNodesByName('AFormItem', slots.default())
-                const rows = new Array(Math.ceil(items.length / column)).fill(true)
-                const cols = new Array(column).fill(true)
+                const rows = new Array(Math.ceil(items.length / column)).fill(null)
+                const cols = new Array(column).fill(null)
                 return rows.map((_, row) => (
                     <Row type='flex'>
                         {cols.map((_, col) => (
@@ -118,7 +124,7 @@ export default defineComponent({
 
         const widthRef = computed(() => {
             const { column } = props
-            const map: any = {
+            const map: Record<number, number> = {
                 1: 480,
                 2: 750,
                 3: 980
@@ -130,7 +136,7 @@ export default defineComponent({
             return (
                 <div class='levi-modalForm'>
                     <Modal
-                        {...getModalAttrs()}
+                        {...getAttrs('modal')}
                         confirmLoading={loading}
                         width={unref(widthRef)}
                         visible={unref(visibleRef)}
@@ -139,7 +145,7 @@ export default defineComponent({
                         onCancel={onCancel}
                     >
                         <Form
-                            {...getFormAttrs()}
+                            {...getAttrs('form')}
                             labelCol={{ span: 6 }}
                             wrapperCol={{ span: 16 }}
                             labelAlign='right'
