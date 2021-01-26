@@ -95,7 +95,7 @@ export default defineComponent({
         )
         return {
             ...toRefs(modelForm),
-            ...toRefs(crud),
+            ...crud,
             columns,
             terms,
             tableRef,

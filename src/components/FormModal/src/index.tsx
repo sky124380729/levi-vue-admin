@@ -1,4 +1,4 @@
-import { computed, defineComponent, PropType, ref, unref } from 'vue'
+import { computed, defineComponent, PropType, ref, unref, VNode } from 'vue'
 import { Modal, Form, Row, Col } from 'ant-design-vue'
 
 type Column = 1 | 2 | 3
@@ -82,12 +82,35 @@ export default defineComponent({
             visibleRef.value = false
         }
 
+        // 根据name获取default slots里面的vmode
+        const getChildNodesByName = (name: string, vnodes: VNode[], results: VNode[] = []) => {
+            vnodes.forEach((vnode) => {
+                const { type, children } = vnode
+                if (type.name === name) results.push(vnode)
+                if (children) {
+                    if (typeof children.default === 'function') {
+                        getChildNodesByName(name, children.default(), results)
+                    } else if (Array.isArray(children)) {
+                        getChildNodesByName(name, children, results)
+                    }
+                }
+            })
+            return results
+        }
+
         const renderFormItems = () => {
             const { column } = props
             if (slots && typeof slots.default === 'function') {
-                return slots.default().map((col) => {
-                    return <Col span={24 / column}>{col}</Col>
-                })
+                const items = getChildNodesByName('AFormItem', slots.default())
+                const rows = new Array(Math.ceil(items.length / column)).fill(true)
+                const cols = new Array(column).fill(true)
+                return rows.map((_, row) => (
+                    <Row type='flex'>
+                        {cols.map((_, col) => (
+                            <Col span={24 / column}>{items[row * column + col]}</Col>
+                        ))}
+                    </Row>
+                ))
             }
             return null
         }
@@ -123,7 +146,7 @@ export default defineComponent({
                             ref={formRef}
                             model={modelRef.value}
                         >
-                            <Row>{renderFormItems()}</Row>
+                            {renderFormItems()}
                         </Form>
                     </Modal>
                 </div>
