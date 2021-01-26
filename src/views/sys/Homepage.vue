@@ -14,38 +14,38 @@
                 <a-input v-model:value="form.name" />
             </a-form-item>
         </FormModal>
-        <a-button type="primary" @click="show">开启</a-button>
+        <a-button type="primary" @click="show">测试组件</a-button>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, toRefs, reactive } from 'vue'
 
-import FormModal from '/@/components/FormModal'
+import FormModal, { ModalFormType } from '/@/components/FormModal'
 export default defineComponent({
     components: {
         FormModal
     },
     setup() {
-        const visible = ref<boolean>(false)
-        const loading = ref<boolean>(false)
-        const rules = {
-            username: { required: true, type: 'string' }
-        }
-        const form = reactive<any>({})
+        const model = reactive<ModalFormType>({
+            visible: false,
+            loading: false,
+            rules: {
+                username: { required: true, type: 'string' }
+            },
+            form: {}
+        })
         const show = () => {
-            visible.value = true
+            model.visible = true
         }
         const submit = () => {
-            loading.value = true
+            model.loading = true
             setTimeout(() => {
-                loading.value = false
-                visible.value = false
+                model.loading = false
+                model.visible = false
             }, 2000)
         }
-        return { rules, form, visible, show, submit, loading }
+        return { ...toRefs(model), show, submit }
     }
 })
 </script>
-
-<style scoped></style>

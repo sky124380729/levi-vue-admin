@@ -3,6 +3,13 @@ import { Modal, Form, Row, Col } from 'ant-design-vue'
 
 type Column = 1 | 2 | 3
 
+export interface ModalFormType {
+    visible: boolean
+    loading: boolean
+    rules: any
+    form: any
+}
+
 export default defineComponent({
     name: 'Levi-ModalForm',
     inheritAttrs: false,
