@@ -1,5 +1,5 @@
 {
-    "name": "ck-sys-admin",
+    "name": "ck-equipment-admin",
     "version": "0.0.0",
     "scripts": {
         "dev": "vite",
