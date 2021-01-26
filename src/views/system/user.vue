@@ -50,6 +50,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from 'vue'
+import type { Ref } from 'vue'
 import { ModalFormType } from '/@/components/FormModal'
 import useCRUD from '/@/hooks/useCRUD'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
@@ -76,11 +77,11 @@ export default defineComponent({
             visible: false,
             loading: false,
             rules: {
-                username: { required: true, message: '请输入用户名', trigger: 'blur' }
+                username: { required: true, type: 'string', message: '请输入用户名', trigger: 'blur' }
             },
             form: {}
         })
-        const tableRef = ref<any>(null)
+        const tableRef = ref<Nullable<Ref>>(null)
 
         const crud = useCRUD(
             modelForm,

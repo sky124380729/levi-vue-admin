@@ -27,11 +27,11 @@ const useCRUD = (model: ModalFormType, CRUD: ICRUD, tableRef?: Ref) => {
     const remove = (id?: string) => {
         Modal.confirm({
             title: '提示',
-            content: h('div', { style: 'color:#f56c6c' }, [h('p', '确定要删除当前数据吗?')]),
+            content: h('div', [h('p', '确定要删除当前数据吗?')]),
             icon: createVNode(ExclamationCircleOutlined),
-            onOk() {
-                D(id).then(() => {
-                    reload()
+            async onOk() {
+                D(id).then((res: any) => {
+                    res && reload()
                 })
             }
         })
