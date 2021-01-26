@@ -109,7 +109,7 @@ export default defineComponent({
                 component: 'Input'
             }
         ]
-        const tableRef = ref(null)
+        const tableRef = ref<any>(null)
         const loading = ref<boolean>(false)
         const ruleForm = ref()
         const submitLoading = ref<boolean>(false)
