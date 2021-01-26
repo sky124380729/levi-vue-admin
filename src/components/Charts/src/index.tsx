@@ -5,7 +5,7 @@ import { debounce, ownAddEventListener } from '/@/utils'
 import './index.less'
 
 export default defineComponent({
-    name: 'Levi-Charts',
+    name: 'LvCharts',
     props: {
         options: {
             required: true,

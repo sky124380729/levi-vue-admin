@@ -1,6 +1,6 @@
 <template>
     <div>
-        <FormModal v-model:form="form" v-model:visible="visible" title="测试" :rules="rules" :loading="loading" @submit="submit">
+        <lv-modal-form v-model:form="form" v-model:visible="visible" title="测试" :rules="rules" :loading="loading" @submit="submit">
             <a-form-item label="登录名" name="username">
                 <a-input v-model:value="form.username" />
             </a-form-item>
@@ -13,7 +13,7 @@
             <a-form-item label="姓名" name="name">
                 <a-input v-model:value="form.name" />
             </a-form-item>
-        </FormModal>
+        </lv-modal-form>
         <a-button type="primary" @click="show">测试组件</a-button>
     </div>
 </template>
@@ -21,11 +21,8 @@
 <script lang="ts">
 import { defineComponent, toRefs, reactive } from 'vue'
 
-import FormModal, { ModalFormType } from '/@/components/FormModal'
+import { ModalFormType } from '/@/components/FormModal'
 export default defineComponent({
-    components: {
-        FormModal
-    },
     setup() {
         const model = reactive<ModalFormType>({
             visible: false,
@@ -45,7 +42,11 @@ export default defineComponent({
                 model.visible = false
             }, 2000)
         }
-        return { ...toRefs(model), show, submit }
+        return {
+            ...toRefs(model),
+            show,
+            submit
+        }
     }
 })
 </script>

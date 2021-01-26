@@ -6,7 +6,7 @@ import Iconify from '@purge-icons/generated'
 import { isString } from '/@/utils/is'
 import { propTypes } from '/@/utils/propTypes'
 export default defineComponent({
-    name: 'GIcon',
+    name: 'LvIcon',
     props: {
         // icon name
         icon: propTypes.string,
