@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import { setApp } from '/@/useApp'
+import { registerGC } from './components'
 
 // auth
 import './permission'
@@ -24,3 +25,4 @@ app.use(Antd).use(router).use(store).mount('#app')
 setApp(app)
 
 // register global components
+registerGC()

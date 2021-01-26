@@ -11,7 +11,7 @@ interface FormProps {
 
 // 支持数组或者对象，使用数组的话使用对象的默认配置
 export default defineComponent({
-    name: 'Levi-Search',
+    name: 'LvSearch',
     props: {
         terms: [Array, Object]
     },

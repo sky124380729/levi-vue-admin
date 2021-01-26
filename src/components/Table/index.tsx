@@ -12,7 +12,7 @@ interface Model {
 type OperationType = 'add' | 'edit' | 'delete'
 
 export default defineComponent({
-    name: 'Levi-Table',
+    name: 'LvTable',
     props: {
         title: String,
         subTitle: String,
