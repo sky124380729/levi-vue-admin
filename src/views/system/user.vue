@@ -2,18 +2,20 @@
     <div>
         <lv-table ref="tableRef" title="用户管理" :terms="terms" :columns="columns" :action="action">
             <template #extra>
-                <a-button type="primary" @click="handle">
-                    <template #icon><Icon icon="ic:round-add-circle-outline"></Icon></template>新增
+                <a-button type="primary" @click="handle()">
+                    <template #icon>
+                        <lv-icon icon="ic:round-add-circle-outline">新增</lv-icon>
+                    </template>
                 </a-button>
             </template>
             <template #operation="{ record }">
-                <a-button type="link" size="small" @click="handle(record)">编辑</a-button>
+                <a-button type="link" size="small" @click="handle(record.id)">编辑</a-button>
                 <a-divider type="vertical" />
-                <a-button type="link" size="small" @click="remove(record)">删除</a-button>
+                <a-button type="link" size="small" @click="remove(record.id)">删除</a-button>
             </template>
         </lv-table>
 
-        <lv-modal-form v-model:visible="visible" v-model:form="form" :rules="rules" title="用户信息" @submit="submitForm">
+        <lv-modal-form v-model:visible="visible" v-model:form="form" :rules="rules" title="用户信息" @submit="submit">
             <a-form-item label="登录名" name="username">
                 <a-input v-model:value="form.username" :disabled="!!form.id" />
             </a-form-item>
@@ -48,12 +50,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, createVNode, h, toRefs } from 'vue'
+import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { ModalFormType } from '/@/components/FormModal'
-import Icon from '/@/components/Icon'
-import { Modal } from 'ant-design-vue'
+import useCRUD from '/@/hooks/useCRUD'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
-import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 
 const columns = [
     { title: '登录名', dataIndex: 'username' },
@@ -68,15 +68,12 @@ const columns = [
 
 export default defineComponent({
     name: 'system-user',
-    components: {
-        Icon
-    },
     setup() {
         const terms = [
             { key: 'username', label: '用户名', component: 'Input' },
             { key: 'realName', label: '姓名', component: 'Input' }
         ]
-        const model = reactive<ModalFormType>({
+        const modelForm = reactive<ModalFormType>({
             visible: false,
             loading: false,
             rules: {
@@ -86,49 +83,20 @@ export default defineComponent({
         })
         const tableRef = ref<any>(null)
 
-        const reload = () => {
-            tableRef.value && tableRef.value.reload()
-        }
-
-        const submitForm = async () => {
-            model.loading = true
-            const data = model.form
-            const res = await (data.id ? updateUser(data) : createUser(data))
-            model.loading = false
-            if (!res) return
-            reload()
-            model.visible = false
-        }
-        const handle = async ({ id }: { id: string }) => {
-            if (id) {
-                const res = await getUser(id)
-                if (!res) return
-                model.form = res.data
-            }
-            model.visible = true
-        }
-
-        const remove = ({ id }: { id: string }) => {
-            Modal.confirm({
-                title: '提示',
-                content: h('div', { style: 'color:#f56c6c' }, [h('p', '确定要删除当前数据吗?')]),
-                okButtonProps: {
-                    loading: model.loading
-                },
-                icon: createVNode(ExclamationCircleOutlined),
-                onOk() {
-                    removeUser(id).then(() => {
-                        tableRef.value!.reload()
-                    })
-                }
-            })
-        }
+        const crud = useCRUD(
+            modelForm,
+            {
+                C: createUser,
+                R: getUser,
+                U: updateUser,
+                D: removeUser
+            },
+            tableRef
+        )
         return {
-            ...toRefs(model),
+            ...toRefs(modelForm),
+            ...toRefs(crud),
             columns,
-            handle,
-            remove,
-            submitForm,
             terms,
             tableRef,
             action: fetchUserPage
