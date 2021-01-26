@@ -29,6 +29,7 @@ const useCRUD = (model: ModalFormType, CRUD: ICRUD, tableRef?: Ref) => {
             title: '提示',
             content: h('div', [h('p', '确定要删除当前数据吗?')]),
             icon: createVNode(ExclamationCircleOutlined),
+            centered: true,
             async onOk() {
                 D(id).then((res: any) => {
                     res && reload()
