@@ -3,9 +3,8 @@
         <lv-table ref="tableRef" title="用户管理" :terms="terms" :columns="columns" :action="action">
             <template #extra>
                 <a-button type="primary" @click="handle()">
-                    <template #icon>
-                        <lv-icon icon="ic:round-add-circle-outline">新增</lv-icon>
-                    </template>
+                    <template #icon> <lv-icon icon="ic:round-add-circle-outline" /></template>
+                    <span>新增</span>
                 </a-button>
             </template>
             <template #operation="{ record }">
