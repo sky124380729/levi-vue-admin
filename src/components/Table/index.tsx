@@ -81,6 +81,14 @@ export default defineComponent({
             }
             // visible.value = true
         }
+
+        const tableSettings = reactive<any>({
+            bordered: false,
+            striped: false,
+            ellipsis: false,
+            indexed: true
+        })
+
         onMounted(() => {
             getList()
         })
@@ -115,24 +123,32 @@ export default defineComponent({
             return () => extraSlots
         }
 
-        const tableSettings = reactive<any>({
-            bordered: false,
-            striped: false,
-            ellipsis: false
-        })
-
         const setTable = (type: string) => {
             tableSettings[type] = !tableSettings[type]
         }
 
-        const processColumns = (columns: any, globalEllipsis: boolean) => {
-            return columns.map((v: any) => {
+        /**
+         * 处理原始columns,根据传入的ellipsis和indexed来改变渲染内容
+         */
+        const processColumns = (columns: any, globalEllipsis: boolean, indexed: boolean) => {
+            const processedCols = columns.map((v: any) => {
                 const { ellipsis } = v
                 return {
                     ...v,
                     ellipsis: typeof ellipsis === 'undefined' ? globalEllipsis : ellipsis
                 }
             })
+            if (indexed) {
+                processedCols.unshift({
+                    title: '序号',
+                    width: '65px',
+                    align: 'center',
+                    customRender({ index }: { index: number }) {
+                        return index + 1
+                    }
+                })
+            }
+            return processedCols
         }
 
         useExpose({
@@ -141,7 +157,7 @@ export default defineComponent({
 
         return () => {
             const { columns, terms, title, subTitle } = props
-            const { ellipsis, striped, bordered } = tableSettings
+            const { ellipsis, striped, bordered, indexed } = tableSettings
             return (
                 <PageHeader style='background-color: #fff;' title={title} subTitle={subTitle}>
                     {{
@@ -151,6 +167,14 @@ export default defineComponent({
                                 <div class='levi-table__header'>
                                     <div class='levi-table__search'>{terms && <Search terms={terms} onQuery={handleQuery}></Search>}</div>
                                     <div class='levi-table__action'>
+                                        <Tooltip>
+                                            {{
+                                                default: () => (
+                                                    <Icon icon={indexed ? 'mdi:format-list-numbered' : 'mdi:format-list-bulleted'} onClick={() => setTable('indexed')} />
+                                                ),
+                                                title: () => '索引'
+                                            }}
+                                        </Tooltip>
                                         <Tooltip>
                                             {{
                                                 default: () => <Icon icon={bordered ? 'mdi:border-all' : 'mdi:border-none'} onClick={() => setTable('bordered')} />,
@@ -178,7 +202,7 @@ export default defineComponent({
                                         rowKey='id'
                                         bordered={bordered}
                                         loading={unref(loading)}
-                                        columns={processColumns(columns, ellipsis)}
+                                        columns={processColumns(columns, ellipsis, indexed)}
                                         pagination={pagination}
                                         onChange={tableChange}
                                         dataSource={unref(data)}
