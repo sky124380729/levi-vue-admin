@@ -15,6 +15,8 @@
             </a-form-item>
         </lv-modal-form>
         <a-button type="primary" @click="show">测试组件</a-button>
+
+        <lv-select></lv-select>
     </div>
 </template>
 

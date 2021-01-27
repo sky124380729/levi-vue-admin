@@ -15,6 +15,11 @@ service.interceptors.request.use(
     (request: AxiosRequestConfig) => {
         const token = Cookies.get('token')
         token && (request.headers.token = token)
+        // 如果是post请求没有传body默认给个空的body
+        const { method, data } = request
+        if (method!.toLocaleUpperCase() === 'POST' && typeof data === 'undefined') {
+            request.data = {}
+        }
         return request
     },
     (error: AxiosError) => {

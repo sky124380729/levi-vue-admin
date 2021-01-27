@@ -17,18 +17,22 @@ export default defineComponent({
         title: String,
         subTitle: String,
         settings: Object,
-        columns: Array,
+        columns: {
+            type: Array,
+            default: () => []
+        },
         terms: {
             type: [Array, Object],
             default: null
         },
         action: {
             required: true,
-            type: Function as PropType<(data: any) => any>
+            type: Function as PropType<(data: any) => any>,
+            default: () => []
         },
         operation: {
             type: Array as PropType<OperationType[]>,
-            default: []
+            default: () => []
         }
     },
     setup(props, { slots, attrs }) {
@@ -56,7 +60,7 @@ export default defineComponent({
             loading.value = true
             const res = await props.action({ current, size, query: model.terms })
             loading.value = false
-            if (!res) return
+            if (!res || !res.data) return
             const { total, records } = res.data
             data.value = records
             pagination.total = total

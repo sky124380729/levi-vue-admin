@@ -39,6 +39,14 @@
                 "type": "MENU",
                 "path": "resource",
                 "component": "/system/resource"
+            },
+            {
+                "id": "f5797c5a661047d19d278a0549f02437",
+                "title": "数据字典",
+                "name": "dict",
+                "type": "MENU",
+                "path": "dict",
+                "component": "/system/dict"
             }
         ]
     }
