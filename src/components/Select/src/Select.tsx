@@ -1,30 +1,48 @@
-import { defineComponent, PropType, ref, computed, unref } from 'vue'
-import { Select } from 'ant-design-vue'
+import { computed, defineComponent, unref } from 'vue'
+import { useStore } from 'vuex'
+import { Select, message } from 'ant-design-vue'
 
+interface IOption {
+    label: string | number
+    value: string | number
+}
 export default defineComponent({
     name: 'LvSelect',
-    props: {
-        modelValue: {
-            required: true,
-            type: [String, Number, Array] as any
-        },
-        dict: String
-    },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        console.log(props)
-        const selectRef = ref(
-            computed({
-                get() {
-                    return props.modelValue
-                },
-                set(val) {
-                    emit('update:modelValue', val)
+    props: ['value', 'dict', 'oLabel', 'oValue'],
+    emits: ['update:value'],
+    setup(props, { attrs, emit }) {
+        const dictMap: Record<string, any> = useStore().state.dict
+
+        const list = computed(() => {
+            const { dict, oLabel, oValue } = props
+            let list: any = attrs.options || []
+            if (dict) {
+                const item = dictMap[dict]
+                if (!item) {
+                    return message.error(`unknown dict ===== ${dict} ===== , please check it`)
                 }
-            })
-        )
+                list = Object.keys(item).reduce((prev: IOption[], key) => {
+                    const value = item[key]
+                    prev.push({
+                        label: value,
+                        value: key
+                    })
+                    return prev
+                }, [])
+            }
+            /* FIXME: 这里暂时没起作用 */
+            if (oLabel && oValue && attrs.options.length) {
+                list = attrs.options.map((v: any) => ({
+                    label: v[oLabel],
+                    value: v[oValue]
+                }))
+            }
+            return list
+        })
+
         return () => {
-            return <Select value={unref(selectRef)}></Select>
+            /* FIXME: 外部传onChange时候也会出问题 */
+            return <Select value={props.value} options={unref(list)} onChange={(val) => emit('update:value', val)}></Select>
         }
     }
 })

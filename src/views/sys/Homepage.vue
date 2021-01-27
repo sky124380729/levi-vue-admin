@@ -16,12 +16,12 @@
         </lv-modal-form>
         <a-button type="primary" @click="show">测试组件</a-button>
 
-        <lv-select></lv-select>
+        <lv-select v-model:value="selectValue" style="width: 200px" o-label="name" o-value="id" :options="options"></lv-select>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive } from 'vue'
+import { defineComponent, toRefs, ref, reactive } from 'vue'
 
 import { ModalFormType } from '/@/components/FormModal'
 export default defineComponent({
@@ -37,6 +37,15 @@ export default defineComponent({
         const show = () => {
             model.visible = true
         }
+        const selectValue = ref('')
+        const options = [
+            { name: 'xxxxxxxxx', id: 1 },
+            { name: 'yyyyyyyyy', id: 2 }
+        ]
+        const change = (e) => {
+            console.log(e, 'e')
+            console.log(selectValue.value, 'ss')
+        }
         const submit = () => {
             model.loading = true
             setTimeout(() => {
@@ -46,8 +55,11 @@ export default defineComponent({
         }
         return {
             ...toRefs(model),
+            selectValue,
             show,
-            submit
+            submit,
+            change,
+            options
         }
     }
 })
