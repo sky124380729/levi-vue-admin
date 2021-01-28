@@ -4,7 +4,7 @@ import { HTTP_STRATEGY } from './tactics'
 import Cookies from 'js-cookie'
 import { message } from 'ant-design-vue'
 
-const BASE_URL = 'http://172.16.20.2:9090/server'
+const BASE_URL = 'http://172.16.10.128:9090/api/'
 
 const service: AxiosInstance = axios.create({
     baseURL: BASE_URL

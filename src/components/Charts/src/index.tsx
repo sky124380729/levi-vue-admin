@@ -14,12 +14,12 @@ export default defineComponent({
     },
     setup(props) {
         const wrapper = ref<HTMLDivElement | null>(null)
-        const chart = ref<ECharts | null>(null)
+        let chart: Nullable<ECharts> = null
         // 初始化函数
         const init = () => {
             if (wrapper.value) {
-                chart.value = echarts.init(wrapper.value)
-                chart.value.setOption(props.options)
+                chart = echarts.init(wrapper.value)
+                chart.setOption(props.options)
             }
         }
         // 参数变化的时候重置
@@ -33,7 +33,7 @@ export default defineComponent({
             init()
         })
         onActivated(() => {
-            chart.value && chart.value.resize()
+            chart && chart.resize()
         })
         watchEffect((onInvalidate) => {
             // 屏幕变化的时候echarts大小重置
@@ -41,7 +41,7 @@ export default defineComponent({
                 window,
                 'resize',
                 debounce(() => {
-                    chart.value && chart.value.resize()
+                    chart && chart.resize()
                 })
             )
             onInvalidate(() => {
