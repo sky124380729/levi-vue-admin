@@ -23,15 +23,7 @@
         </lv-modal-form>
 
         <a-modal v-model:visible="resource.visible" title="资源设置" destroy-on-close @ok="submitRole">
-            <a-tree
-                v-model:checkedKeys="resource.checkedKeys"
-                v-model:expandedKeys="resource.expandedKeys"
-                :replace-fields="replaceFields"
-                checkable
-                :tree-data="resource.data"
-                @check="onCheck"
-            >
-            </a-tree>
+            <a-tree v-model:checkedKeys="resource.checkedKeys" :replace-fields="replaceFields" checkable :tree-data="resource.data" @check="onCheck"> </a-tree>
         </a-modal>
     </div>
 </template>
@@ -42,8 +34,8 @@ import type { Ref } from 'vue'
 import { ModalFormType } from '/@/components/FormModal'
 import useCRUD from '/@/hooks/useCRUD'
 import { fetchRolePage, updateRole, createRole, getRole, removeRole } from '/@/apis/modules/role'
-import { getResourceTree } from '/@/apis/modules/resource'
-import { updateRoleResource, getRoleResource } from '/@/apis/modules/roleResource'
+import { getMenuTree } from '/@/apis/modules/menu'
+import { updateRoleMenu, getRoleMenu } from '/@/apis/modules/roleMenu'
 
 export default defineComponent({
     name: 'system-role',
@@ -82,30 +74,27 @@ export default defineComponent({
             id: null,
             visible: false,
             data: [],
-            checkedKeys: [],
-            expandedKeys: []
+            checkedKeys: []
         })
         const replaceFields = {
             key: 'id'
         }
         const getAllMenu = async () => {
-            const res = await getResourceTree()
+            const res = await getMenuTree()
             resource.data = res ? res.data : []
         }
         const setResource = async (id: string) => {
             resource.id = id
             resource.visible = true
-            const res = await getRoleResource(id)
+            const res = await getRoleMenu(id)
             const keys = res ? res.data.map((v: any) => v.resourceId) : []
             resource.checkedKeys = keys
-            resource.expandedKeys = keys
         }
 
         const submitRole = async () => {
-            const res = await updateRoleResource(resource.id, resource.checkedKeys)
+            const res = await updateRoleMenu(resource.id, resource.checkedKeys)
             if (!res) return
             resource.visible = false
-            tableRef.value && tableRef.value.reload()
         }
 
         const onCheck = (checkedKeys: any[]) => {

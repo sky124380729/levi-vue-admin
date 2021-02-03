@@ -4,7 +4,7 @@
             <lv-table :action="action" :columns="columns"></lv-table>
         </a-tab-pane>
         <a-tab-pane key="Select" tab="Select">
-            <lv-select v-model:value="selectValue" mode="multiple" :options="options" :style="{ width: '200px' }" @change="onChange"></lv-select>
+            <lv-select v-model:value="selectValue" mode="tags" :options="options" :style="{ width: '200px' }" @change="onChange"></lv-select>
         </a-tab-pane>
         <a-tab-pane key="FormModal" tab="FormModal">
             <lv-modal-form v-model:visible="visible" v-model:form="form" title="测试弹框" :label-width="100" :schemas="schemas"></lv-modal-form>

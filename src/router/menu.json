@@ -1,44 +1,52 @@
 [
     {
-        "id": "ecc34ab196cb42fe88594294b45d2dd6",
-        "title": "中央控制台",
-        "path": "/platform",
-        "name": "platform",
-        "type": "MENU",
-        "component": "/platform/index",
-        "icon": "mdi:monitor-dashboard"
-    },
-    {
-        "id": "a7d20965884d40aebd7808827741023e",
-        "title": "系统设置",
-        "name": "system",
-        "type": "MENU",
-        "path": "/system",
-        "icon": "ri:settings-5-line",
+        "id": "00b82eb6e50a45a495df301b0a3cde8b",
+        "title": "admin",
+        "name": "admin",
+        "type": "MODULE",
         "children": [
             {
-                "id": "ae7e6a3f4ff943859eefa0977f370bcd",
-                "title": "用户管理",
-                "name": "user",
+                "id": "ecc34ab196cb42fe88594294b45d2dd6",
+                "title": "中央控制台",
+                "path": "/platform",
+                "name": "platform",
                 "type": "MENU",
-                "path": "user",
-                "component": "/system/user"
+                "component": "/platform/index",
+                "icon": "mdi:monitor-dashboard"
             },
             {
-                "id": "cdaa427913be4206a52bf540f134517c",
-                "title": "角色管理",
-                "name": "role",
+                "id": "a7d20965884d40aebd7808827741023e",
+                "title": "系统设置",
+                "name": "system",
                 "type": "MENU",
-                "path": "role",
-                "component": "/system/role"
-            },
-            {
-                "id": "27b2e6818b1e48a68fc7c59674b4954d",
-                "title": "资源管理",
-                "name": "resource",
-                "type": "MENU",
-                "path": "resource",
-                "component": "/system/resource"
+                "path": "/system",
+                "icon": "ri:settings-5-line",
+                "children": [
+                    {
+                        "id": "ae7e6a3f4ff943859eefa0977f370bcd",
+                        "title": "用户管理",
+                        "name": "user",
+                        "type": "MENU",
+                        "path": "user",
+                        "component": "/system/user"
+                    },
+                    {
+                        "id": "cdaa427913be4206a52bf540f134517c",
+                        "title": "角色管理",
+                        "name": "role",
+                        "type": "MENU",
+                        "path": "role",
+                        "component": "/system/role"
+                    },
+                    {
+                        "id": "27b2e6818b1e48a68fc7c59674b4954d",
+                        "title": "资源管理",
+                        "name": "resource",
+                        "type": "MENU",
+                        "path": "resource",
+                        "component": "/system/resource"
+                    }
+                ]
             }
         ]
     }

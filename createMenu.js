@@ -24,11 +24,11 @@ const INPUT_PATH = resolve('src/router/menu.json')
 // 导出的文件目录位置
 const OUTPUT_PATH = resolve('./menu.sql')
 // 表名
-const TABLE_NAME = 't_sys_resource'
+const TABLE_NAME = 't_sys_menu'
 
 /* =========GLOBAL CONFIG=========== */
 
-function createSQL(data, name = '', pid = '0', arr = []) {
+function createSQL(data, name = '', pid, arr = []) {
     data.forEach(function (v, d) {
         if (v.children && v.children.length) {
             createSQL(v.children, name + '-' + v.name, v.id, arr)
@@ -40,20 +40,21 @@ function createSQL(data, name = '', pid = '0', arr = []) {
             created_by: gitName,
             modified_by: gitName,
             version: 1,
-            is_delete: 'N',
+            is_delete: false,
             code: (name + '-' + v.name).slice(1),
             name: v.name,
             title: v.title,
             icon: v.icon,
-            uri: v.uri,
+            path: v.path,
             sort: d + 1,
             parent_id: pid,
             type: v.type,
-            component_path: v.componentPath,
-            redirect_uri: v.redirectUri,
-            full_screen: v.fullScreen === 'Y' ? 'Y' : 'N',
-            hidden: v.hidden === 'Y' ? 'Y' : 'N',
-            no_cache: v.noCache === 'Y' ? 'Y' : 'N'
+            component: v.component,
+            redirect: v.redirect,
+            // 以下几个参数没传都默认为false
+            full_screen: v.fullScreen || false,
+            hidden: v.hidden || false,
+            no_cache: v.noCache || false
         })
     })
     return arr
@@ -62,12 +63,19 @@ function createSQL(data, name = '', pid = '0', arr = []) {
 fs.readFile(INPUT_PATH, 'utf-8', (err, data) => {
     if (err) chalk.red(err)
     const menuList = createSQL(JSON.parse(data))
+    console.log(menuList)
     const sql = menuList
         .map((sql) => {
             let value = ''
             for (const v of Object.values(sql)) {
                 value += ','
-                value += v ? `'${v}'` : null
+                if (v === true) {
+                    value += 1
+                } else if (v === false) {
+                    value += 0
+                } else {
+                    value += v ? `'${v}'` : null
+                }
             }
             return 'INSERT INTO `' + TABLE_NAME + '` VALUES (' + value.slice(1) + ')' + '\n'
         })
@@ -93,7 +101,7 @@ fs.readFile(INPUT_PATH, 'utf-8', (err, data) => {
         '\n' +
         "`version` int(11) DEFAULT NULL COMMENT '版本（乐观锁）'," +
         '\n' +
-        "`is_delete` char(1) DEFAULT NULL COMMENT '逻辑删除'," +
+        "`is_delete` int(11) DEFAULT NULL COMMENT '逻辑删除'," +
         '\n' +
         "`code` varchar(150) NOT NULL COMMENT '编码'," +
         '\n' +
@@ -103,23 +111,23 @@ fs.readFile(INPUT_PATH, 'utf-8', (err, data) => {
         '\n' +
         "`icon` varchar(50) DEFAULT NULL COMMENT '图标'," +
         '\n' +
-        "`uri` varchar(250) DEFAULT NULL COMMENT '路径'," +
+        "`path` varchar(250) DEFAULT NULL COMMENT '路径'," +
         '\n' +
         "`sort` int(11) DEFAULT NULL COMMENT '排序'," +
         '\n' +
         "`parent_id` varchar(64) DEFAULT NULL COMMENT '父id'," +
         '\n' +
-        "`type` char(2) DEFAULT NULL COMMENT '类型'," +
+        "`type` char(10) DEFAULT NULL COMMENT '类型'," +
         '\n' +
-        "`component_path` varchar(250) DEFAULT NULL COMMENT '组件路径'," +
+        "`component` varchar(250) DEFAULT NULL COMMENT '组件路径'," +
         '\n' +
-        "`redirect_uri` varchar(250) DEFAULT NULL COMMENT '重定向路径'," +
+        "`redirect` varchar(250) DEFAULT NULL COMMENT '重定向路径'," +
         '\n' +
-        "`full_screen` char(1) DEFAULT NULL COMMENT '全屏'," +
+        "`full_screen` int(11) DEFAULT NULL COMMENT '全屏'," +
         '\n' +
-        "`hidden` char(1) DEFAULT NULL COMMENT '隐藏'," +
+        "`hidden` int(11) DEFAULT NULL COMMENT '隐藏'," +
         '\n' +
-        "`no_cache` char(1) DEFAULT NULL COMMENT '缓存'," +
+        "`no_cache` int(11) DEFAULT NULL COMMENT '缓存'," +
         '\n' +
         'PRIMARY KEY (`id`),' +
         '\n' +

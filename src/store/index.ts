@@ -1,15 +1,28 @@
 import { createStore } from 'vuex'
 import router from '/@/router'
+import type { IResource } from '/@/router/types'
 import generateRoutes from '/@/router/helpers/generateAsyncRoutes'
 import resource from '/@/router/menu.json'
-import { getUserResourceTree } from '/@/apis/modules/resource'
+import { getUserMenuTree } from '/@/apis/modules/menu'
 import { getAllDictMap } from '/@/apis/modules/sysDict'
+import { MENU_MOCK } from '/@/config'
 
 export interface GlobalData {
     authorized: boolean
     isCollapse: boolean
+    accessRoutes: any[]
     dict: Record<string, any>
     cachedViews: string[]
+}
+
+// 过滤meta为hidden的菜单
+const filterResource = (routes: IResource[]) => {
+    return routes.filter((route) => {
+        if (route.children) {
+            route.children = filterResource(route.children)
+        }
+        return !route.hidden
+    })
 }
 
 const store = createStore<GlobalData>({
@@ -17,16 +30,23 @@ const store = createStore<GlobalData>({
         authorized: false,
         isCollapse: false,
         dict: {},
+        accessRoutes: [],
         cachedViews: []
     },
     getters: {
         getCachedViews(state) {
             return state.cachedViews
+        },
+        menuList(state) {
+            return filterResource(state.accessRoutes)
         }
     },
     mutations: {
         setAuthority(state) {
             state.authorized = true
+        },
+        setAccessRoutes(state, accessRoutes) {
+            state.accessRoutes = accessRoutes
         },
         setDict(state, dict) {
             state.dict = dict
@@ -41,10 +61,15 @@ const store = createStore<GlobalData>({
     actions: {
         setAuthority: async ({ commit }) => {
             return new Promise<void>(async (resolve) => {
-                const IS_MOCKING = true
                 /* 注册路由 */
-                const res = IS_MOCKING ? resource : (await getUserResourceTree('admin')).data
-                const asyncRoutes = generateRoutes(res)
+                let data = []
+                if (MENU_MOCK) {
+                    data = resource.find((v: any) => v.name === 'admin').children
+                } else {
+                    const res = await getUserMenuTree('admin')
+                    data = res && res.data ? res.data : []
+                }
+                const asyncRoutes = generateRoutes(data)
                 asyncRoutes.forEach((route: any) => {
                     const { parentName } = route.meta!
                     if (parentName) {
@@ -55,10 +80,12 @@ const store = createStore<GlobalData>({
                 })
 
                 /* 获取数据字典 */
-                const dictRes = await getAllDictMap()
-                commit('setDict', dictRes.data)
+                // const dictRes = await getAllDictMap()
+                // commit('setDict', dictRes.data)
                 /* OK */
+
                 commit('setAuthority')
+                commit('setAccessRoutes', data)
                 resolve()
             })
         }

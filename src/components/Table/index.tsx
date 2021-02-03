@@ -34,6 +34,10 @@ export default defineComponent({
             required: true,
             type: [Object, Function] as PropType<TableFormat | Fn>
         },
+        rowKey: {
+            type: [String, Function],
+            default: 'id'
+        },
         title: {
             type: String as PropType<string>
         },
@@ -235,7 +239,7 @@ export default defineComponent({
         })
 
         const renderTable = () => {
-            const { columns, terms } = props
+            const { columns, terms, rowKey } = props
             const { ellipsis, striped, bordered, indexed } = tableSettings
             return (
                 <div class={['levi-table', { 'levi-table--striped': striped, 'levi-table--bordered': bordered }]}>
@@ -249,7 +253,7 @@ export default defineComponent({
                     <div class='levi-table__body'>
                         <Table
                             {...attrs}
-                            rowKey='id'
+                            rowKey={rowKey}
                             bordered={bordered}
                             loading={unref(loading)}
                             columns={processColumns(columns, ellipsis, indexed)}

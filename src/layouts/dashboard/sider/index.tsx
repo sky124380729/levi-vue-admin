@@ -1,10 +1,9 @@
 import { ref, defineComponent, watchEffect, unref, computed } from 'vue'
 import { Menu } from 'ant-design-vue'
+import { useStore } from 'vuex'
 import Icon from '/@/components/Icon'
-import type { IResource } from '/@/router/index'
-import resource from '/@/router/menu.json'
+import type { IResource } from '/@/router/types'
 import { useRouter } from 'vue-router'
-import { deepClone } from '/@/utils/index'
 import LogoImg from '/@/assets/images/ck-logo.png'
 import store from '/@/store'
 
@@ -15,6 +14,8 @@ export default defineComponent({
         const selectedKeys = ref<string[]>([])
         const openKeys = ref<string[]>([])
         const isCollapse = computed(() => store.state.isCollapse)
+        const menus = useStore().getters.menuList
+
         watchEffect(() => {
             selectedKeys.value = []
             const { matched } = currentRoute.value
@@ -26,15 +27,6 @@ export default defineComponent({
                 openKeys.value.push(id)
             }
         })
-        // 过滤meta为hidden的菜单
-        const filterResource = (routes: IResource[]) => {
-            return routes.filter((route) => {
-                if (route.children) {
-                    route.children = filterResource(route.children)
-                }
-                return !route.hidden
-            })
-        }
 
         // 创建菜单
         const generateMenus = (routes: IResource[], fullPath = '') => {
@@ -87,14 +79,19 @@ export default defineComponent({
         }
         // menu点击事件
         const handleMenuClick = ({ keyPath }: { keyPath: string[] }) => {
-            const name = generateNameList(keyPath, resource)
+            const name = generateNameList(keyPath, menus)
             // 路由跳转
             push({ name })
             openKeys.value = keyPath
         }
         // submenu点击事件
         const handleTitleClick = ({ key }: { key: string }) => {
-            openKeys.value = [key]
+            const index = openKeys.value.indexOf(key)
+            if (index === -1) {
+                openKeys.value.push(key)
+            } else {
+                openKeys.value.splice(index, 1)
+            }
         }
 
         return () => {
@@ -112,7 +109,7 @@ export default defineComponent({
                             mode='inline'
                             theme='dark'
                         >
-                            {() => generateMenus(filterResource(deepClone(resource)))}
+                            {() => generateMenus(menus)}
                         </Menu>
                     </div>
                 </>

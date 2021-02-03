@@ -14,7 +14,7 @@ const generateRoutes = (routes: IResource[], cname = '', level = 1): RouteRecord
                     component: dynamicImport(component!),
                     name,
                     props: true,
-                    meta: { id, title, icon, hidden, type, fullscreen, noCache, parentName: 'app' }
+                    meta: { id, title, icon, type, parentName: 'app', hidden: !!hidden, fullscreen: !!fullscreen, noCache: !!noCache }
                 })
             } else {
                 prev.push({
@@ -23,7 +23,7 @@ const generateRoutes = (routes: IResource[], cname = '', level = 1): RouteRecord
                     name: (cname + '-' + name).slice(1),
                     props: true,
                     redirect,
-                    meta: { id, title, icon, hidden, type, fullscreen, noCache },
+                    meta: { id, title, icon, type, hidden: !!hidden, fullscreen: !!fullscreen, noCache: !!noCache },
                     children: children?.length ? generateRoutes(children, cname + '-' + name, level + 1) : []
                 })
             }
