@@ -9,7 +9,7 @@
             </template>
             <template #operation="{ record }">
                 <a-button type="link" size="small" @click="handle(record.id)">编辑</a-button>
-                <a-divider type="vertical" />
+                <a-button type="link" size="small" @click="setRole(record.id)">选择角色</a-button>
                 <a-button type="link" size="small" @click="remove(record.id)">删除</a-button>
             </template>
         </lv-table>
@@ -45,6 +45,10 @@
                 <a-textarea v-model:value="form.note" />
             </a-form-item>
         </lv-modal-form>
+
+        <a-modal v-model:visible="role.visible" title="设置角色" width="780px" @ok="submitRole">
+            <lv-table :row-selection="rowSelection" :action="role.action" :terms="role.terms" :columns="role.columns"></lv-table>
+        </a-modal>
     </div>
 </template>
 
@@ -54,6 +58,8 @@ import type { Ref } from 'vue'
 import { ModalFormType } from '/@/components/FormModal'
 import useCRUD from '/@/hooks/useCRUD'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
+import { fetchRolePage } from '/@/apis/modules/role'
+import { getUserRole, updateUserRole } from '/@/apis/modules/userRole'
 
 const columns = [
     { title: '登录名', dataIndex: 'username' },
@@ -63,7 +69,7 @@ const columns = [
     { title: '邮箱', dataIndex: 'email' },
     { title: '部门', dataIndex: 'dept' },
     { title: '描述', dataIndex: 'note' },
-    { title: '操作', width: '160px', slots: { customRender: 'operation' } }
+    { title: '操作', width: '200px', slots: { customRender: 'operation' } }
 ]
 
 export default defineComponent({
@@ -93,13 +99,49 @@ export default defineComponent({
             },
             tableRef
         )
+
+        // 设置角色
+        const role = reactive<any>({
+            id: null,
+            visible: false,
+            selectedRowKeys: [],
+            terms: [{ key: 'roleName', label: '角色名称', component: 'Input' }],
+            columns: [
+                { title: '角色名称', dataIndex: 'roleName' },
+                { title: '角色描述', dataIndex: 'note', ellipsis: true }
+            ],
+            action: fetchRolePage
+        })
+        const setRole = async (id: string) => {
+            role.id = id
+            role.visible = true
+            const res = await getUserRole(id)
+            rowSelection.selectedRowKeys = res ? res.data.map((v: any) => v.roleId) : []
+        }
+        const rowSelection = reactive<any>({
+            selectedRowKeys: [],
+            onChange: (selectedRowKeys: string[]) => {
+                rowSelection.selectedRowKeys = selectedRowKeys
+            }
+        })
+        const submitRole = async () => {
+            const res = await updateUserRole(role.id, rowSelection.selectedRowKeys)
+            if (!res) return
+            role.visible = false
+            tableRef.value && tableRef.value.reload()
+        }
+
         return {
             ...toRefs(modelForm),
             ...crud,
             columns,
             terms,
             tableRef,
-            action: fetchUserPage
+            action: fetchUserPage,
+            role,
+            submitRole,
+            setRole,
+            rowSelection
         }
     }
 })

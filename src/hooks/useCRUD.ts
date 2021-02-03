@@ -12,15 +12,18 @@ interface ICRUD {
     U: Fn
     /* delete */
     D: Fn
+    /* retreieve callback */
+    RC?: Fn
 }
 const useCRUD = (model: ModalFormType, CRUD: ICRUD, tableRef?: Ref) => {
-    const { C, U, R, D } = CRUD
+    const { C, U, R, D, RC } = CRUD
     const handle = async (id?: string) => {
         if (id) {
             const res = await R(id)
             if (!res) return
             model.form = res.data
         }
+        typeof RC === 'function' && RC(model.form)
         model.visible = true
     }
 

@@ -2,11 +2,21 @@ import { defineComponent, reactive, ref, unref } from 'vue'
 import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
+import { FormSchema } from '/@/components/Form'
+import { isNumber } from '/@/utils/is'
 
 import Icon from '/@/components/Icon'
 interface FormProps {
     validate: () => Promise<any>
     resetFields: () => void
+}
+
+type SearchFormSchema = Omit<FormSchema, 'labelWidth' | 'wrapperWidth' | 'show'> & {
+    width?: number | string
+}
+interface SearchGlobalSettings {
+    showLabel: boolean
+    terms: SearchFormSchema[]
 }
 
 // 支持数组或者对象，使用数组的话使用对象的默认配置
@@ -17,8 +27,7 @@ export default defineComponent({
     },
     emits: ['query'],
     setup(props, { emit }) {
-        const defaultSettings: any = {
-            size: 'small',
+        const defaultSettings: SearchGlobalSettings = {
             showLabel: false,
             terms: []
         }
@@ -45,16 +54,28 @@ export default defineComponent({
                 })
                 .catch(() => null)
         }
+
+        const getWrapperWidth = (width: string | number | undefined) => {
+            if (width) {
+                width = isNumber(width) ? `${width}px` : width
+            } else {
+                width = '200px'
+            }
+            return {
+                style: { width }
+            }
+        }
+
         // 渲染组件
-        const renderComp = (config: any) => {
-            const { component, key, label, width, props, slots } = config
+        const renderComp = (schema: SearchFormSchema) => {
+            const { key, component, props: propsData, width, label, slots } = schema
             const isCheck = ['Switch', 'Checkbox'].includes(component)
             const eventKey = 'onChange'
             const bindValue = {
                 [isCheck ? 'checked' : 'value']: model[key]
             }
             const on = {
-                [eventKey]: (e: Nullable<Record<string, any>>) => {
+                [eventKey]: (e: Nullable<Recordable>) => {
                     const target = e ? e.target : null
                     const value = target ? (isCheck ? target.checked : target.value) : e
                     model[key] = value
@@ -63,11 +84,12 @@ export default defineComponent({
             const compAttr: any = {
                 ...on,
                 ...bindValue,
-                ...props
+                ...propsData
             }
+
             const Comp = componentMap.get(component) as typeof defineComponent
             return (
-                <Comp {...compAttr} style={{ width: width || '200px' }} placeholder={(component === 'Select' ? '请选择' : '请输入') + label}>
+                <Comp {...compAttr} {...getWrapperWidth(width)} placeholder={(component === 'Select' ? '请选择' : '请输入') + label}>
                     {{ ...slots }}
                 </Comp>
             )
@@ -78,9 +100,9 @@ export default defineComponent({
             return (
                 <div class='levi-search'>
                     <Form model={model} layout='inline' ref={ruleForm}>
-                        {terms.map((v: any) => (
-                            <Form.Item rules={v.rules} name={v.key} label={showLabel ? v.label : void 0}>
-                                {renderComp(v)}
+                        {terms.map((schema: SearchFormSchema) => (
+                            <Form.Item rules={schema.rules} name={schema.key} label={showLabel ? schema.label : void 0}>
+                                {renderComp(schema)}
                             </Form.Item>
                         ))}
                         <Form.Item>

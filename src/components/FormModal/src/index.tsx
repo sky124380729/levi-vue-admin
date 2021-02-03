@@ -65,7 +65,7 @@ export default defineComponent({
                 modal: {},
                 form: {}
             }
-            const modalKeys = ['title', 'width']
+            const modalKeys = ['title', 'destroy-on-close']
             const formKeys = ['rules']
             modalKeys.forEach((key) => {
                 o.modal[key] = attrs[key]
@@ -121,7 +121,6 @@ export default defineComponent({
             }
             return null
         }
-
         const widthRef = computed(() => {
             const { column } = props
             const map: Record<number, number> = {
@@ -129,7 +128,8 @@ export default defineComponent({
                 2: 750,
                 3: 980
             }
-            return map[column]
+            const w = attrs.width as string | number | undefined
+            return w || map[column]
         })
         return () => {
             const { loading } = props

@@ -1,51 +1,29 @@
-import { defineComponent, PropType } from 'vue'
-import { componentMap } from '/@/utils/componentMap'
-import { Form } from 'ant-design-vue'
+import { defineComponent, ref, PropType, onMounted } from 'vue'
+import { componentMap, ComponentType } from '/@/utils/componentMap'
+import { Form, Row, Col } from 'ant-design-vue'
+import { isNumber } from '/@/utils/is'
 
-export type ComponentType =
-    | 'Input'
-    | 'InputGroup'
-    | 'InputPassword'
-    | 'InputSearch'
-    | 'InputTextArea'
-    | 'InputNumber'
-    | 'InputCountDown'
-    | 'Select'
-    | 'ApiSelect'
-    | 'SelectOptGroup'
-    | 'SelectOption'
-    | 'TreeSelect'
-    | 'Transfer'
-    | 'RadioButtonGroup'
-    | 'RadioGroup'
-    | 'Checkbox'
-    | 'CheckboxGroup'
-    | 'AutoComplete'
-    | 'Cascader'
-    | 'DatePicker'
-    | 'MonthPicker'
-    | 'RangePicker'
-    | 'WeekPicker'
-    | 'TimePicker'
-    | 'ImageUpload'
-    | 'Switch'
-    | 'StrengthMeter'
-    | 'Upload'
-    | 'Render'
+export type ColumnType = 1 | 2 | 3 | 4
 
 export interface FormSchema {
     // Field name
     key: string
     // Field label
     label: string
-    // Field rules
-    rules?: any
     // render component
     component: ComponentType
+    // Label width, if it is passed, the labelCol and WrapperCol configured by itemProps will be invalid
+    labelWidth?: string | number
+    // Wrapper width, if it is passed, the labelCol and WrapperCol configured by itemProps will be invalid
+    wrapperWidth?: string | number
+    // Field disbaled
+    disabled?: boolean
+    // Field show
+    show?: boolean
+    // Field rules
+    rules?: any
     // Component props
     props?: any
-    // Component width
-    width?: string | number
     // Component slots
     slots?: any
 }
@@ -53,70 +31,103 @@ export interface FormSchema {
 export default defineComponent({
     name: 'Levi-Form',
     props: {
-        model: {
-            type: Object as PropType<Record<string, any>>,
-            default: {}
+        modelValue: {
+            type: Object as PropType<Recordable>,
+            default: () => ({})
+        },
+        schemas: {
+            type: Array as PropType<FormSchema[]>,
+            default: () => []
+        },
+        column: {
+            type: Number as PropType<ColumnType>,
+            default: 2
         },
         labelWidth: {
             type: [Number, String] as PropType<number | string>,
-            default: 0
-        },
-        schemas: {
-            required: true,
-            type: Array as PropType<FormSchema[]>
+            default: 110
         }
     },
-    setup(props, { attrs }) {
+    emits: ['getFormRef'],
+    setup(props, { emit }) {
+        const formRef = ref(null)
+        onMounted(() => {
+            emit('getFormRef', formRef)
+        })
         return () => {
-            const { model, schemas } = props
+            const { modelValue } = props
 
+            // render inner component
             const renderComp = (schema: FormSchema) => {
-                const { key, component, props: propsData, width, slots } = schema
+                const { key, component, props: propsData, slots } = schema
                 const isCheck = ['Switch', 'Checkbox'].includes(component)
                 const eventKey = 'onChange'
                 const bindValue = {
-                    [isCheck ? 'checked' : 'value']: model[key]
+                    [isCheck ? 'checked' : 'value']: modelValue[key]
                 }
                 const on = {
-                    [eventKey]: (e: Nullable<Record<string, any>>) => {
+                    [eventKey]: (e: Nullable<Recordable>) => {
                         const target = e ? e.target : null
                         const value = target ? (isCheck ? target.checked : target.value) : e
-                        model[key] = value
-                    }
-                }
-                const getWidth = (width: any) => {
-                    if (typeof width === 'undefined') {
-                        return '200px'
-                    } else if (typeof width === 'string') {
-                        return width
-                    } else {
-                        return width + 'px'
+                        modelValue[key] = value
                     }
                 }
                 const compAttr: any = {
                     ...on,
-                    ...attrs,
                     ...bindValue,
                     ...propsData
                 }
                 const Comp = componentMap.get(component) as typeof defineComponent
                 return (
-                    <Comp {...compAttr} style={{ width: getWidth(width) }}>
+                    <Comp {...compAttr} style={{ width: '100%' }}>
                         {{ ...slots }}
                     </Comp>
                 )
             }
 
+            // use item width first,if it is not set,use form width
+            const getItemLabelWidth = (w: string | number | undefined) => {
+                let width = w || props.labelWidth
+                if (width) {
+                    width = isNumber(width) ? `${width}px` : width
+                }
+                return {
+                    labelCol: { style: { width } },
+                    wrapperCol: { style: { width: `calc(100% - ${width})` } }
+                }
+            }
+
+            // render Form Item
+            const renderFormItems = () => {
+                const { schemas, column } = props
+                // filter it item is not show
+                const items = schemas.filter((schema) => schema.show !== false)
+                const rows = new Array(Math.ceil(items.length / column)).fill(null)
+                const cols = new Array(column).fill(null)
+                return rows.map((_, row) => (
+                    <Row type='flex'>
+                        {cols.map((_, col) => {
+                            const schema = items[row * column + col]
+                            if (schema) {
+                                const { key, label, rules, labelWidth } = schema
+                                const { labelCol, wrapperCol } = getItemLabelWidth(labelWidth)
+                                return (
+                                    <Col span={24 / column}>
+                                        <Form.Item name={key} style={{ paddingRight: '15px' }} labelCol={labelCol} wrapperCol={wrapperCol} label={label} rules={rules}>
+                                            {renderComp(schema)}
+                                        </Form.Item>
+                                    </Col>
+                                )
+                            }
+                            return null
+                        })}
+                    </Row>
+                ))
+            }
+
             return (
-                <Form model={model}>
-                    {schemas.map((schema: FormSchema) => {
-                        const { key, label, rules } = schema
-                        return (
-                            <Form.Item rules={rules} name={key} label={label}>
-                                {renderComp(schema)}
-                            </Form.Item>
-                        )
-                    })}
+                <Form ref={formRef} model={modelValue} labelAlign='right'>
+                    {renderFormItems()}
                 </Form>
             )
         }

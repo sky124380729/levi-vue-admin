@@ -6,6 +6,7 @@ import Icon from '/@/components/Icon'
 import Search from '/@/components/Search'
 import Table from '/@/components/Table'
 import Select from '/@/components/Select'
+import Upload from '/@/components/Upload'
 
 export function registerGC() {
     const app = getApp()
@@ -15,4 +16,5 @@ export function registerGC() {
     app.component(Search.name, Search)
     app.component(Table.name, Table)
     app.component(Select.name, Select)
+    app.component(Upload.name, Upload)
 }

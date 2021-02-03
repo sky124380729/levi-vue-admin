@@ -3,8 +3,7 @@ import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } fro
 import { HTTP_STRATEGY } from './tactics'
 import Cookies from 'js-cookie'
 import { message } from 'ant-design-vue'
-
-const BASE_URL = 'http://172.16.10.128:9090/api/'
+import { BASE_URL } from '/@/config'
 
 const service: AxiosInstance = axios.create({
     baseURL: BASE_URL
@@ -43,10 +42,12 @@ service.interceptors.response.use(
         }
     },
     (error: AxiosError) => {
-        const { status } = error.response!
-        const strategy = HTTP_STRATEGY.get(status)
-        if (typeof strategy === 'function') {
-            strategy(error.response)
+        if (error.response) {
+            const { status } = error.response
+            const strategy = HTTP_STRATEGY.get(status)
+            if (typeof strategy === 'function') {
+                strategy(error.response)
+            }
         }
         return Promise.resolve(null)
     }
