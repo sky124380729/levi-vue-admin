@@ -1,4 +1,4 @@
-import { ref, defineComponent, watchEffect, unref, computed } from 'vue'
+import { ref, defineComponent, watchEffect, unref, computed, watch } from 'vue'
 import { Menu } from 'ant-design-vue'
 import { useStore } from 'vuex'
 import Icon from '/@/components/Icon'
@@ -6,6 +6,7 @@ import type { IResource } from '/@/router/types'
 import { useRouter } from 'vue-router'
 import LogoImg from '/@/assets/images/ck-logo.png'
 import store from '/@/store'
+import { MENU_ACCORDION } from '/@/config'
 
 export default defineComponent({
     name: 'Sidebar',
@@ -16,17 +17,30 @@ export default defineComponent({
         const isCollapse = computed(() => store.state.isCollapse)
         const menus = useStore().getters.menuList
 
-        watchEffect(() => {
-            selectedKeys.value = []
-            const { matched } = currentRoute.value
-            for (let i = matched.length - 1; i >= 0; i--) {
-                const { meta } = matched[i]
-                const { id, hidden } = meta
-                if (hidden) continue
-                selectedKeys.value.push(id)
-                openKeys.value.push(id)
+        // const subMenuKeys
+        const rootSubMenuKeys: string[] = []
+        for (const { children, id } of unref(menus)) {
+            if (children && children.length > 0) {
+                rootSubMenuKeys.push(id)
             }
-        })
+        }
+
+        watch(
+            () => currentRoute.value.matched,
+            (arr) => {
+                selectedKeys.value = []
+                for (let i = arr.length - 1; i >= 0; i--) {
+                    const { meta } = arr[i]
+                    const { id, hidden } = meta
+                    if (hidden) continue
+                    selectedKeys.value.push(id)
+                    if (rootSubMenuKeys.indexOf(id) !== -1 && openKeys.value.indexOf(id) === -1) {
+                        openKeys.value.push(id)
+                    }
+                }
+            },
+            { immediate: true }
+        )
 
         // 创建菜单
         const generateMenus = (routes: IResource[], fullPath = '') => {
@@ -77,18 +91,24 @@ export default defineComponent({
             }, '')
             return fullName.slice(1)
         }
+
         // menu点击事件
-        const handleMenuClick = ({ keyPath }: { keyPath: string[] }) => {
+        const handleMenuClick = ({ keyPath }: any) => {
             const name = generateNameList(keyPath, menus)
             // 路由跳转
             push({ name })
-            openKeys.value = keyPath
         }
+
         // submenu点击事件
         const handleTitleClick = ({ key }: { key: string }) => {
             const index = openKeys.value.indexOf(key)
             if (index === -1) {
-                openKeys.value.push(key)
+                // 手风琴模式开始
+                if (MENU_ACCORDION) {
+                    openKeys.value = [key]
+                } else {
+                    openKeys.value.push(key)
+                }
             } else {
                 openKeys.value.splice(index, 1)
             }
