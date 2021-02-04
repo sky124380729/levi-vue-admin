@@ -14,37 +14,7 @@
             </template>
         </lv-table>
 
-        <lv-modal-form v-model:visible="visible" v-model:form="form" :rules="rules" title="用户信息" @submit="submit">
-            <a-form-item label="登录名" name="username">
-                <a-input v-model:value="form.username" :disabled="!!form.id" />
-            </a-form-item>
-            <a-form-item label="用户编号" name="userNo">
-                <a-input v-model:value="form.userNo" />
-            </a-form-item>
-            <a-form-item label="姓名" name="realName">
-                <a-input v-model:value="form.realName" />
-            </a-form-item>
-            <template v-if="!form.id">
-                <a-form-item label="密码" name="password">
-                    <a-input v-model:value="form.password" />
-                </a-form-item>
-                <a-form-item label="确认密码" name="confirmPassword">
-                    <a-input v-model:value="form.confirmPassword" />
-                </a-form-item>
-            </template>
-            <a-form-item label="手机" name="mobile">
-                <a-input v-model:value="form.mobile" />
-            </a-form-item>
-            <a-form-item label="邮箱" name="email">
-                <a-input v-model:value="form.email" />
-            </a-form-item>
-            <a-form-item label="部门" name="dept">
-                <a-input v-model:value="form.dept" />
-            </a-form-item>
-            <a-form-item label="描述" name="note">
-                <a-textarea v-model:value="form.note" />
-            </a-form-item>
-        </lv-modal-form>
+        <lv-modal-form v-model:visible="visible" v-model:form="form" :label-width="90" :schemas="schemas" :rules="rules" title="用户信息" @submit="submit" />
 
         <a-modal v-model:visible="role.visible" title="设置角色" width="780px" @ok="submitRole">
             <lv-table :row-selection="rowSelection" :action="role.action" :terms="role.terms" :columns="role.columns"></lv-table>
@@ -53,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from 'vue'
+import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
 import type { Ref } from 'vue'
 import { ModalFormType } from '/@/components/FormModal'
 import useCRUD from '/@/hooks/useCRUD'
@@ -100,6 +70,41 @@ export default defineComponent({
             tableRef
         )
 
+        const schemas = ref([
+            {
+                key: 'username',
+                label: '登录名',
+                component: 'Input',
+                props: {
+                    disabled: computed(() => !!modelForm.form.id)
+                }
+            },
+            { key: 'userNo', label: '用户编号', component: 'Input' },
+            { key: 'realName', label: '姓名', component: 'Input' },
+            {
+                key: 'password',
+                label: '密码',
+                component: 'Input',
+                props: {
+                    type: 'password'
+                },
+                show: computed(() => !modelForm.form.id)
+            },
+            {
+                key: 'confirmPassword',
+                label: '确认密码',
+                component: 'Input',
+                props: {
+                    type: 'password'
+                },
+                show: computed(() => !modelForm.form.id)
+            },
+            { key: 'mobile', label: '手机', component: 'Input' },
+            { key: 'email', label: '邮箱', component: 'Input' },
+            { key: 'dept', label: '部门', component: 'Input' },
+            { key: 'note', label: '描述', component: 'InputTextArea' }
+        ])
+
         // 设置角色
         const role = reactive<any>({
             id: null,
@@ -134,6 +139,7 @@ export default defineComponent({
         return {
             ...toRefs(modelForm),
             ...crud,
+            schemas,
             columns,
             terms,
             tableRef,

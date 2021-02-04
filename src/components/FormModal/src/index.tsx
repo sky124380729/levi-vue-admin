@@ -17,7 +17,7 @@ export interface ModalFormType {
 }
 
 export default defineComponent({
-    name: 'LvModalForm',
+    name: 'LvFormModal',
     inheritAttrs: false,
     props: {
         visible: {
