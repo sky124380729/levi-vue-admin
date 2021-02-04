@@ -80,7 +80,7 @@ export default defineComponent({
                 rules: { type: 'string', required: true, message: '请选择客户行业' },
                 show: computed(() => model.show),
                 props: {
-                    dict: 'companyIndustry',
+                    dict: 'baoyang',
                     disabled: computed(() => model.disabled),
                     options: [
                         { label: 'x', value: '1' },

@@ -80,8 +80,8 @@ const store = createStore<GlobalData>({
                 })
 
                 /* 获取数据字典 */
-                // const dictRes = await getAllDictMap()
-                // commit('setDict', dictRes.data)
+                const dictRes = await getAllDictMap()
+                commit('setDict', dictRes.data)
                 /* OK */
 
                 commit('setAuthority')
