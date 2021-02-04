@@ -1,3 +1,5 @@
+import { isNumber, isString } from './is'
+
 // 深拷贝
 export function deepClone<T extends { hasOwnProperty: any }>(obj: T): T {
     if (!obj) return obj
@@ -58,4 +60,18 @@ export const ownAddEventListener = (scope: Window | HTMLElement, type: string, h
     return () => {
         scope.removeEventListener(type, handler, capture)
     }
+}
+
+// 千分位
+export const thousands = (num: any): string => {
+    return isString(num) || isNumber(num) ? (+num).toLocaleString() : ''
+}
+
+// 分钟转天数和小时
+export const formatMins = (minutes: number | string) => {
+    isString(minutes) && (minutes = +minutes)
+    const days = Math.floor(minutes / 24 / 60)
+    const hours = Math.floor((minutes % 1440) / 60)
+    const mins = minutes % 60
+    return `${days ? days + 'd' : ''}${hours ? hours + 'h' : ''}${mins + 'm'}`
 }
