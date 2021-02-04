@@ -10,6 +10,7 @@ import { ft } from '/@/utils'
 interface TagRaw {
     name: string
     title: string
+    path: string
     noCache?: boolean
 }
 
@@ -18,7 +19,7 @@ export default defineComponent({
     setup() {
         const { currentRoute, push } = useRouter()
         // 标签列表
-        const navTags = ref<TagRaw[]>([{ title: '首页', name: 'homepage' }])
+        const navTags = ref<TagRaw[]>([{ title: '首页', name: 'homepage', path: '/homepage' }])
         // tag ref
         const navTagsRef = ref<HTMLElement | null>(null)
         // 是否溢出
@@ -58,15 +59,6 @@ export default defineComponent({
             push({ name: tags[index].name })
         }
 
-        // watchEffect((onInvalidate) => {
-        //     window.onresize = () => {
-        //         setActiveTagShow()
-        //     }
-        //     onInvalidate(() => {
-        //         window.onresize = null
-        //     })
-        // })
-
         onMounted(() => {
             window.addEventListener('resize', setActiveTagShow)
         })
@@ -79,10 +71,10 @@ export default defineComponent({
         watch(
             () => currentRoute.value,
             (route) => {
-                const { name, meta } = route
+                const { name, path, meta } = route
                 const index = navTags.value.findIndex((v) => v.name === name)
                 if (index === -1) {
-                    navTags.value.push({ name: name as string, title: meta.title, noCache: meta.noCache })
+                    navTags.value.push({ name: name as string, path, title: meta.title, noCache: meta.noCache })
                 }
             },
             { immediate: true }
@@ -108,9 +100,9 @@ export default defineComponent({
             selectedIndex = index
         }
         // 点击标签路由跳转
-        const clickTag = (name: string, index: number): void => {
+        const clickTag = (path: string, index: number): void => {
             selectedIndex = index
-            push({ name })
+            push(path)
         }
 
         // 关闭栏
@@ -185,7 +177,7 @@ export default defineComponent({
                     </div>
                     <div class='nav-tag__content' ref={navTagsRef} onMousewheel={handleMousewheel}>
                         {unref(navTags).map((tag: TagRaw, index: number) => {
-                            const { name, title, noCache } = tag
+                            const { name, title, path, noCache } = tag
                             return (
                                 <Dropdown
                                     onContextmenu={() => {
@@ -202,7 +194,7 @@ export default defineComponent({
                                                 title={title}
                                                 closable={name !== 'homepage'}
                                                 onClose={() => closeTag(index)}
-                                                onClick={() => clickTag(name, index)}
+                                                onClick={() => clickTag(path, index)}
                                             ></Tag>
                                         ),
                                         overlay: () => <Menu onClick={({ key }) => handleMenuClick('tag', key)}>{renderActionBoard()}</Menu>
