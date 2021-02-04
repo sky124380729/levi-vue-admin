@@ -1,8 +1,9 @@
-import { defineComponent, onMounted, reactive, ref, unref, PropType } from 'vue'
+import { defineComponent, reactive, ref, unref, PropType } from 'vue'
 import { PageHeader, Table, Tooltip } from 'ant-design-vue'
 import type { ColumnProps } from 'ant-design-vue/lib/table/interface'
 import Icon from '/@/components/Icon'
 import Search from '/@/components/Search'
+import useInCacheFn from '/@/hooks/useInCacheFn'
 import { useStore } from 'vuex'
 import { useExpose } from '/@/hooks/useExpose'
 import './index.less'
@@ -69,6 +70,11 @@ export default defineComponent({
             form: {},
             terms: {}
         })
+
+        useInCacheFn(() => {
+            getList()
+        })
+
         // 分页属性
         const pagination = props.pageAble
             ? reactive({
@@ -151,10 +157,6 @@ export default defineComponent({
             striped: false,
             ellipsis: true,
             indexed: true
-        })
-
-        onMounted(() => {
-            getList()
         })
 
         const handleQuery = (terms: any) => {
