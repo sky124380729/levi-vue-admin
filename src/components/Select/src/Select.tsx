@@ -1,5 +1,5 @@
-import { computed, defineComponent, ref, unref } from 'vue'
-import type { PropType, Ref } from 'vue'
+import { computed, defineComponent, unref } from 'vue'
+import type { PropType } from 'vue'
 import { useStore } from 'vuex'
 import { Select, message } from 'ant-design-vue'
 import { SelectValue } from 'ant-design-vue/lib/select'
@@ -32,18 +32,16 @@ export default defineComponent({
     },
     emits: ['update:value'],
     setup(props, { emit, attrs }) {
-        const dictMap: Record<string, any> = useStore().state.dict
+        const dictMap: Recordable = useStore().state.dict
 
-        const selectRef = ref<Ref<SelectValue>>(
-            computed({
-                get() {
-                    return props.value || ''
-                },
-                set(val) {
-                    emit('update:value', val)
-                }
-            })
-        )
+        const selectRef = computed<SelectValue>({
+            get() {
+                return props.value || ''
+            },
+            set(val) {
+                emit('update:value', val)
+            }
+        })
 
         const list = computed(() => {
             const { dict, oLabel, oValue } = props

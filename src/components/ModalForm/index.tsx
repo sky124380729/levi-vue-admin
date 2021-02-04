@@ -42,24 +42,20 @@ export default defineComponent({
             formRef = ref
         }
         // visible
-        const visibleRef = ref(
-            computed({
-                get: () => props.visible,
-                set: (val) => {
-                    emit('update:visible', val)
-                }
-            })
-        )
+        const visibleRef = computed<boolean>({
+            get: () => props.visible,
+            set: (val) => {
+                emit('update:visible', val)
+            }
+        })
 
         // model
-        const modelRef = ref(
-            computed({
-                get: () => props.form,
-                set: (val) => {
-                    emit('update:form', val)
-                }
-            })
-        )
+        const modelRef = computed<any>({
+            get: () => props.form,
+            set: (val) => {
+                emit('update:form', val)
+            }
+        })
 
         const modalAfterClose = () => {
             formRef.value && formRef.value.clearValidate()
