@@ -316,9 +316,9 @@
   integrity sha1-xKld3AbKm5SW3wNgTmb977OfTEs=
 
 "@iconify/json@^1.1.265":
-  version "1.1.296"
-  resolved "https://registry.npm.taobao.org/@iconify/json/download/@iconify/json-1.1.296.tgz#470ec5ecae6467abc68c20ebf6d20e47e9f87e9b"
-  integrity sha1-Rw7F7K5kZ6vGjCDr9tIOR+n4fps=
+  version "1.1.297"
+  resolved "https://registry.npm.taobao.org/@iconify/json/download/@iconify/json-1.1.297.tgz#ae3409fc92df3c16f5a24b3fa6e2d32ab8a912d2"
+  integrity sha1-rjQJ/JLfPBb1oks/puLTKripEtI=
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
@@ -397,9 +397,9 @@
   integrity sha1-/iRjLnm3rePxMoka//hsql5c4Ag=
 
 "@types/node@^14.14.22":
-  version "14.14.22"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.22.tgz?cache=0&sync_timestamp=1611167664149&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.22.tgz#0d29f382472c4ccf3bd96ff0ce47daf5b7b84b18"
-  integrity sha1-DSnzgkcsTM872W/wzkfa9be4Sxg=
+  version "14.14.24"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.24.tgz#541c00e4f7c41c8f108bd5b045248b5224c62946"
+  integrity sha1-VBwA5PfEHI8Qi9WwRSSLUiTGKUY=
 
 "@types/nprogress@^0.2.0":
   version "0.2.0"
@@ -935,9 +935,9 @@ errno@^0.1.1:
     prr "~1.0.1"
 
 esbuild@^0.8.34:
-  version "0.8.39"
-  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.39.tgz#18b84a3d56173c55ee8f45bc6c7b5374b0a98ecb"
-  integrity sha1-GLhKPVYXPFXuj0W8bHtTdLCpjss=
+  version "0.8.40"
+  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.40.tgz?cache=0&sync_timestamp=1612413479102&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fesbuild%2Fdownload%2Fesbuild-0.8.40.tgz#2ca457d950b27c77f28010f4482bdb820560290f"
+  integrity sha1-LKRX2VCyfHfygBD0SCvbggVgKQ8=
 
 escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -2084,9 +2084,9 @@ vite-plugin-purge-icons@^0.5.0:
     rollup-plugin-purge-icons "^0.5.2"
 
 vite@^2.0.0-beta.23:
-  version "2.0.0-beta.62"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.62.tgz#3227fc63ecd3d6fc67b1b95add68cdcde09844b2"
-  integrity sha1-Mif8Y+zT1vxnsbla3WjNzeCYRLI=
+  version "2.0.0-beta.64"
+  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.64.tgz#245cabc72335911d4cb704545f713d47e880d84f"
+  integrity sha1-JFyrxyM1kR1MtwRUX3E9R+iA2E8=
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
