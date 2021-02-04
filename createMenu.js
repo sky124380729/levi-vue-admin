@@ -63,7 +63,6 @@ function createSQL(data, name = '', pid, arr = []) {
 fs.readFile(INPUT_PATH, 'utf-8', (err, data) => {
     if (err) chalk.red(err)
     const menuList = createSQL(JSON.parse(data))
-    console.log(menuList)
     const sql = menuList
         .map((sql) => {
             let value = ''
