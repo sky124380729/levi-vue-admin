@@ -1,5 +1,12 @@
 <template>
     <a-tabs type="card">
+        <a-tab-pane key="Form" tab="Form">
+            <lv-form v-model="model" :label-width="140" :schemas="schemas" :column="2" />
+            <a-space>
+                <a-button type="primary" @click="set('disabled')">设置禁用</a-button>
+                <a-button type="primary" @click="set('show')">设置显示</a-button>
+            </a-space>
+        </a-tab-pane>
         <a-tab-pane key="Table" tab="Table">
             <lv-table :action="action" :columns="columns"></lv-table>
         </a-tab-pane>
@@ -9,13 +16,6 @@
         <a-tab-pane key="FormModal" tab="FormModal">
             <lv-modal-form v-model:visible="visible" v-model:form="form" title="测试弹框" :label-width="100" :schemas="schemas"></lv-modal-form>
             <a-button type="primary" @click="visible = true">弹框</a-button>
-        </a-tab-pane>
-        <a-tab-pane key="Form" tab="Form">
-            <lv-form v-model="model" :label-width="140" :schemas="schemas" :column="2" />
-            <a-space>
-                <a-button type="primary" @click="set('disabled')">设置禁用</a-button>
-                <a-button type="primary" @click="set('show')">设置显示</a-button>
-            </a-space>
         </a-tab-pane>
     </a-tabs>
 </template>
@@ -71,7 +71,7 @@ export default defineComponent({
                     options: useList(fetchUserList, 'username')
                 }
             },
-            { key: 'companyName', label: '客户名称', component: 'Input', slots: { prefix: () => '$' } },
+            { key: 'companyName', label: '客户名称', component: 'LvInput', slots: { prefix: () => '$' } },
             { key: 'socialCreditCode', label: '信用代码', component: 'Input' },
             {
                 key: 'companyIndustry',
