@@ -13,14 +13,8 @@
                 <a-button type="link" size="small" @click="remove(record.id)">删除</a-button>
             </template>
         </lv-table>
-        <lv-modal-form v-model:form="form" v-model:visible="visible" title="用户信息" :rules="rules" :column="1" @submit="submit">
-            <a-form-item label="角色名称" name="roleName">
-                <a-input v-model:value="form.roleName" />
-            </a-form-item>
-            <a-form-item label="角色描述" name="note">
-                <a-textarea v-model:value="form.note" />
-            </a-form-item>
-        </lv-modal-form>
+
+        <lv-modal-form v-model:form="form" v-model:visible="visible" :schemas="schemas" title="用户信息" :rules="rules" :column="1" @submit="submit" />
 
         <a-modal v-model:visible="resource.visible" title="资源设置" destroy-on-close @ok="submitRole">
             <a-tree v-model:checkedKeys="resource.checkedKeys" :replace-fields="replaceFields" checkable :tree-data="resource.data" @check="onCheck"> </a-tree>
@@ -66,6 +60,10 @@ export default defineComponent({
             tableRef
         )
 
+        const schemas = ref([
+            { key: 'roleName', label: '角色名称', component: 'Input' },
+            { key: 'note', label: '角色描述', component: 'InputTextArea' }
+        ])
         onMounted(() => {
             getAllMenu()
         })
@@ -104,6 +102,7 @@ export default defineComponent({
         return {
             ...toRefs(modelForm),
             ...crud,
+            schemas,
             columns,
             terms,
             tableRef,
