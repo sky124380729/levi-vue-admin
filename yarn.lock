@@ -650,10 +650,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.8:
-  version "2.0.0-rc.9"
-  resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-2.0.0-rc.9.tgz#9f4d89b02bf2c6f3295633048001b2e13c229f1e"
-  integrity sha1-n02JsCvyxvMpVjMEgAGy4Twinx4=
+ant-design-vue@^2.0.0-rc.9:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ant-design-vue/-/ant-design-vue-2.0.0.tgz#d30ec06938dc3b43b08a117818fab91d7b083e5f"
+  integrity sha512-Uv35Z9V+8iT1PBO0QOqWHaVE4Gju94UfikL8NGxtAqy/yZDnTn8K2gz5n7PfQbB5oBqkEyn2O0mtOpUBUEXZ+g==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^6.0.0"
@@ -2083,10 +2083,10 @@ vite-plugin-purge-icons@^0.5.0:
     "@purge-icons/generated" "^0.5.2"
     rollup-plugin-purge-icons "^0.5.2"
 
-vite@^2.0.0-beta.23:
-  version "2.0.0-beta.64"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.64.tgz#245cabc72335911d4cb704545f713d47e880d84f"
-  integrity sha1-JFyrxyM1kR1MtwRUX3E9R+iA2E8=
+vite@^2.0.0-beta.65:
+  version "2.0.0-beta.65"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.0.0-beta.65.tgz#e4e4576c01b9906d5fb3568e4068c80354107a70"
+  integrity sha512-mdHNTP6fGeb8m8lWAM3UbSPw1+un1lUv0i4MQJcNiK2/P01RHIY02VjQeXBv3NemkExkgLji88LN9ySFMUQpIw==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"
