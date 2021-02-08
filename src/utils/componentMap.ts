@@ -12,7 +12,6 @@ type AntdComponentType =
     | 'InputNumber'
     | 'InputCountDown'
     | 'Select'
-    | 'LvSelect'
     | 'ApiSelect'
     | 'SelectOptGroup'
     | 'SelectOption'
@@ -37,7 +36,7 @@ type AntdComponentType =
 
 type LeviComponentType = 'LvInput' | 'LvSelect'
 
-type ComponentType = AntdComponentType & LeviComponentType
+type ComponentType = AntdComponentType | LeviComponentType
 
 const componentMap = new Map<string, Component>()
 
