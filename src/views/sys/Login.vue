@@ -7,7 +7,7 @@
         <div class="levi-login__body">
             <div class="login-box">
                 <a-page-header :ghost="false" title="Welcome to Levi Vue Admin">
-                    <a-form layout="vertical" :model="model" @submit="handleLogin" @submit.prevent>
+                    <a-form layout="vertical" :model="model" @submit.prevent="handleLogin">
                         <a-form-item>
                             <a-input v-model:value="model.username" placeholder="username">
                                 <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
@@ -45,8 +45,8 @@ export default defineComponent({
     },
     setup() {
         const model = reactive({
-            username: '',
-            password: ''
+            username: 'admin1',
+            password: '1234'
         })
         const handleLogin = async () => {
             const { username, password } = model

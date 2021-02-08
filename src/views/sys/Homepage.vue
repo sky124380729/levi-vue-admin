@@ -80,12 +80,8 @@ export default defineComponent({
                 rules: { type: 'string', required: true, message: '请选择客户行业' },
                 show: computed(() => model.show),
                 props: {
-                    dict: 'baoyang',
-                    disabled: computed(() => model.disabled),
-                    options: [
-                        { label: 'x', value: '1' },
-                        { label: 'y', value: '2' }
-                    ]
+                    dict: 'weixiu',
+                    disabled: computed(() => model.disabled)
                 }
             },
             { key: 'test', label: '测试时间', component: 'DatePicker' }

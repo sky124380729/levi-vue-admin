@@ -10,18 +10,6 @@ const viteConfig: UserConfig = {
     alias: {
         '/@': pathResolve('./src')
     },
-    // proxy: {
-    //     // string shorthand
-    //     '/foo': 'http://localhost:4567/foo'
-    //     // with options
-    //     // '/api': {
-    //     //     target: 'http://jsonplaceholder.typicode.com',
-    //     //     changeOrigin: true,
-    //     //     rewrite: (path) => path.replace(/^\/api/, '')
-    //     // }
-    // },
-    // The package will be recompiled using rollup, and the new package compiled into the esm module specification will be put into node_modules/.vite_opt_cache
-    // fix the problem when import ant-design icons don't works
     css: {
         preprocessorOptions: {
             less: {
@@ -33,6 +21,10 @@ const viteConfig: UserConfig = {
                 javascriptEnabled: true
             }
         }
+    },
+    server: {
+        port: 3399,
+        open: true
     },
     optimizeDeps: {
         include: ['@ant-design/icons-vue', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US']
