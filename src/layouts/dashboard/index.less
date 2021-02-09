@@ -42,6 +42,9 @@
         // 塌陷的样式
         &.isCollapse {
             width: @menu-collapsed-width;
+            .logo h1 {
+                display: none;
+            }
             &+.levi-main {
                 margin-left: @menu-collapsed-width;
             }
