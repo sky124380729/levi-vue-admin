@@ -2,10 +2,19 @@ import Mock from 'mockjs'
 
 import { API_MOCK } from '/@/config'
 
-const modules = API_MOCK ? import.meta.globEager('./modules/*.ts') : []
-
-console.log(modules)
-
 Mock.setup({
-    timeout: '100-300'
+    timeout: '0-200'
+})
+
+const modules: any = API_MOCK ? import.meta.globEager('./modules/*.ts') : []
+
+const mockModules: any[] = []
+Object.keys(modules).forEach((key) => {
+    mockModules.push(...modules[key].default)
+})
+
+console.log(mockModules)
+
+mockModules.forEach(({ url, method, t }) => {
+    Mock.mock(url, method, t)
 })

@@ -1,15 +1,20 @@
-import Mock from 'mockjs'
-
-// 角色绑定资源查询
-Mock.mock(/roleMenu\/roleId\/.+/, 'get', {
-    code: 0,
-    data: [],
-    success: true
-})
-
-// 角色绑定资源提交
-Mock.mock(/roleMenu\/saveOrUpdate\/.+/, 'post', {
-    code: 0,
-    data: null,
-    success: true
-})
+export default [
+    {
+        url: /roleMenu\/roleId\/.+/,
+        method: 'get',
+        t: {
+            code: 0,
+            data: [],
+            success: true
+        }
+    },
+    {
+        url: /roleMenu\/saveOrUpdate\/.+/,
+        method: 'post',
+        t: {
+            code: 0,
+            data: null,
+            success: true
+        }
+    }
+]

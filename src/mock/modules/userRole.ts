@@ -1,15 +1,20 @@
-import Mock from 'mockjs'
-
-// 用户绑定角色查询
-Mock.mock(/userRole\/userId\/.+/, 'get', {
-    code: 0,
-    data: [],
-    success: true
-})
-
-// 用户绑定角色提交
-Mock.mock(/userRole\/saveOrUpdate\/.+/, 'post', {
-    code: 0,
-    data: null,
-    success: true
-})
+export default [
+    {
+        url: /userRole\/userId\/.+/,
+        method: 'get',
+        t: {
+            code: 0,
+            data: [],
+            success: true
+        }
+    },
+    {
+        url: /userRole\/saveOrUpdate\/.+/,
+        method: 'post',
+        t: {
+            code: 0,
+            data: null,
+            success: true
+        }
+    }
+]
