@@ -27,7 +27,7 @@ export interface FormSchema {
 }
 
 export default defineComponent({
-    name: 'Levi-Form',
+    name: 'LvForm',
     props: {
         modelValue: {
             type: Object as PropType<Recordable>,
