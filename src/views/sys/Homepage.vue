@@ -21,10 +21,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, toRefs } from 'vue'
+import { defineComponent, ref, reactive, toRef, computed, toRefs } from 'vue'
 import useList from '/@/hooks/useList'
 import { fetchUserList, fetchUserPage } from '/@/apis/modules/user'
-import Form from '/@/components/Form'
+import Form, { FormSchema } from '/@/components/Form'
 import ModalForm from '/@/components/ModalForm'
 export default defineComponent({
     components: {
@@ -62,13 +62,27 @@ export default defineComponent({
             disabled: false,
             show: true
         })
-        const schemas = ref([
+
+        const schemas = ref<FormSchema[]>([
             {
-                key: '用户名称',
+                key: 'username',
                 label: '用户名称',
                 component: 'LvSelect',
                 props: {
                     options: useList(fetchUserList, 'username')
+                }
+            },
+            {
+                key: 'type',
+                label: '类型',
+                component: 'Select',
+                show: computed(() => model.show),
+                props: {
+                    disabled: toRef(model, 'disabled'),
+                    options: [
+                        { label: '电商', value: 'a' },
+                        { label: '实体店', value: 'b' }
+                    ]
                 }
             },
             { key: 'companyName', label: '客户名称', component: 'LvInput', slots: { prefix: () => '$' } },
@@ -78,7 +92,6 @@ export default defineComponent({
                 label: '客户行业',
                 component: 'LvSelect',
                 rules: { type: 'string', required: true, message: '请选择客户行业' },
-                show: computed(() => model.show),
                 props: {
                     dict: 'weixiu',
                     disabled: computed(() => model.disabled)

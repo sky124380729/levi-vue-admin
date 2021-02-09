@@ -71,17 +71,17 @@ export default defineComponent({
             return list
         })
 
-        // 覆盖传进来的onChange事件
-        const { onChange, ...selectAttrs } = attrs
-
-        const handleChange = (val: SelectValue, ...args: any[]) => {
-            selectRef.value = val
-            if (onChange && typeof onChange === 'function') {
-                onChange.apply(void 0, [val, ...args])
-            }
-        }
-
         return () => {
+            // 覆盖传进来的onChange事件
+            const { onChange, ...selectAttrs } = attrs
+
+            const handleChange = (val: SelectValue, ...args: any[]) => {
+                selectRef.value = val
+                if (onChange && typeof onChange === 'function') {
+                    onChange.apply(void 0, [val, ...args])
+                }
+            }
+
             return <Select {...selectAttrs} value={unref(selectRef)} onChange={handleChange} options={unref(list)}></Select>
         }
     }

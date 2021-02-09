@@ -16,10 +16,8 @@ export interface FormSchema {
     labelWidth?: string | number
     // Wrapper width, if it is passed, the labelCol and WrapperCol configured by itemProps will be invalid
     wrapperWidth?: string | number
-    // Field disbaled
-    disabled?: boolean
     // Field show
-    show?: boolean
+    show?: any
     // Field rules
     rules?: any
     // Component props
