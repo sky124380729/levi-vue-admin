@@ -45,7 +45,7 @@ export function ft(deltaTime: number, distance: number, duration = 300) {
 
 // 延迟函数
 export function debounce(fn: (...args: unknown[]) => unknown, timeout = 300) {
-    let timer: number | undefined
+    let timer: TimeoutHandle
     return function (this: Window, ...args: unknown[]) {
         clearTimeout(timer)
         timer = setTimeout(() => {

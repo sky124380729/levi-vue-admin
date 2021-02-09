@@ -1,5 +1,5 @@
 const useDebounce = (fn: (...args: unknown[]) => unknown, wait = 300) => {
-    let timer: number | undefined
+    let timer: TimeoutHandle
     return function (this: Window, ...args: unknown[]) {
         clearTimeout(timer)
         timer = setTimeout(() => {

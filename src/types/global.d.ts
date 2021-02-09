@@ -21,6 +21,10 @@ declare interface ResponseData<T = any> {
     success: boolean
 }
 
+declare type TimeoutHandle = ReturnType<typeof setTimeout>
+
+declare type IntervalHandle = ReturnType<typeof setInterval>
+
 declare function parseInt(s: string | number, radix?: number): number
 
 declare function parseFloat(string: string | number): number
