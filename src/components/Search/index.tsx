@@ -3,7 +3,7 @@ import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
 import { FormSchema } from '/@/components/Form'
-import { isNumber } from '/@/utils/is'
+import { isNumber, isString } from '/@/utils/is'
 
 import Icon from '/@/components/Icon'
 interface FormProps {
@@ -78,7 +78,7 @@ export default defineComponent({
                 [eventKey]: (e: Nullable<Recordable>) => {
                     const target = e ? e.target : null
                     const value = target ? (isCheck ? target.checked : target.value) : e
-                    model[key] = value
+                    model[key] = isString(value) ? value.trim() : value
                 }
             }
             const compAttr: any = {
