@@ -5,4 +5,4 @@ interface LoginModel {
     password: string
 }
 
-export const login = (data: LoginModel) => request.post('/login', data)
+export const login = (data: LoginModel) => request.post('login', data)

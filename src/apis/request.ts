@@ -3,10 +3,10 @@ import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } fro
 import { HTTP_STRATEGY } from './tactics'
 import Cookies from 'js-cookie'
 import { message } from 'ant-design-vue'
-import { BASE_URL } from '/@/config'
+import { BASE_URL, API_MOCK } from '/@/config'
 
 const service: AxiosInstance = axios.create({
-    baseURL: BASE_URL
+    baseURL: API_MOCK ? undefined : BASE_URL
 })
 
 // request interceptors
