@@ -1,12 +1,6 @@
 <template>
     <div>
-        <lv-table ref="tableRef" title="用户管理" :terms="terms" :columns="columns" :action="action">
-            <template #extra>
-                <a-button type="primary" @click="handle()">
-                    <template #icon> <lv-icon icon="ic:round-add-circle-outline" /></template>
-                    <span>新增</span>
-                </a-button>
-            </template>
+        <lv-table ref="tableRef" title="用户管理" :terms="terms" :columns="columns" :action="action" @create="handle()">
             <template #operation="{ record }">
                 <a-button type="link" size="small" @click="handle(record.id)">编辑</a-button>
                 <a-button type="link" size="small" @click="setRole(record.id)">选择角色</a-button>
