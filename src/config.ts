@@ -6,7 +6,7 @@ export const BASE_URL = 'http://172.16.10.97:9091/server'
 export const FILE_URL = 'xxx'
 
 // api mock
-export const API_MOCK = false
+export const API_MOCK = true
 
 // menu mock
 export const MENU_MOCK = true
