@@ -39,8 +39,15 @@
             }
         }
     }
+
     .levi-main {
         margin-left: @--menu-width-fullfilled;
+        overflow-x: auto;
+        .levi-header {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 5px 1px rgba(100, 166, 204, 0.3);
+        }
         .levi-navbar {
             display: flex;
             align-items: center;

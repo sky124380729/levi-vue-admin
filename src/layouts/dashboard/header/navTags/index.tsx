@@ -189,7 +189,7 @@ export default defineComponent({
                                         default: () => (
                                             <Tag
                                                 active={name === currentRoute.value.name}
-                                                icon={noCache ? 'mdi:checkbox-multiple-blank-circle-outline' : 'mdi:checkbox-multiple-blank-circle'}
+                                                icon={noCache ? 'mdi:shield-remove' : 'mdi:shield-plus'}
                                                 key={name}
                                                 title={title}
                                                 closable={name !== 'homepage'}
