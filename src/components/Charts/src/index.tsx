@@ -2,7 +2,7 @@ import { defineComponent, onActivated, onMounted, PropType, ref, watch, watchEff
 import type { EChartOption, ECharts } from 'echarts'
 import echarts from 'echarts'
 import { debounce, ownAddEventListener } from '/@/utils'
-import './index.less'
+import { isNumber } from '/@/utils/is'
 
 export default defineComponent({
     name: 'LvCharts',
@@ -10,6 +10,10 @@ export default defineComponent({
         options: {
             required: true,
             type: Object as PropType<EChartOption>
+        },
+        height: {
+            type: [Number, String] as PropType<string | number>,
+            default: 300
         }
     },
     setup(props) {
@@ -49,6 +53,10 @@ export default defineComponent({
             })
         })
 
-        return () => <div class='levi-charts' ref={wrapper}></div>
+        return () => {
+            let { height } = props
+            height = isNumber(height) ? `${height}px` : height
+            return <div class='levi-charts' style={{ height }} ref={wrapper}></div>
+        }
     }
 })

@@ -13,8 +13,6 @@ Object.keys(modules).forEach((key) => {
     mockModules.push(...modules[key].default)
 })
 
-console.log(mockModules)
-
 mockModules.forEach(({ url, method, t }) => {
     Mock.mock(url, method, t)
 })
