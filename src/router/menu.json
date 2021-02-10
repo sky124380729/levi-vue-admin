@@ -47,6 +47,24 @@
                         "component": "/system/resource"
                     }
                 ]
+            },
+            {
+                "id": "a7d20965884d40aebd7808827741013e",
+                "title": "实用功能",
+                "name": "buffer",
+                "type": "MENU",
+                "path": "/buffer",
+                "icon": "ri:settings-5-line",
+                "children":[
+                    {
+                        "id": "27b2e6818b1e48a68fc7c59674b4950d",
+                        "title": "录屏功能",
+                        "name": "screenrecorder",
+                        "type": "MENU",
+                        "path": "screenrecorder",
+                        "component": "/buffer/screenrecorder"
+                    }
+                ]
             }
         ]
     }
