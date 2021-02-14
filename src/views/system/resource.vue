@@ -1,10 +1,11 @@
 <template>
-    <div class="resource">
+    <div class="resource" style="background-color: #fff">
         <a-alert
             message="Warning..............."
             description="系统的菜单是由前端通过配置文件导出SQL放到数据库中，后端直接操作数据库会导致部署到各个环境不一致，需要修改菜单数据请联系前端"
             show-icon
         />
+        <a-divider>关于此处的RBAC设计，可参考我的<a target="_blank" href="https://segmentfault.com/a/1190000037670317">blog</a></a-divider>
         <a-table class="mt20" bordered row-key="id" :columns="columns" :data-source="data">
             <template #type="{ text: type }">
                 <a-tag v-if="type === 'MODULE'" color="#108ee9">

@@ -20,8 +20,16 @@
             align-items: center;
             justify-content: center;
             background-color: @menu-dark-bg;
+            color: #fff;
+            h1 {
+                color: #fff;
+                font-size: 18px;
+                margin: 0 10px;
+                font-weight: 600;
+            }
             img {
-                width: 80%;
+                max-height: 80%;
+                object-fit: contain;
             }
         }
         .menu {
@@ -34,13 +42,23 @@
         // 塌陷的样式
         &.isCollapse {
             width: @menu-collapsed-width;
+            .logo h1 {
+                display: none;
+            }
             &+.levi-main {
                 margin-left: @menu-collapsed-width;
             }
         }
     }
+
     .levi-main {
         margin-left: @--menu-width-fullfilled;
+        overflow-x: auto;
+        .levi-header {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 5px 1px rgba(100, 166, 204, 0.3);
+        }
         .levi-navbar {
             display: flex;
             align-items: center;

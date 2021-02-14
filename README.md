@@ -1,42 +1,89 @@
-# levi-vue-admin
-## 简介
-本项目主要基于vue3.0 + vite + antd-design-vue
+<p align="center">
+  <a href="https://github.com/sky124380729/levi-vue-admin/">
+    <img width="200" src="https://qn.antdv.com/logo.png">
+  </a>
+</p>
 
-## 快速开始
+<h1 align="center">
+  <a href="https://github.com/sky124380729/levi-vue-admin/" target="_blank">Levi Vue Admin</a>
+</h1>
+
+<h2 align="center" style="color:aqua">
+    It's a vite+vue3+typescript+ant-design-vue project
+</h2>
+
+## Project setup
+
+```shell
+yarn
 ```
-yarn // 安装
-yarn dev  // 本地运行
-yarn build // 打包
+
+### Compiles and hot-reloads for development
+
+```shell
+yarn dev
 ```
-## 目录结构
+
+### Create menu tree Sql
+
+```shell
+yarn run menu
+```
+
+### Create api or page
+
+```shell
+npm run new
+```
+
+### Compiles and minifies for production
+
+```shell
+yarn build
+```
+
+### Run your tests
+
+```shell
+yarn test
+```
+
+### Lints and fixes files
+
+```shell
+yarn lint
+```
+
+> this is a personal project,welcome to fork and pr
+
+## structure
 ```
 ├── README.md
 ├── createMenu.js
 ├── index.html
 ├── package.json
-├── public // 一些全局的文件
-│   └── favicon.ico
-├── src // 主要代码文件夹
+├── public // global static files
+│   └── favicon.ico
+├── src // main code
 │   ├── App.tsx
-│   ├── apis // 存放和后端连接的文件
-│   ├── assets // 存放图片，字体等文件
-│   ├── components // vue组件存放目录
-│   ├── config.ts // 配置
+│   ├── apis // connect service
+│   ├── assets // pic fonts ..
+│   ├── components // vue compontents
+│   ├── config.ts
 │   ├── hooks
-│   ├── layouts // 页面布局文件夹
+│   ├── layouts // global layouts
 │   ├── main.ts 
-│   ├── pages // 页面文件夹
+│   ├── pages //
 │   ├── permission.ts
 │   ├── router
-│   ├── store // vuex操纵数据
+│   ├── store // vuex 
 │   ├── styles
 │   ├── types
 │   ├── useApp.ts
-│   ├── utils // 辅助文件夹
-│   └── views // 主要页面逻辑
+│   ├── utils 
+│   └── views
 ├── tsconfig.json
 ├── vite.config.ts
 ├── yarn-error.log
 └── yarn.lock
 ```
-

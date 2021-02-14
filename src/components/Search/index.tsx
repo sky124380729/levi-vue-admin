@@ -3,7 +3,7 @@ import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
 import { FormSchema } from '/@/components/Form'
-import { isNumber } from '/@/utils/is'
+import { isNumber, isString } from '/@/utils/is'
 
 import Icon from '/@/components/Icon'
 interface FormProps {
@@ -78,7 +78,7 @@ export default defineComponent({
                 [eventKey]: (e: Nullable<Recordable>) => {
                     const target = e ? e.target : null
                     const value = target ? (isCheck ? target.checked : target.value) : e
-                    model[key] = value
+                    model[key] = isString(value) ? value.trim() : value
                 }
             }
             const compAttr: any = {
@@ -107,16 +107,16 @@ export default defineComponent({
                         ))}
                         <Form.Item>
                             <Space size={10}>
-                                <Button type='primary' onClick={() => query(true)}>
+                                <Button type='primary' shape='round' onClick={() => query(true)}>
                                     {{
-                                        default: () => <span>查询</span>,
-                                        icon: () => <Icon icon='uil:search' />
+                                        default: () => <span>search</span>,
+                                        icon: () => <Icon size={14} icon='uil:search' />
                                     }}
                                 </Button>
-                                <Button type='danger' onClick={() => query(false)}>
+                                <Button type='danger' shape='round' onClick={() => query(false)}>
                                     {{
-                                        default: () => <span>重置</span>,
-                                        icon: () => <Icon icon='mdi:delete' />
+                                        default: () => <span>reset</span>,
+                                        icon: () => <Icon size={14} icon='ant-design:delete-row-outlined' />
                                     }}
                                 </Button>
                             </Space>

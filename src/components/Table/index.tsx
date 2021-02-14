@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { defineComponent, reactive, ref, unref, PropType } from 'vue'
 import { PageHeader, Table, Tooltip } from 'ant-design-vue'
 import type { ColumnProps } from 'ant-design-vue/lib/table/interface'
@@ -139,19 +140,6 @@ export default defineComponent({
             }
         }
 
-        const handle = async ({ id }: { id: string }) => {
-            if (typeof attrs.onAdd === 'function') {
-                attrs.onAdd('sds')
-            }
-            if (id) {
-                // const res = await getUser(id)
-                // const res = null
-                // if (!res) return
-                // model.form = res.data
-            }
-            // visible.value = true
-        }
-
         const tableSettings = reactive<any>({
             bordered: false,
             striped: false,
@@ -169,20 +157,22 @@ export default defineComponent({
         }
 
         const getTableSlots = () => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { extra, ...tableSlots } = slots
             return { ...tableSlots }
         }
 
+        // if there is create function, add create button default
         const getExtraSlots = () => {
             const extraSlots: any[] = []
             slots.extra && extraSlots.push(slots.extra())
-            const hasAddBtn = props.operation.includes('add')
-            hasAddBtn &&
+            const { onCreate } = attrs
+            typeof onCreate === 'function' &&
                 extraSlots.push(
-                    <a-button type='primary' onClick={handle}>
+                    <a-button type='primary' shape='round' onClick={onCreate}>
                         {{
-                            icon: () => <Icon icon='ic:round-add-circle-outline' />,
-                            default: () => <span>新增</span>
+                            icon: () => <Icon icon='gridicons:create' />,
+                            default: () => <span>create</span>
                         }}
                     </a-button>
                 )

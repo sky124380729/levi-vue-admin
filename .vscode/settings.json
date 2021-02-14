@@ -1,5 +1,14 @@
 {
     //===========================================
+    //============= Editor ======================
+    //===========================================
+    "workbench.colorTheme": "Atom One Dark",
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    // vetur  template 根据ts 提示
+    "vetur.experimental.templateInterpolationService": true,
+    //===========================================
     //============= emmet =======================
     //===========================================
     "emmet.triggerExpansionOnTab": true,
@@ -19,22 +28,15 @@
     // ===========================================
     // ================ Eslint ===================
     // ===========================================
-    // "eslint.enable": true,
-    // "editor.codeActionsOnSave": {
-    //     "source.fixAll.eslint": true
-    // },
-    // "eslint.alwaysShowStatus": true,
-    // "eslint.options": {
-    //     // 配置
-    //     "plugins": ["html", "vue", "javascript", "jsx", "typescript"],
-    //     "extensions": [".js", ".jsx", ".ts", ".tsx", ".vue"]
-    // },
-    // "eslint.validate": [
-    //     "javascript",
-    //     "typescript",
-    //     "reacttypescript",
-    //     "reactjavascript",
-    //     "html",
-    //     "vue"
-    // ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue",
+        "typescript",
+        "typescriptreact",
+        "json"
+    ],
 }

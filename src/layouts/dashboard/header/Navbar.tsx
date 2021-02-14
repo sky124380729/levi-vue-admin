@@ -17,7 +17,6 @@ export default defineComponent({
         type MenuKey = 'settings' | 'logout'
         // menu点击事件
         const handleMenuClick = ({ key }: { key: MenuKey }) => {
-            // console.log(key)
             if (key === 'settings') {
                 message.warn('此功能暂未开放')
             } else if (key === 'logout') {

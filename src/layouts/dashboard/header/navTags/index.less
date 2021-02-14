@@ -1,5 +1,8 @@
 
+@import (reference) '../../../../styles/index.less';
+
 @--tag-height: 28px;
+@--tag-primary-color: #999;
 
 
 .nav-tag {
@@ -7,7 +10,6 @@
     height: 40px;
     align-items: center;
     background-color: #fff;
-    border-bottom: 1px solid #dee0e2;
     padding: 0 10px;
     &__prev,&__next,&__action {
         display: flex;
@@ -15,13 +17,13 @@
         justify-content: center;
         width: @--tag-height;
         height: @--tag-height;
-        border: 1px solid var(--theme-color);
-        color: var(--theme-color);
+        border: 1px solid @primary-color;
+        color: @primary-color;
         font-size: 12px;
         cursor: pointer;
         transition: all .2s linear;
         &:hover {
-            background-color: var(--theme-color);
+            background-color: @primary-color;
             color: #fff;
             border-radius: 50%;
             .iconify {
@@ -29,7 +31,7 @@
             }
         }
         .iconify {
-            color: var(--theme-color);
+            color: @primary-color;
         }
     }
     &__action {
@@ -44,9 +46,9 @@
     }
     &--disabled {
         pointer-events: none;
-        border-color: #999;
+        border-color: @--tag-primary-color;
         .iconify {
-            color: #999;
+            color: @--tag-primary-color;
         }
     }
 }
@@ -56,14 +58,15 @@
 .nav-tag-btn {
     display: flex;
     align-items: center;
-    border: 1px solid #999;
+    border: 1px solid @--tag-primary-color;
     padding: 0px 6px;
     height: 100%;
-    color: #999;
+    color: @--tag-primary-color;
     font-size: 12px;
     margin-right: 5px;
     white-space: nowrap;
     cursor: pointer;
+    transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
     &__title {
         margin: 0 2px;
     }
@@ -71,7 +74,7 @@
         transition: all .3s linear;
         border-radius: 50%;
         &:hover {
-            background-color: var(--theme-color);
+            background-color: @primary-color;
             color: #fff;
         }
     }
@@ -79,7 +82,11 @@
         margin-right: 0;
     }
     &.active {
-        border-color: var(--theme-color);
-        color: var(--theme-color);
+        border-color: @primary-color;
+        color: @primary-color;
+    }
+    &:hover {
+        border-radius: 10%;
+        border: 1px dashed @primary-color;
     }
 }

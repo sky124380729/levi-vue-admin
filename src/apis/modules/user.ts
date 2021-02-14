@@ -6,7 +6,7 @@ import request from '../request'
 // }
 
 // 新增
-export const createUser = (data: any) => request.post('user/save/', data)
+export const createUser = (data: any) => request.post('user/save', data)
 // 删除
 export const removeUser = (id: string) => request.delete(`user/${id}`)
 // 更新

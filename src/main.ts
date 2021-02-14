@@ -5,6 +5,9 @@ import store from './store'
 import { setApp } from '/@/useApp'
 import { registerGC } from './components'
 
+// mock
+import './mock'
+
 // auth
 import './permission'
 

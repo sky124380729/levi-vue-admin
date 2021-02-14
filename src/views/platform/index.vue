@@ -1,83 +1,65 @@
 <template>
-    <div>
-        <Form layout="inline" :label-col="{ span: 12 }" label-align="right" :model="model" :schemas="schemas"></Form>
-        <Charts :options="options"></Charts>
-    </div>
+    <lv-charts :options="options" :height="800"></lv-charts>
 </template>
 
 <script lang="ts">
-import Form, { FormSchema } from '/@/components/Form'
-import Charts from '/@/components/Charts/index'
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 export default defineComponent({
     name: 'platform',
-    components: {
-        Form,
-        Charts
-    },
     setup() {
-        const schemas: FormSchema[] = [
-            {
-                key: 'name',
-                label: '姓名',
-                component: 'Input'
-            },
-            {
-                key: 'code',
-                label: '编码',
-                component: 'Select',
-                props: {
-                    options: [
-                        { label: 'x', value: '1' },
-                        { label: 'y', value: '2' }
-                    ]
+        let options = ref({})
+
+        function getLevelOption() {
+            return [
+                {
+                    itemStyle: {
+                        borderWidth: 0,
+                        gapWidth: 5
+                    }
+                },
+                {
+                    itemStyle: {
+                        gapWidth: 1
+                    }
+                },
+                {
+                    colorSaturation: [0.35, 0.5],
+                    itemStyle: {
+                        gapWidth: 1,
+                        borderColorSaturation: 0.6
+                    }
                 }
-            }
-        ]
-        const model = reactive({})
-        return {
-            schemas,
-            model,
-            options: {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c} ({d}%)'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 10,
-                    data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-                },
-                series: [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            show: false,
-                            position: 'center'
-                        },
-                        emphasis: {
+            ]
+        }
+
+        onMounted(() => {
+            import('./disk.tree.json').then(({ default: diskData }) => {
+                options.value = {
+                    title: {
+                        text: 'Disk Usage',
+                        left: 'center'
+                    },
+                    series: [
+                        {
+                            name: 'Disk Usage',
+                            type: 'treemap',
+                            visibleMin: 300,
                             label: {
                                 show: true,
-                                fontSize: '30',
-                                fontWeight: 'bold'
-                            }
-                        },
-                        labelLine: {
-                            show: false
-                        },
-                        data: [
-                            { value: 335, name: '直接访问' },
-                            { value: 310, name: '邮件营销' },
-                            { value: 234, name: '联盟广告' },
-                            { value: 135, name: '视频广告' },
-                            { value: 1548, name: '搜索引擎' }
-                        ]
-                    }
-                ]
-            }
+                                formatter: '{b}'
+                            },
+                            itemStyle: {
+                                borderColor: '#fff'
+                            },
+                            levels: getLevelOption(),
+                            data: diskData
+                        }
+                    ]
+                }
+            })
+        })
+        return {
+            options
         }
     }
 })

@@ -396,6 +396,11 @@
   resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.168.tgz?cache=0&sync_timestamp=1610980821904&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha1-/iRjLnm3rePxMoka//hsql5c4Ag=
 
+"@types/mockjs@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/mockjs/-/mockjs-1.0.3.tgz#bd8ee3c7cbbd9a18788ab677b9e4f97c8d0bb0bf"
+  integrity sha512-OlwyyyoY81P8f7FU0zILUPxqQQ3/W+CwbqI6dWvOxaH8w948fAl1+hOG9C9ZgJcwzG+aloJcsastY4c4p91R1Q==
+
 "@types/node@^14.14.22":
   version "14.14.24"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.24.tgz#541c00e4f7c41c8f108bd5b045248b5224c62946"
@@ -650,10 +655,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-ant-design-vue@^2.0.0-rc.8:
-  version "2.0.0-rc.9"
-  resolved "https://registry.npm.taobao.org/ant-design-vue/download/ant-design-vue-2.0.0-rc.9.tgz#9f4d89b02bf2c6f3295633048001b2e13c229f1e"
-  integrity sha1-n02JsCvyxvMpVjMEgAGy4Twinx4=
+ant-design-vue@^2.0.0-rc.9:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ant-design-vue/-/ant-design-vue-2.0.0.tgz#d30ec06938dc3b43b08a117818fab91d7b083e5f"
+  integrity sha512-Uv35Z9V+8iT1PBO0QOqWHaVE4Gju94UfikL8NGxtAqy/yZDnTn8K2gz5n7PfQbB5oBqkEyn2O0mtOpUBUEXZ+g==
   dependencies:
     "@ant-design-vue/use" "^0.0.1-0"
     "@ant-design/icons-vue" "^6.0.0"
@@ -672,6 +677,11 @@ ant-design-vue@^2.0.0-rc.8:
     shallow-equal "^1.0.0"
     vue-types "^3.0.0"
     warning "^4.0.0"
+
+apite@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/apite/-/apite-1.2.0.tgz#fb147e4249ee4898dd52b5f9ec6f264a39c57c27"
+  integrity sha512-shPeezsTusnrFcAk5xNb3Mu1Znuhx2Dt1qPzCOeyzcN/MqVhoRKLU9dcHkY8gNGr51reK4cq/87+yK68V56o7A==
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -797,6 +807,11 @@ colorette@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npm.taobao.org/colorette/download/colorette-1.2.1.tgz#4d0b921325c14faf92633086a536db6e89564b1b"
   integrity sha1-TQuSEyXBT6+SYzCGpTbbbolWSxs=
+
+commander@*:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-7.0.0.tgz#3e2bbfd8bb6724760980988fb5b22b7ee6b71ab2"
+  integrity sha512-ovx/7NkTrnPuIV8sqk/GjUIIM1+iUQeqA3ye2VNpq9sVoiZsooObWlQy+OPWGI17GDaEoybuAGJm6U8yC077BA==
 
 compute-scroll-into-view@^1.0.16:
   version "1.0.16"
@@ -1585,6 +1600,13 @@ mitt@^2.1.0:
   resolved "https://registry.npm.taobao.org/mitt/download/mitt-2.1.0.tgz?cache=0&sync_timestamp=1594823826025&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmitt%2Fdownload%2Fmitt-2.1.0.tgz#f740577c23176c6205b121b2973514eade1b2230"
   integrity sha1-90BXfCMXbGIFsSGylzUU6t4bIjA=
 
+mockjs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mockjs/-/mockjs-1.1.0.tgz#e6a0c378e91906dbaff20911cc0273b3c7d75b06"
+  integrity sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==
+  dependencies:
+    commander "*"
+
 moment@^2.27.0, moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
@@ -2083,10 +2105,10 @@ vite-plugin-purge-icons@^0.5.0:
     "@purge-icons/generated" "^0.5.2"
     rollup-plugin-purge-icons "^0.5.2"
 
-vite@^2.0.0-beta.23:
-  version "2.0.0-beta.64"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.0-beta.64.tgz#245cabc72335911d4cb704545f713d47e880d84f"
-  integrity sha1-JFyrxyM1kR1MtwRUX3E9R+iA2E8=
+vite@^2.0.0-beta.65:
+  version "2.0.0-beta.65"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.0.0-beta.65.tgz#e4e4576c01b9906d5fb3568e4068c80354107a70"
+  integrity sha512-mdHNTP6fGeb8m8lWAM3UbSPw1+un1lUv0i4MQJcNiK2/P01RHIY02VjQeXBv3NemkExkgLji88LN9ySFMUQpIw==
   dependencies:
     esbuild "^0.8.34"
     postcss "^8.2.1"

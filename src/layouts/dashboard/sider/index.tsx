@@ -4,7 +4,7 @@ import { useStore } from 'vuex'
 import Icon from '/@/components/Icon'
 import type { IResource } from '/@/router/types'
 import { useRouter } from 'vue-router'
-import LogoImg from '/@/assets/images/ck-logo.png'
+import LogoImg from '/@/assets/images/logo.png'
 import store from '/@/store'
 import { MENU_ACCORDION } from '/@/config'
 
@@ -119,6 +119,7 @@ export default defineComponent({
                 <>
                     <div class='logo'>
                         <img src={LogoImg} />
+                        <h1>Levi Vue Admin</h1>
                     </div>
                     <div class='menu'>
                         <Menu

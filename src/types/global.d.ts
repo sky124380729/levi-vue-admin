@@ -8,6 +8,8 @@ declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>
 
 declare type Recordable<T = any> = Record<string | number | symbol, T>
 
+declare var MediaRecorder: any;
+
 declare interface Pagination<T = any> {
     current: number
     query?: T
@@ -20,6 +22,10 @@ declare interface ResponseData<T = any> {
     message: string
     success: boolean
 }
+
+declare type TimeoutHandle = ReturnType<typeof setTimeout>
+
+declare type IntervalHandle = ReturnType<typeof setInterval>
 
 declare function parseInt(s: string | number, radix?: number): number
 

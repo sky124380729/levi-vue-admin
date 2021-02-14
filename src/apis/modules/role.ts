@@ -1,6 +1,6 @@
 import request from '../request'
 // 新增
-export const createRole = (data: any) => request.post('role/save/', data)
+export const createRole = (data: any) => request.post('role/save', data)
 // 删除
 export const removeRole = (id: string) => request.delete(`role/${id}`)
 // 更新
