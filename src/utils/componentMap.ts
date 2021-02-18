@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { Input, Select, Radio, Checkbox, AutoComplete, Cascader, DatePicker, InputNumber, Switch, TimePicker, TreeSelect } from 'ant-design-vue'
+import { Input, Select, Radio, Checkbox, AutoComplete, Cascader, DatePicker, InputNumber, Switch, TimePicker, TreeSelect, Upload } from 'ant-design-vue'
 import LvSelect from '/@/components/Select'
 import LvInput from '/@/components/Input'
 
@@ -60,6 +60,7 @@ componentMap.set('MonthPicker', DatePicker.MonthPicker)
 componentMap.set('RangePicker', DatePicker.RangePicker)
 componentMap.set('WeekPicker', DatePicker.WeekPicker)
 componentMap.set('TimePicker', TimePicker)
+componentMap.set('Upload', Upload)
 
 // levi component
 componentMap.set('LvInput', LvInput)
