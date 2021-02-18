@@ -17,6 +17,65 @@
             <lv-modal-form v-model:visible="visible" v-model:form="form" title="测试弹框" :label-width="100" :schemas="schemas"></lv-modal-form>
             <a-button type="primary" @click="visible = true">弹框</a-button>
         </a-tab-pane>
+        <a-tab-pane key="Print" tab="Print">
+            <a-button v-print="'#print'" type="primary">打印</a-button>
+            <div id="print" class="page">
+                <p class="page_title">工单检测汇总报告</p>
+                <div class="print-form">
+                    <a-row>
+                        <a-col :span="12">
+                            <div class="form-item">
+                                <div class="form-label">工单号码</div>
+                                <div class="form-input">{{ workOrderInfo.workOrder }}</div>
+                            </div>
+                        </a-col>
+                        <a-col :span="12">
+                            <div class="form-item">
+                                <div class="form-label">产品料号</div>
+                                <div class="form-input">{{ workOrderInfo.materialCode }}</div>
+                            </div>
+                        </a-col>
+                    </a-row>
+                    <a-row>
+                        <a-col :span="12">
+                            <div class="form-item">
+                                <div class="form-label">检测数量(pcs)</div>
+                                <div class="form-input">{{ workOrderInfo.testQty }}</div>
+                            </div>
+                        </a-col>
+                        <a-col :span="12">
+                            <div class="form-item">
+                                <div class="form-label">良率(%)</div>
+                                <div class="form-input">{{ workOrderInfo.rate }}</div>
+                            </div>
+                        </a-col>
+                    </a-row>
+                    <a-row>
+                        <a-col :span="12">
+                            <div class="form-item">
+                                <div class="form-label">PASS数量(pcs)</div>
+                                <div class="form-input">{{ workOrderInfo.passQty }}</div>
+                            </div>
+                        </a-col>
+                        <a-col :span="12">
+                            <div class="form-item">
+                                <div class="form-label">FAIL数量(pcs)</div>
+                                <div class="form-input">{{ workOrderInfo.failQty }}</div>
+                            </div>
+                        </a-col>
+                    </a-row>
+                </div>
+                <div class="Inspection-details"></div>
+                <div class="printTime">
+                    <p>打印时间：</p>
+                </div>
+                <div class="sign">
+                    <p>制表人：______________________</p>
+                    <p>审核签名：______________________</p>
+                    <p>审核时间：______________________</p>
+                </div>
+            </div>
+        </a-tab-pane>
     </a-tabs>
 </template>
 
@@ -26,10 +85,14 @@ import useList from '/@/hooks/useList'
 import { fetchUserList, fetchUserPage } from '/@/apis/modules/user'
 import Form, { FormSchema } from '/@/components/Form'
 import ModalForm from '/@/components/ModalForm'
+import print from '/@/directives/print'
 export default defineComponent({
     components: {
         LvForm: Form,
         LvModalForm: ModalForm
+    },
+    directives: {
+        print
     },
     setup() {
         // table
@@ -110,6 +173,16 @@ export default defineComponent({
             visible.value = true
         }
 
+        // print
+        const workOrderInfo = reactive<any>({
+            workOrder: 'CK-1032',
+            materialCode: 'XK201879',
+            testQty: 10000,
+            rate: '90%',
+            passQty: 9000,
+            failQty: 1000
+        })
+
         return {
             // table
             ...toRefs(table),
@@ -124,8 +197,127 @@ export default defineComponent({
             // modalForm
             visible,
             form,
-            show
+            show,
+            // print
+            workOrderInfo
         }
     }
 })
 </script>
+
+<style lang="less" scoped>
+@color-border: #000;
+@color-bg: #f5f5f5;
+@color-font: #000;
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    border: 1px solid @color-border;
+    padding: 20px;
+    position: relative;
+    margin: 20px auto;
+    color: @color-font;
+    &_logo {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        height: 50px;
+        width: 184px;
+    }
+    &_title {
+        text-align: center;
+        font-size: 24px;
+        line-height: 56px;
+    }
+    .info {
+        display: flex;
+        margin-top: 10px;
+        justify-content: space-between;
+    }
+    .print-form {
+        border-top: 1px solid @color-border;
+        border-right: 1px solid @color-border;
+        margin: 40px 0px 20px 0px;
+        font-size: 14px;
+        .form-item {
+            display: flex;
+            height: 70px;
+            line-height: 70px;
+            border-bottom: 1px solid @color-border;
+            .form-label {
+                flex: 2;
+                text-align: right;
+                border-left: 1px solid @color-border;
+                border-right: 1px solid @color-border;
+                padding-right: 20px;
+                background-color: @color-bg;
+            }
+            .form-input {
+                flex: 3;
+                padding-left: 20px;
+            }
+        }
+    }
+
+    .subtitle {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .Inspection-details {
+        margin-bottom: 60px;
+    }
+
+    .print-table {
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid @color-border;
+        border-collapse: collapse;
+        font-size: 14px;
+        color: @color-font;
+        border-spacing: 0;
+        margin-top: -1px;
+        th {
+            padding: 12px 0;
+        }
+        td {
+            padding: 20px 0;
+            font-size: 12px;
+        }
+        thead {
+            background: @color-bg;
+            th {
+                border: 1px solid @color-border;
+                font-weight: normal;
+            }
+        }
+        tbody {
+            td {
+                border-right: 1px solid @color-border;
+                border-bottom: 1px solid @color-border;
+                text-align: center;
+            }
+        }
+    }
+    .printTime {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+    }
+    .sign {
+        position: absolute;
+        bottom: -5px;
+        right: 20px;
+        left: 20px;
+        display: flex;
+        justify-content: space-around;
+    }
+}
+@media print {
+    body,
+    .page {
+        margin: 0;
+        box-shadow: 0;
+    }
+}
+</style>
