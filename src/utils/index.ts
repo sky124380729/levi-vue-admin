@@ -54,6 +54,29 @@ export function debounce(fn: (...args: unknown[]) => unknown, timeout = 300) {
     }
 }
 
+// 柯里化
+export function curry(fn: Fn) {
+    return function curried(...args: any[]) {
+        if (args.length < fn.length) {
+            return function (...innerArgs: any[]) {
+                return curried(...args.concat(innerArgs))
+            }
+        }
+        return fn(...args)
+    }
+}
+
+// 组合函数
+export function flowRight(...fns: Fn[]) {
+    return function (value: any) {
+        while (fns.length) {
+            const fn = fns.pop()
+            value = fn!(value)
+        }
+        return value
+    }
+}
+
 // 事件绑定
 export const ownAddEventListener = (scope: Window | HTMLElement, type: string, handler: any, capture = false) => {
     scope.addEventListener(type, handler, capture)
