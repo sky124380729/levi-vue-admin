@@ -191,7 +191,7 @@ export default defineComponent({
                 const { ellipsis, dataIndex, dict } = v
                 return {
                     ...v,
-                    customRender: dict ? ({ text }: any) => <span>{dictMap[dataIndex!][text]}</span> : undefined,
+                    customRender: dict ? ({ text }: any) => <span>{typeof dict === 'string' ? dictMap[dict][text] : dictMap[dataIndex!][text]}</span> : void 0,
                     ellipsis: typeof ellipsis === 'undefined' ? globalEllipsis : ellipsis
                 }
             })
