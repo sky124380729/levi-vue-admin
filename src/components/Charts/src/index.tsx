@@ -1,6 +1,6 @@
 import { defineComponent, onActivated, onMounted, PropType, ref, watch, watchEffect } from 'vue'
-import type { EChartOption, ECharts } from 'echarts'
-import echarts from 'echarts'
+import * as echarts from 'echarts'
+import type { EChartsOption, ECharts } from 'echarts'
 import { debounce, ownAddEventListener } from '/@/utils'
 import { isNumber } from '/@/utils/is'
 
@@ -9,7 +9,7 @@ export default defineComponent({
     props: {
         options: {
             required: true,
-            type: Object as PropType<EChartOption>
+            type: Object as PropType<EChartsOption>
         },
         height: {
             type: [Number, String] as PropType<string | number>,
