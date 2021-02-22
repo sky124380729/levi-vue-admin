@@ -7,8 +7,10 @@ const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 
 const viteConfig: UserConfig = {
     // the key **must start and end with a slash**
-    alias: {
-        '/@': pathResolve('./src')
+    resolve: {
+        alias: {
+            '/@': pathResolve('./src')
+        }
     },
     css: {
         preprocessorOptions: {

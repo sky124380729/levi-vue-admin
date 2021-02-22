@@ -1,0 +1,1 @@
+import{d as a,b as e,c as n,e as s,f as t,i as r}from"./index.45e7214e.js";import"./vendor.5caf421a.js";var o=a({name:"system-organization",setup:()=>({})});const i=r(" 组织管理 ");o.render=function(a,r,o,d,u,c){const f=e("a-input");return n(),s("div",null,[i,t(f)])};export default o;
