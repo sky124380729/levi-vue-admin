@@ -6,6 +6,7 @@ import vueJSx from '@vitejs/plugin-vue-jsx'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 
 const viteConfig: UserConfig = {
+    base: '/levi-vue-admin',
     // the key **must start and end with a slash**
     resolve: {
         alias: {
