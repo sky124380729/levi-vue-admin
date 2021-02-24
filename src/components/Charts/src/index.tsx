@@ -30,7 +30,7 @@ export default defineComponent({
         watch(
             () => props.options,
             () => {
-                init()
+                chart && chart.setOption(props.options)
             }
         )
         onMounted(() => {
