@@ -31,6 +31,12 @@
         "paths": {
             "/@/*": [
                 "src/*"
+            ],
+            "/apis/*": [
+                "src/apis/modules/*"
+            ],
+            "/imgs/*": [
+                "src/assets/images/*"
             ]
         }
     }

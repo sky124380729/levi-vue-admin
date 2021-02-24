@@ -9,7 +9,9 @@ const viteConfig: UserConfig = {
     // the key **must start and end with a slash**
     resolve: {
         alias: {
-            '/@': pathResolve('./src')
+            '/@': pathResolve('./src'),
+            '/imgs': pathResolve('./src/assets/images'),
+            '/apis': pathResolve('./src/apis/modules')
         }
     },
     css: {
