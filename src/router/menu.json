@@ -55,14 +55,15 @@
                 "type": "MENU",
                 "path": "/buffer",
                 "icon": "ri:settings-5-line",
-                "children":[
+                "children": [
                     {
                         "id": "27b2e6818b1e48a68fc7c59674b4950d",
                         "title": "录屏功能",
                         "name": "screenrecorder",
                         "type": "MENU",
                         "path": "screenrecorder",
-                        "component": "/buffer/screenrecorder"
+                        "component": "/buffer/screenrecorder",
+                        "noCache": true
                     }
                 ]
             }

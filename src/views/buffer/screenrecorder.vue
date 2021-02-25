@@ -35,7 +35,7 @@
 import * as pageSpec from './screenrecorder'
 import { defineComponent, ref, onMounted, reactive, toRefs, Ref } from 'vue'
 export default defineComponent({
-    name: 'screenrecorder',
+    name: 'buffer-screenrecorder',
     setup() {
         let options = reactive<pageSpec.mediaOptions>({
             mediaRecorder: null,

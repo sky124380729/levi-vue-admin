@@ -74,7 +74,7 @@ export default defineComponent({
                 const { name, path, meta } = route
                 const index = navTags.value.findIndex((v) => v.name === name)
                 if (index === -1) {
-                    navTags.value.push({ name: name as string, path, title: meta.title, noCache: meta.noCache })
+                    navTags.value.push({ name: name as string, path, title: meta.title as string, noCache: meta.noCache as boolean })
                 }
             },
             { immediate: true }
@@ -189,7 +189,7 @@ export default defineComponent({
                                         default: () => (
                                             <Tag
                                                 active={name === currentRoute.value.name}
-                                                icon={noCache ? 'mdi:shield-remove' : 'mdi:shield-plus'}
+                                                icon={noCache ? 'mdi:cube-off-outline' : 'mdi:cube-outline'}
                                                 key={name}
                                                 title={title}
                                                 closable={name !== 'homepage'}
