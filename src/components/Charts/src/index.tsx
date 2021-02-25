@@ -1,7 +1,7 @@
-import { defineComponent, onActivated, onMounted, PropType, ref, watch, watchEffect } from 'vue'
+import { defineComponent, onActivated, onMounted, PropType, ref, watch } from 'vue'
 import * as echarts from 'echarts'
 import type { EChartsOption, ECharts } from 'echarts'
-import { debounce, ownAddEventListener } from '/@/utils'
+import useWinResize from '/@/hooks/useWinResize'
 import { isNumber } from '/@/utils/is'
 
 export default defineComponent({
@@ -33,24 +33,17 @@ export default defineComponent({
                 chart && chart.setOption(props.options)
             }
         )
+
         onMounted(() => {
             init()
         })
+
         onActivated(() => {
             chart && chart.resize()
         })
-        watchEffect((onInvalidate) => {
-            // 屏幕变化的时候echarts大小重置
-            const resizeEvent = ownAddEventListener(
-                window,
-                'resize',
-                debounce(() => {
-                    chart && chart.resize()
-                })
-            )
-            onInvalidate(() => {
-                resizeEvent()
-            })
+
+        useWinResize(() => {
+            chart && chart.resize()
         })
 
         return () => {
