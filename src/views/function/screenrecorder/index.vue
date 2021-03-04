@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import * as pageSpec from './screenrecorder'
+import * as pageSpec from './types'
 import { defineComponent, ref, onMounted, reactive, toRefs, Ref } from 'vue'
 export default defineComponent({
     name: 'buffer-screenrecorder',

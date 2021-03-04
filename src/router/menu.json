@@ -51,9 +51,9 @@
             {
                 "id": "a7d20965884d40aebd7808827741013e",
                 "title": "实用功能",
-                "name": "buffer",
+                "name": "function",
                 "type": "MENU",
-                "path": "/buffer",
+                "path": "/function",
                 "icon": "ri:settings-5-line",
                 "children": [
                     {
@@ -62,8 +62,15 @@
                         "name": "screenrecorder",
                         "type": "MENU",
                         "path": "screenrecorder",
-                        "component": "/buffer/screenrecorder",
-                        "noCache": true
+                        "component": "/function/screenrecorder"
+                    },
+                    {
+                        "id": "dc9274623f184f55821a153dded6914a",
+                        "title": "web worker",
+                        "name": "woker",
+                        "type": "MENU",
+                        "path": "woker",
+                        "component": "/function/woker"
                     }
                 ]
             }
