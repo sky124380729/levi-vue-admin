@@ -1,10 +1,3 @@
-/*
- * @Author: xwc
- * @Date: 2021-03-04 13:22:08
- * @LastEditTime: 2021-03-04 13:26:25
- * @LastEditors: yhy
- * @Description: 
- */
 const toString = Object.prototype.toString
 
 export function is(val: unknown, type: string) {
