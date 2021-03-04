@@ -1,15 +1,14 @@
 // api base url
-// export const BASE_URL = 'http://172.16.10.153:9090/api/'
-export const BASE_URL = 'http://172.16.10.97:9091/server'
+export const BASE_URL = import.meta.env.VITE_BASE_URL
 
 // file server base url
-export const FILE_URL = 'xxx'
+export const FILE_URL = import.meta.env.VITE_FILE_URL
 
 // api mock
-export const API_MOCK = true
+export const API_MOCK = import.meta.env.VITE_API_MOCK
 
 // menu mock
-export const MENU_MOCK = true
+export const MENU_MOCK = import.meta.env.VITE_MENU_MOCK
 
 // sidebar accordion mode
-export const MENU_ACCORDION = true
+export const MENU_ACCORDION = import.meta.env.VITE_MENU_ACCORDITON
