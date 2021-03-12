@@ -42,8 +42,8 @@ const store = createStore<GlobalData>({
         }
     },
     mutations: {
-        setAuthority(state) {
-            state.authorized = true
+        setAuthority(state, flag) {
+            state.authorized = flag
         },
         setAccessRoutes(state, accessRoutes) {
             state.accessRoutes = accessRoutes
@@ -84,7 +84,7 @@ const store = createStore<GlobalData>({
                 commit('setDict', dictRes.data)
                 /* OK */
 
-                commit('setAuthority')
+                commit('setAuthority', true)
                 commit('setAccessRoutes', data)
                 resolve()
             })

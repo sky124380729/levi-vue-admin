@@ -21,6 +21,7 @@ export default defineComponent({
                 message.warn('此功能暂未开放')
             } else if (key === 'logout') {
                 Cookies.remove('token')
+                store.commit('setAuthority', false)
                 push('/login')
             }
         }
