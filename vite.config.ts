@@ -26,6 +26,18 @@ const viteConfig: UserConfig = {
             }
         }
     },
+    build: {
+        rollupOptions: {
+            external: ['vue', 'moment', 'ant-design-vue'],
+            output: {
+                paths: {
+                    vue: 'https://cdn.jsdelivr.net/npm/vue@3.0.7/dist/vue.esm-browser.prod.js',
+                    moment: 'https://cdn.jsdelivr.net/npm/moment@2.29.1/dist/moment.js',
+                    'ant-design-vue': 'https://cdn.jsdelivr.net/npm/ant-design-vue@2.0.1/dist/antd.js'
+                }
+            }
+        }
+    },
     server: {
         port: 3399,
         open: true
