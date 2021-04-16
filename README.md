@@ -1,13 +1,13 @@
 # levi-vue-admin
 
 <p align="center">
-  <a href="https://github.com/sky124380729/levi-vue-admin/">
+  <a href="https://levi-vue-admin.vercel.app/">
     <img width="200" src="https://qn.antdv.com/logo.png">
   </a>
 </p>
 
 <h1 align="center">
-  <a href="https://github.com/sky124380729/levi-vue-admin/" target="_blank">Levi Vue Admin</a>
+  <a href="https://levi-vue-admin.vercel.app/" target="_blank">Levi Vue Admin</a>
 </h1>
 
 <h2 align="center" style="color:aqua">
