@@ -2,7 +2,7 @@
     //===========================================
     //============= Editor ======================
     //===========================================
-    "workbench.colorTheme": "Atom One Dark",
+    "workbench.colorTheme": "GitHub Dark",
     "editor.smoothScrolling": true,
     "editor.cursorSmoothCaretAnimation": true,
     "diffEditor.ignoreTrimWhitespace": false,
