@@ -1,12 +1,10 @@
 [
     {
-        "id": "00b82eb6e50a45a495df301b0a3cde8b",
         "title": "admin",
         "name": "admin",
         "type": "MODULE",
         "children": [
             {
-                "id": "ecc34ab196cb42fe88594294b45d2dd6",
                 "title": "中央控制台",
                 "path": "/platform",
                 "name": "platform",
@@ -15,7 +13,6 @@
                 "icon": "mdi:monitor-dashboard"
             },
             {
-                "id": "a7d20965884d40aebd7808827741023e",
                 "title": "系统设置",
                 "name": "system",
                 "type": "MENU",
@@ -23,7 +20,6 @@
                 "icon": "ri:settings-5-line",
                 "children": [
                     {
-                        "id": "ae7e6a3f4ff943859eefa0977f370bcd",
                         "title": "用户管理",
                         "name": "user",
                         "type": "MENU",
@@ -31,7 +27,6 @@
                         "component": "/system/user"
                     },
                     {
-                        "id": "cdaa427913be4206a52bf540f134517c",
                         "title": "角色管理",
                         "name": "role",
                         "type": "MENU",
@@ -39,7 +34,6 @@
                         "component": "/system/role"
                     },
                     {
-                        "id": "27b2e6818b1e48a68fc7c59674b4954d",
                         "title": "资源管理",
                         "name": "resource",
                         "type": "MENU",
@@ -49,7 +43,6 @@
                 ]
             },
             {
-                "id": "a7d20965884d40aebd7808827741013e",
                 "title": "实用功能",
                 "name": "function",
                 "type": "MENU",
@@ -57,7 +50,6 @@
                 "icon": "ri:settings-5-line",
                 "children": [
                     {
-                        "id": "27b2e6818b1e48a68fc7c59674b4950d",
                         "title": "录屏功能",
                         "name": "screenrecorder",
                         "type": "MENU",
@@ -65,7 +57,6 @@
                         "component": "/function/screenrecorder"
                     },
                     {
-                        "id": "dc9274623f184f55821a153dded6914a",
                         "title": "web worker",
                         "name": "woker",
                         "type": "MENU",

@@ -16,6 +16,8 @@ const resolve = (dir) => path.join(__dirname, dir)
 const moment = require('moment')
 // get the Git user name to trace who exported the SQL
 const gitName = execSync('git show -s --format=%cn').toString().trim()
+const md5 = require('md5')
+// use md5 to generate id
 
 /* =========GLOBAL CONFIG=========== */
 
@@ -34,7 +36,7 @@ function createSQL(data, name = '', pid, arr = []) {
             createSQL(v.children, name + '-' + v.name, v.id, arr)
         }
         arr.push({
-            id: v.id,
+            id: md5(v.name), // name is unique,so we can use name to generate id
             created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
             modified_at: moment().format('YYYY-MM-DD HH:mm:ss'),
             created_by: gitName,
