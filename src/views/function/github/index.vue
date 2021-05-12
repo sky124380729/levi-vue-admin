@@ -60,6 +60,9 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .github {
+    .title {
+        color: #286ec3;
+    }
     .project-url {
         font-size: 16px;
         font-weight: bold;
