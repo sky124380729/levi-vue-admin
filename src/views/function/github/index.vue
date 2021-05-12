@@ -38,7 +38,7 @@ export default defineComponent({
                 loading.value = false
             })
         }
-        const truncate = (v) => {
+        const truncate = (v: string) => {
             const newLine = v.indexOf('\n')
             return newLine > 0 ? v.slice(0, newLine) : v
         }

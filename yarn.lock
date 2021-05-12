@@ -397,7 +397,7 @@
 
 "@types/marked@^2.0.2":
   version "2.0.2"
-  resolved "https://registry.npm.taobao.org/@types/marked/download/@types/marked-2.0.2.tgz#33a15106383f6e42cd6bdd38093e6b19904e29e1"
+  resolved "https://registry.npm.taobao.org/@types/marked/download/@types/marked-2.0.2.tgz?cache=0&sync_timestamp=1618270402410&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fmarked%2Fdownload%2F%40types%2Fmarked-2.0.2.tgz#33a15106383f6e42cd6bdd38093e6b19904e29e1"
   integrity sha1-M6FRBjg/bkLNa904CT5rGZBOKeE=
 
 "@types/mockjs@^1.0.3":

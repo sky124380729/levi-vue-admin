@@ -30,6 +30,7 @@
     "devDependencies": {
         "@iconify/json": "^1.1.265",
         "@purge-icons/generated": "^0.4.1",
+        "@types/marked": "^2.0.2",
         "@types/node": "^14.14.22",
         "@typescript-eslint/eslint-plugin": "^4.8.0",
         "@typescript-eslint/parser": "^4.8.0",
