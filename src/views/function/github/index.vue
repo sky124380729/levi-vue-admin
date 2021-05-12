@@ -13,7 +13,7 @@
                         by
                         <a class="author-link" :href="record.author && record.author.html_url" target="_blank">{{ record.commit.author.name }}</a>
                         at
-                        <span class="commit-time">{{ record.commit.author.date.replace(/T|Z/g, ' ') }}</span>
+                        <span class="commit-time">{{ formateDate(record.commit.author.date) }}</span>
                     </div>
                 </a-list-item>
             </template>
@@ -42,6 +42,9 @@ export default defineComponent({
             const newLine = v.indexOf('\n')
             return newLine > 0 ? v.slice(0, newLine) : v
         }
+        const formateDate = (v: string) => {
+            return new Date(v).toLocaleString()
+        }
         const currentBranch = ref('master')
         watch(currentBranch, () => {
             fetchData()
@@ -52,7 +55,8 @@ export default defineComponent({
             branchs,
             currentBranch,
             commits,
-            truncate
+            truncate,
+            formateDate
         }
     }
 })
