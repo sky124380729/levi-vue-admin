@@ -62,6 +62,13 @@
                         "type": "MENU",
                         "path": "woker",
                         "component": "/function/woker"
+                    },
+                    {
+                        "title": "markdown",
+                        "name": "markdown",
+                        "type": "MENU",
+                        "path": "markdown",
+                        "component": "/function/markdown"
                     }
                 ]
             }
