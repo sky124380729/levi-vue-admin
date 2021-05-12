@@ -36,7 +36,7 @@ function createSQL(data, name = '', pid, arr = []) {
             createSQL(v.children, name + '-' + v.name, v.id, arr)
         }
         arr.push({
-            id: md5(v.name), // name is unique,so we can use name to generate id
+            id: v.id || md5(v.name), // name is unique,so we can use name to generate id
             created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
             modified_at: moment().format('YYYY-MM-DD HH:mm:ss'),
             created_by: gitName,

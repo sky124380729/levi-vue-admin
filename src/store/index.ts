@@ -6,6 +6,7 @@ import resource from '/@/router/menu.json'
 import { getUserMenuTree } from '/@/apis/modules/menu'
 import { getAllDictMap } from '/@/apis/modules/sysDict'
 import { MENU_MOCK } from '/@/config'
+import md5 from 'md5'
 
 export interface GlobalData {
     authorized: boolean
@@ -22,6 +23,18 @@ const filterResource = (routes: IResource[]) => {
             route.children = filterResource(route.children)
         }
         return !route.hidden
+    })
+}
+
+// 如果菜单没有id,为菜单根据name使用md5生成id
+const createMenuId = (routes: IResource[]) => {
+    routes.forEach((route) => {
+        if (route.children) {
+            createMenuId(route.children)
+        }
+        if (!route.id) {
+            route.id = md5(route.name)
+        }
     })
 }
 
@@ -65,6 +78,7 @@ const store = createStore<GlobalData>({
                 let data = []
                 if (MENU_MOCK) {
                     data = resource.find((v: any) => v.name === 'admin').children
+                    createMenuId(data)
                 } else {
                     const res = await getUserMenuTree('admin')
                     data = res && res.data ? res.data : []
