@@ -69,6 +69,13 @@
                         "type": "MENU",
                         "path": "markdown",
                         "component": "/function/markdown"
+                    },
+                    {
+                        "title": "github commits",
+                        "name": "github",
+                        "type": "MENU",
+                        "path": "github",
+                        "component": "/function/github"
                     }
                 ]
             }
