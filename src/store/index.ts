@@ -27,7 +27,7 @@ const filterResource = (routes: IResource[]) => {
 }
 
 // 如果菜单没有id,为菜单根据name使用md5生成id
-const createMenuId = (routes: IResource[]) => {
+export const createMenuId = (routes: IResource[]) => {
     routes.forEach((route) => {
         if (route.children) {
             createMenuId(route.children)

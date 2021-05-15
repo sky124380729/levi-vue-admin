@@ -1,5 +1,9 @@
 import menu from '/@/router/menu.json'
 
+import { createMenuId } from '/@/store'
+
+createMenuId(menu)
+
 export default [
     {
         url: 'menu/tree',

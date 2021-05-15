@@ -5,7 +5,7 @@
             <a-radio-button v-for="item in branchs" :key="item" :value="item">{{ item }}</a-radio-button>
         </a-radio-group>
         <p class="project-url">sky124380729/levi-vue-admin@{{ currentBranch }}</p>
-        <a-list bordered :loading="loading" :data-source="commits">
+        <a-list class="commit-container" :loading="loading" :data-source="commits">
             <template #renderItem="{ item: record }">
                 <a-list-item>
                     <a class="commit-link" :href="record.html_url" target="_blank">{{ record.sha.slice(0, 12) }}...</a> - <span>{{ truncate(record.commit.message) }}</span>
@@ -70,6 +70,9 @@ export default defineComponent({
         margin: 20px 0;
         padding-left: 6px;
     }
+    .commit-container {
+        padding-left: 6px;
+    }
     .commit-link {
         font-weight: bolder;
         color: #e40e0e;
@@ -81,6 +84,7 @@ export default defineComponent({
         font-weight: bolder;
         color: #76b117;
         margin: 0 4px;
+        text-shadow: 1px 1px 1px #087292;
     }
     .commit-time {
         font-size: 12px;
