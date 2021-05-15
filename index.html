@@ -10,7 +10,7 @@
                 padding: 0;
                 margin: 0;
             }
-            .app {
+            #app:not([data-v-app]) {
                 height: 100vh;
                 background: #000000;
             }
@@ -111,7 +111,7 @@
         </style>
     </head>
     <body>
-        <div id="app" class="app">
+        <div id="app">
             <div class='loading'>
                 <div class='rotate'>L</div>OADING...
             </div>
