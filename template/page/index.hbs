@@ -1,0 +1,80 @@
+<template>
+    <section>
+        <m-table title="未定义" :fetch-data="fetch{{ properCase name }}Page" ref="mTable" :queryArr="queryArr">
+            <template #buttons>
+                <el-button plain type="primary" icon="el-icon-plus" size="mini" @click="handle()">新增</el-button>
+            </template>
+            <el-table-column label="序号" type="index" width="100px" align="center"></el-table-column>
+            <el-table-column label="名称" prop="name"></el-table-column>
+            <el-table-column label="编号" prop="code"></el-table-column>
+            <el-table-column label="备注" prop="remarks" show-overflow-tooltip></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="{ row }">
+                    <el-button type="text" @click="handle(row.id)">编辑</el-button>
+                    <el-button type="text" class="danger" @click="remove(row.id)">删除</el-button>
+                </template>
+            </el-table-column>
+        </m-table>
+        <m-dialog :model.sync="model" :visible.sync="modelVisible" :rules="rules" @submit="submit" :submit-loading="submitLoading" label-width="110px" title="未定义">
+            <el-form-item label="名称：" prop="name">
+                <m-input v-model="model.name"></m-input>
+            </el-form-item>
+            <el-form-item label="编号：" prop="code">
+                <m-input v-model="model.code"></m-input>
+            </el-form-item>
+            <el-form-item label="备注：" prop="remarks">
+                <m-input type="textarea" v-model="model.remarks"></m-input>
+            </el-form-item>
+        </m-dialog>
+    </section>
+</template>
+
+<script>
+import { create{{ properCase name }}, remove{{ properCase name }}, update{{ properCase name }}, get{{ properCase name }}, fetch{{ properCase name }}Page } from 'apis/elder'
+export default {
+    name: '{{ name }}',
+    data() {
+        return {
+            fetch{{ properCase name }}Page,
+            model: {},
+            submitLoading: false,
+            modelVisible: false,
+            rules: {
+                name: { required: true, message: '此项为必填项', trigger: 'blur' },
+                code: { required: true, message: '此项为必填项', trigger: 'blur' }
+            },
+            queryArr: [{ key: 'name', tag: 'el-input', label: '名称' }]
+        }
+    },
+    methods: {
+        async handle(id) {
+            if (id) {
+                const res = await get{{ properCase name }}(id)
+                if (!res) return
+                this.model = res.content
+            }
+            this.modelVisible = true
+        },
+        async submit() {
+            const id = this.model.id
+            this.submitLoading = true
+            const res = await (id ? update{{ properCase name }}(id, this.model) : create{{ properCase name }}(this.model))
+            this.submitLoading = false
+            if (!res) return
+            this.$refs.mTable.refresh()
+            this.modelVisible = false
+        },
+        remove(id) {
+            this.$confirm('确认要删除吗?', '提示', {
+                type: 'error'
+            })
+                .then(() => {
+                    remove{{ properCase name }}(id).then(() => {
+                        this.$refs.mTable.refresh()
+                    })
+                })
+                .catch(() => {})
+        }
+    }
+}
+</script>

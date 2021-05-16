@@ -1,0 +1,29 @@
+import request from '../request'
+{{#if create}}
+// 新增
+export const create{{ properCase name }} = (data: any) => request.post('{{camelCase name}}/', data)
+{{/if}}
+{{#if delete}}
+// 删除
+export const remove{{ properCase name }} = (id: string) => request.delete(`{{camelCase name}}/${id}`)
+{{/if}}
+{{#if update}}
+// 更新
+export const update{{ properCase name }} = (id: string, data: any) => request.put(`{{camelCase name}}/${id}`, data)
+{{/if}}
+{{#if get}}
+// 查询
+export const get{{ properCase name }} = (id: string) => request.get(`{{camelCase name}}/${id}`)
+{{/if}}
+{{#if check}}
+// 唯一性校验
+export const check{{ properCase name }} = (data: any) => request.post(`{{camelCase name}}/check`, data)
+{{/if}}
+{{#if fetchList}}
+// 列表查询
+export const fetch{{ properCase name }}List = (params: any) => request.get('{{camelCase name}}/list', { params })
+{{/if}}
+{{#if fetchPage}}
+// 分页查询
+export const fetch{{ properCase name }}Page = (params: any) => request.get('{{camelCase name}}/page', { params })
+{{/if}}
