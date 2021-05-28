@@ -1,21 +1,23 @@
 import store from '/@/store'
 import Breadcrumb from './Breadcrumb'
 import Icon from '/@/components/Icon'
-import { Dropdown, Menu, message } from 'ant-design-vue'
+import { Dropdown, Menu, message, Drawer, Divider, Switch } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 import Cookies from 'js-cookie'
 import { useRouter } from 'vue-router'
-import { defineComponent } from 'vue'
+import { defineComponent, ref, unref } from 'vue'
 
 export default defineComponent({
     name: 'Navbar',
     setup() {
         const { push } = useRouter()
+        const drawerVisible = ref<boolean>(false)
+        const themeDark = ref<boolean>(false)
         const setCollapse = () => {
             store.commit('setCollapse', !store.state.isCollapse)
         }
         type MenuKey = 'settings' | 'logout'
-        // menu点击事件
+        // menu click event
         const handleMenuClick = ({ key }: { key: MenuKey }) => {
             if (key === 'settings') {
                 message.warn('此功能暂未开放')
@@ -24,9 +26,34 @@ export default defineComponent({
                 push('/login')
             }
         }
+        // settings click event
+        const showSettings = () => {
+            drawerVisible.value = true
+        }
+
+        // theme change
+        const themeChange = (checked: boolean) => {
+            themeDark.value = checked
+        }
+
         return () => {
             return (
                 <>
+                    <Drawer
+                        title='settings'
+                        visible={unref(drawerVisible)}
+                        onClose={() => {
+                            drawerVisible.value = false
+                        }}
+                    >
+                        <Divider>主题</Divider>
+                        <Switch checked={unref(themeDark)} onChange={themeChange}>
+                            {{
+                                checkedChildren: () => <Icon slot='checkedChildren' icon='ic:outline-wb-sunny' />,
+                                unCheckedChildren: () => <Icon slot='checkedChildren' icon='ic:outline-dark-mode' />
+                            }}
+                        </Switch>
+                    </Drawer>
                     <div class='levi-navbar__content'>
                         <div class='levi-navbar__left'>
                             <span class='collapse-icon' onClick={setCollapse}>
@@ -56,6 +83,7 @@ export default defineComponent({
                                 )
                             }}
                         </Dropdown>
+                        <Icon class='settings-icon' onClick={showSettings} icon='ri:settings-4-line' size={18} />
                     </div>
                 </>
             )

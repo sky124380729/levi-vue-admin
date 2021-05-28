@@ -1,5 +1,4 @@
-import { getApp } from '/@/useApp'
-
+import type { App } from 'vue'
 import Charts from '/@/components/Charts'
 import Form from '/@/components/Form'
 import FormModal from '/@/components/FormModal'
@@ -10,8 +9,7 @@ import Table from '/@/components/Table'
 import Select from '/@/components/Select'
 import Upload from '/@/components/Upload'
 
-export function registerGC() {
-    const app = getApp()
+export function registerGC(app: App) {
     app.component(Charts.name, Charts)
     app.component(Form.name, Form)
     app.component(FormModal.name, FormModal)

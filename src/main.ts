@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import { setApp } from '/@/useApp'
 import { registerGC } from './components'
 
 // mock
@@ -24,8 +23,5 @@ app.config.globalProperties.appName = 'Levi'
 // mount
 app.use(Antd).use(router).use(store).mount('#app')
 
-// Used to share app instances in other modules
-setApp(app)
-
 // register global components
-registerGC()
+registerGC(app)
