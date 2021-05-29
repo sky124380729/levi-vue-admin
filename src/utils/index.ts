@@ -98,3 +98,18 @@ export const formatMins = (minutes: number | string) => {
     const mins = minutes % 60
     return `${days ? days + 'd' : ''}${hours ? hours + 'h' : ''}${mins + 'm'}`
 }
+
+// try to convert string to json
+export const JsonParse = (val: any) => {
+    try {
+        val = JSON.parse(val)
+    } catch (error) {
+        // do nothing
+    }
+    return val
+}
+
+// convert object to string
+export const JsonStringify = (val: any) => {
+    return typeof val === 'object' ? JSON.stringify(val) : val
+}

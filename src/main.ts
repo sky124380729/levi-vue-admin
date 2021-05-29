@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import { registerGC } from './components'
+import './utils/storage'
 
 // mock
 import './mock'
