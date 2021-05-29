@@ -14,7 +14,7 @@ export default defineComponent({
         const isFullscreen = ref<boolean>(false)
         watchEffect(() => {
             const { fullscreen } = currentRoute.value.meta
-            isFullscreen.value = fullscreen
+            isFullscreen.value = !!fullscreen
         })
         return () => (
             <div class={['levi-layout', { isFullscreen: unref(isFullscreen) }]}>
