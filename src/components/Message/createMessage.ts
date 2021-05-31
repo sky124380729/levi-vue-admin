@@ -13,7 +13,7 @@ const createMessage = (message: string, type: MessageType, timeout = 2000) => {
     document.body.appendChild(domNode)
 
     setTimeout(() => {
-        messageInstance.unmount(domNode)
+        messageInstance.unmount()
         document.body.removeChild(domNode)
     }, timeout)
 }
