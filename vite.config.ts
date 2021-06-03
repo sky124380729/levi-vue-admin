@@ -3,7 +3,6 @@ import PurgeIcons from 'vite-plugin-purge-icons'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJSx from '@vitejs/plugin-vue-jsx'
-import { tuple } from 'ant-design-vue/lib/_util/type'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 
 const viteConfig: UserConfig = {
@@ -15,6 +14,7 @@ const viteConfig: UserConfig = {
             '/apis': pathResolve('./src/apis/modules')
         }
     },
+    base: '/',
     css: {
         preprocessorOptions: {
             less: {

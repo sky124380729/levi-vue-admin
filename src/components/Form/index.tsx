@@ -1,4 +1,4 @@
-import { defineComponent, ref, PropType, onMounted } from 'vue'
+import { defineComponent, ref, PropType, onMounted, h } from 'vue'
 import { componentMap, ComponentType } from '/@/utils/componentMap'
 import { Form, Row, Col } from 'ant-design-vue'
 import { isNumber } from '/@/utils/is'
@@ -76,11 +76,7 @@ export default defineComponent({
                     ...propsData
                 }
                 const Comp = componentMap.get(component) as typeof defineComponent
-                return (
-                    <Comp {...compAttr} style={{ width: '100%' }}>
-                        {{ ...slots }}
-                    </Comp>
-                )
+                return h(Comp, { style: { width: '100%' }, ...compAttr }, slots)
             }
 
             // use item width first,if it is not set,use form width

@@ -104,7 +104,7 @@ export default defineComponent({
             return results
         }
 
-        /* FIXME: 对于动态slolts，目前有bug未修复，参见用户管理的表单 */
+        /* FIXME: 对于动态slots，目前有bug未修复，参见用户管理的表单 */
         const renderFormItems = () => {
             const { column } = props
             if (slots && typeof slots.default === 'function') {
