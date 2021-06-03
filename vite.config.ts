@@ -14,6 +14,7 @@ const viteConfig: UserConfig = {
             '/apis': pathResolve('./src/apis/modules')
         }
     },
+    base: '/',
     css: {
         preprocessorOptions: {
             less: {
