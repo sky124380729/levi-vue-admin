@@ -24,6 +24,7 @@ const viteConfig = defineConfig({
     define: {
         __APP_INFO__: JSON.stringify(__APP_INFO__)
     },
+    envDir: pathResolve('./env'),
     css: {
         preprocessorOptions: {
             less: {
