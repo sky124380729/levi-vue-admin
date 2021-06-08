@@ -8,13 +8,10 @@
         "preview": "vite preview",
         "menu": "node createMenu",
         "new": "plop",
-        "lint": "eslint src/**/*.{vue,tsx} --fix"
+        "lint": "eslint src/**/*.{vue,ts,js,tsx} --fix"
     },
     "dependencies": {
         "@iconify/iconify": "^2.0.1",
-        "@types/js-cookie": "^2.2.6",
-        "@types/mockjs": "^1.0.3",
-        "@types/nprogress": "^0.2.0",
         "ant-design-vue": "^2.1.6",
         "axios": "^0.21.0",
         "echarts": "^5.1.1",
@@ -32,7 +29,10 @@
     "devDependencies": {
         "@iconify/json": "^1.1.343",
         "@purge-icons/generated": "^0.4.1",
+        "@types/js-cookie": "^2.2.6",
         "@types/marked": "^2.0.2",
+        "@types/mockjs": "^1.0.3",
+        "@types/nprogress": "^0.2.0",
         "@types/node": "^14.14.45",
         "@typescript-eslint/eslint-plugin": "^4.23.0",
         "@typescript-eslint/parser": "^4.23.0",
