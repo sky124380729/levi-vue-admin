@@ -3,7 +3,8 @@ import PurgeIcons from 'vite-plugin-purge-icons'
 import pkg from './package.json'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
-import vueJSx from '@vitejs/plugin-vue-jsx'
+import vueJSX from '@vitejs/plugin-vue-jsx'
+import vueI18n from './vite/plugins/i18n'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 const { dependencies, devDependencies, name, version } = pkg
 import moment from 'moment'
@@ -45,7 +46,7 @@ const viteConfig = defineConfig({
     optimizeDeps: {
         include: ['@ant-design/icons-vue', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US']
     },
-    plugins: [vue(), vueJSx(), PurgeIcons()]
+    plugins: [vue(), vueJSX(), PurgeIcons(), vueI18n()]
 })
 
 export default viteConfig
