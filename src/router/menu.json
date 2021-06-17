@@ -83,6 +83,13 @@
                         "type": "MENU",
                         "path": "vitePlugins",
                         "component": "/function/vitePlugins"
+                    },
+                    {
+                        "title": "vueuse",
+                        "name": "vueuse",
+                        "type": "MENU",
+                        "path": "vueuse",
+                        "component": "/function/vueuse"
                     }
                 ]
             }

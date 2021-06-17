@@ -1,5 +1,5 @@
 export default function dynamicImport(component: string) {
-    const dynamicViewsModules = import.meta.glob('../../views/**/*.{vue,tsx}')
+    const dynamicViewsModules = import.meta.glob('../../views/**/*index.{vue,tsx}')
     const keys = Object.keys(dynamicViewsModules)
     const matchKeys = keys.filter((key) => {
         const k = key.replace('../../views', '')

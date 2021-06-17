@@ -2,7 +2,6 @@
     <div>
         <lv-table ref="tableRef" title="用户管理" :terms="terms" :columns="columns" :action="action" @create="handle()">
             <template #operation="{ record }">
-                <a-button type="link" size="small" @click="handle(record.id)">编辑</a-button>
                 <a-button type="link" size="small" @click="setRole(record.id)">选择角色</a-button>
                 <a-button type="link" size="small" @click="remove(record.id)">删除</a-button>
             </template>
@@ -19,7 +18,6 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, ref, toRefs } from 'vue'
 import type { Ref } from 'vue'
-import { ModalFormType } from '/@/components/FormModal'
 import useCRUD from '/@/hooks/useCRUD'
 import { fetchUserPage, updateUser, createUser, getUser, removeUser } from '/@/apis/modules/user'
 import { fetchRolePage } from '/@/apis/modules/role'
@@ -43,7 +41,7 @@ export default defineComponent({
             { key: 'username', label: '用户名', component: 'Input' },
             { key: 'realName', label: '姓名', component: 'Input' }
         ]
-        const modelForm = reactive<ModalFormType>({
+        const modelForm = reactive({
             visible: false,
             loading: false,
             rules: {
