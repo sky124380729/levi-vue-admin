@@ -5,6 +5,7 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
 import vueI18n from './vite/plugins/i18n'
+import modifyVars from './src/styles/theme/vars'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 const { dependencies, devDependencies, name, version } = pkg
 import moment from 'moment'
@@ -15,11 +16,20 @@ const __APP_INFO__ = {
 const viteConfig = defineConfig({
     // the key **must start and end with a slash**
     resolve: {
-        alias: {
-            '/@': pathResolve('./src'),
-            '/imgs': pathResolve('./src/assets/images'),
-            '/apis': pathResolve('./src/apis/modules')
-        }
+        alias: [
+            {
+                find: /\/@\//,
+                replacement: pathResolve('src') + '/'
+            },
+            {
+                find: /\/imgs\//,
+                replacement: pathResolve('src') + '/assets/images/'
+            },
+            {
+                find: /\/#\//,
+                replacement: pathResolve('types') + '/'
+            }
+        ]
     },
     base: '/',
     define: {
@@ -29,11 +39,11 @@ const viteConfig = defineConfig({
     css: {
         preprocessorOptions: {
             less: {
-                // modifyVars: {
-                //   // reference:  Avoid repeated references
-                //   hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
-                //   ...modifyVars,
-                // },
+                modifyVars: {
+                    // reference:  Avoid repeated references
+                    //   hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
+                    ...modifyVars
+                },
                 javascriptEnabled: true
             }
         }

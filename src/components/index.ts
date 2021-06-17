@@ -1,22 +1,28 @@
 import type { App } from 'vue'
-import Charts from '/@/components/Charts'
-import Form from '/@/components/Form'
-import FormModal from '/@/components/FormModal'
-import ModalForm from '/@/components/ModalForm'
-import Icon from '/@/components/Icon'
-import Search from '/@/components/Search'
-import Table from '/@/components/Table'
-import Select from '/@/components/Select'
-import Upload from '/@/components/Upload'
+import Charts from './Charts'
+import Form, { FormSchema } from './Form'
+import Page from './Page'
+import ModalForm from './ModalForm'
+import Icon from './Icon'
+import Search from './Search'
+import Table, { TableFormat } from './Table'
+import Input from './Input'
+import Select from './Select'
+import Upload from './Upload'
 
 export function registerGC(app: App) {
     app.component(Charts.name, Charts)
     app.component(Form.name, Form)
-    app.component(FormModal.name, FormModal)
+    app.component(Page.name, Page)
     app.component(ModalForm.name, ModalForm)
     app.component(Icon.name, Icon)
     app.component(Search.name, Search)
     app.component(Table.name, Table)
+    app.component(Input.name, Input)
     app.component(Select.name, Select)
     app.component(Upload.name, Upload)
 }
+
+export { Charts, Form, Page, ModalForm, Icon, Search, Table, Input, Select, Upload }
+
+export type { FormSchema, TableFormat }

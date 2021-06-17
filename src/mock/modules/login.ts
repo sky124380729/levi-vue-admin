@@ -4,7 +4,7 @@ export default [
         method: 'post',
         t(req: any) {
             const { username, password } = JSON.parse(req.body)
-            if (username === 'admin1' && password === '1234') {
+            if (username === 'levi' && password === '123456') {
                 return {
                     code: 0,
                     data: {
