@@ -1,6 +1,9 @@
 <template>
     <div class="github">
         <h1 class="title">Last Levi-vue-admin commits</h1>
+        <h2 class="subtitle">
+            <span>lastBuildTime:{{ lastBuildTime }}</span> <span>version:{{ version }}</span>
+        </h2>
         <a-radio-group v-model:value="currentBranch" button-style="solid">
             <a-radio-button v-for="item in branchs" :key="item" :value="item">{{ item }}</a-radio-button>
         </a-radio-group>
@@ -27,6 +30,9 @@ import axios from 'axios'
 export default defineComponent({
     name: 'function-github',
     setup() {
+        const { lastBuildTime, pkg } = __APP_INFO__
+        const { version } = pkg
+
         const apiURL = 'https://api.github.com/repos/sky124380729/levi-vue-admin/commits?per_page=8&sha='
         const branchs = ref(['master', 'dev'])
         const commits = ref<any[]>([])
@@ -56,7 +62,9 @@ export default defineComponent({
             currentBranch,
             commits,
             truncate,
-            formateDate
+            formateDate,
+            lastBuildTime,
+            version
         }
     }
 })
@@ -67,6 +75,14 @@ export default defineComponent({
     background-color: #fff;
     min-height: 400px;
     padding: 20px;
+    .subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+        color: #0dacdc;
+        span {
+            margin-right: 20px;
+        }
+    }
     .project-url {
         font-size: 16px;
         font-weight: bold;

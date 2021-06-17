@@ -45,8 +45,8 @@ export default defineComponent({
     },
     setup() {
         const model = reactive({
-            username: 'admin1',
-            password: '1234'
+            username: 'levi',
+            password: '123456'
         })
         const handleLogin = async () => {
             const { username, password } = model

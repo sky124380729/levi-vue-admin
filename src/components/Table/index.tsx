@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { defineComponent, reactive, ref, unref, PropType } from 'vue'
-import { PageHeader, Table, Tooltip } from 'ant-design-vue'
+import { defineComponent, reactive, ref, unref, PropType, computed } from 'vue'
+import { Table, Tooltip } from 'ant-design-vue'
 import type { ColumnProps } from 'ant-design-vue/lib/table/interface'
-import Icon from '/@/components/Icon'
-import Search from '/@/components/Search'
+import { Icon, Search, Page } from '/@/components'
 import useInCacheFn from '/@/hooks/useInCacheFn'
 import { useStore } from 'vuex'
 import { useExpose } from '/@/hooks/useExpose'
+import { useFullscreen } from '@vueuse/core'
 import './index.less'
 
 interface Model {
@@ -19,7 +19,7 @@ type LeviColumnProps = ColumnProps & {
     dict: boolean
 }
 
-interface TableFormat {
+export interface TableFormat {
     /** 请求的方法 */
     fn: Fn
     /** 请求查询参数的转换 */
@@ -67,6 +67,8 @@ export default defineComponent({
         const dictMap: Record<string, any> = useStore().state.dict
         const loading = ref<boolean>(false)
         const data = ref([])
+        const tableRef = ref<Nullable<HTMLElement>>(null)
+        const { toggle, isFullscreen } = useFullscreen(tableRef)
         const model = reactive<Model>({
             form: {},
             terms: {}
@@ -144,7 +146,15 @@ export default defineComponent({
             bordered: false,
             striped: false,
             ellipsis: true,
-            indexed: true
+            indexed: true,
+            fullscreen: computed({
+                get() {
+                    return isFullscreen.value
+                },
+                set() {
+                    toggle()
+                }
+            })
         })
 
         const handleQuery = (terms: any) => {
@@ -234,7 +244,7 @@ export default defineComponent({
             const { columns, terms, rowKey } = props
             const { ellipsis, striped, bordered, indexed } = tableSettings
             return (
-                <div class={['levi-table', { 'levi-table--striped': striped, 'levi-table--bordered': bordered }]}>
+                <div ref={tableRef} class={['levi-table', { 'levi-table--striped': striped, 'levi-table--bordered': bordered }]}>
                     <div class='levi-table__header'>
                         <div class='levi-table__search'>{terms && <Search terms={terms} onQuery={handleQuery}></Search>}</div>
                         <div class='levi-table__action'>
@@ -263,12 +273,12 @@ export default defineComponent({
         return () => {
             const { title, subTitle } = props
             return title || subTitle ? (
-                <PageHeader title={title} subTitle={subTitle}>
+                <Page title={title} subTitle={subTitle}>
                     {{
-                        extra: getExtraSlots(),
-                        default: () => renderTable()
+                        header: getExtraSlots(),
+                        content: () => renderTable()
                     }}
-                </PageHeader>
+                </Page>
             ) : (
                 renderTable()
             )

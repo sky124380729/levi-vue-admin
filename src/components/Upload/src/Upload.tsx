@@ -1,7 +1,7 @@
 import { defineComponent, onUnmounted, PropType, ref, watch } from 'vue'
 
 import { FILE_URL } from '/@/config'
-import Icon from '/@/components/Icon'
+import { Icon } from '/@/components'
 
 import './index.less'
 

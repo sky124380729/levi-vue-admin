@@ -7,7 +7,6 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, toRefs } from 'vue'
 import type { Ref } from 'vue'
-import { ModalFormType } from '/@/components/FormModal'
 import useCRUD from '/@/hooks/useCRUD'
 import { fetchRolePage, updateRole, createRole, getRole, removeRole } from '/@/apis/modules/role'
 
@@ -21,7 +20,7 @@ export default defineComponent({
         ]
         const tableRef = ref<Nullable<Ref>>(null)
         const terms = [{ key: 'roleName', label: '角色名称', component: 'Input' }]
-        const modelForm = reactive<ModalFormType>({
+        const modelForm = reactive({
             visible: false,
             loading: false,
             rules: {

@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref, unref } from 'vue'
+import { defineComponent, reactive, ref, unref, h } from 'vue'
 import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
@@ -88,10 +88,14 @@ export default defineComponent({
             }
 
             const Comp = componentMap.get(component) as typeof defineComponent
-            return (
-                <Comp {...compAttr} {...getWrapperWidth(width)} placeholder={(component === 'Select' ? '请选择' : '请输入') + label}>
-                    {{ ...slots }}
-                </Comp>
+            return h(
+                Comp,
+                {
+                    ...compAttr,
+                    ...getWrapperWidth(width),
+                    placeholder: (component === 'Select' ? '请选择' : '请输入') + label
+                },
+                slots
             )
         }
         return () => {

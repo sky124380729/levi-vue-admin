@@ -76,6 +76,20 @@
                         "type": "MENU",
                         "path": "github",
                         "component": "/function/github"
+                    },
+                    {
+                        "title": "vite plugins",
+                        "name": "vitePlugins",
+                        "type": "MENU",
+                        "path": "vitePlugins",
+                        "component": "/function/vitePlugins"
+                    },
+                    {
+                        "title": "vueuse",
+                        "name": "vueuse",
+                        "type": "MENU",
+                        "path": "vueuse",
+                        "component": "/function/vueuse"
                     }
                 ]
             }
