@@ -2,7 +2,6 @@ import { createVNode, h } from 'vue'
 import type { Ref } from 'vue'
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { Modal } from 'ant-design-vue'
-import { ModalFormType } from '/@/components/FormModal'
 interface ICRUD {
     /* create */
     C: Fn
@@ -15,7 +14,7 @@ interface ICRUD {
     /* retreieve callback */
     RC?: Fn
 }
-const useCRUD = (model: ModalFormType, CRUD: ICRUD, tableRef?: Ref) => {
+const useCRUD = (model: any, CRUD: ICRUD, tableRef?: Ref) => {
     const { C, U, R, D, RC } = CRUD
     const handle = async (id?: string) => {
         if (id) {

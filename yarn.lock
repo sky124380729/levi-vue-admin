@@ -389,9 +389,9 @@
     fastq "^1.6.0"
 
 "@pinkbin/utils@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.nlark.com/@pinkbin/utils/download/@pinkbin/utils-1.0.1.tgz#5872f03f86c2fa4de5624f360c4e363c374a4730"
-  integrity sha1-WHLwP4bC+k3lYk82DE42PDdKRzA=
+  version "1.0.2"
+  resolved "https://registry.nlark.com/@pinkbin/utils/download/@pinkbin/utils-1.0.2.tgz#e864da46506b21adc8251fa76947b662656bcf4a"
+  integrity sha1-6GTaRlBrIa3IJR+naUe2YmVrz0o=
 
 "@pinkbin/vuehooks@^1.0.0":
   version "1.0.0"
