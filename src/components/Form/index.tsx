@@ -1,7 +1,7 @@
 import { defineComponent, ref, PropType, onMounted, h } from 'vue'
 import { componentMap, ComponentType } from '/@/utils/componentMap'
 import { Form, Row, Col } from 'ant-design-vue'
-import { isNumber } from '/@/utils/is'
+import { isNumber } from '@pinkbin/utils'
 
 export type ColumnType = 1 | 2 | 3 | 4
 

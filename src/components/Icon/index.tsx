@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, ref, watch, onMounted, nextTick, unref, computed, CSSProperties } from 'vue'
 import Iconify from '@purge-icons/generated'
-import { isString } from '/@/utils/is'
+import { isString } from '@pinkbin/utils'
 import { propTypes } from '/@/utils/propTypes'
 export default defineComponent({
     name: 'LvIcon',

@@ -1,5 +1,5 @@
 import { watchEffect } from 'vue'
-import { debounce, ownAddEventListener } from '/@/utils'
+import { debounce, ownAddEventListener } from '@pinkbin/utils'
 
 // when window seize change, call the fn
 

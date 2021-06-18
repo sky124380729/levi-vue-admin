@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
-import { debounce } from '/@/utils'
+import { debounce } from '@pinkbin/utils'
 import marked from 'marked'
 export default defineComponent({
     name: 'function-markdown',

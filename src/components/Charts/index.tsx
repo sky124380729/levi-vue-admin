@@ -2,7 +2,7 @@ import { defineComponent, onActivated, onMounted, PropType, ref, watch } from 'v
 import * as echarts from 'echarts'
 import type { EChartsOption, ECharts } from 'echarts'
 import useWinResize from '/@/hooks/useWinResize'
-import { isNumber } from '/@/utils/is'
+import { isNumber } from '@pinkbin/utils'
 
 export default defineComponent({
     name: 'LvCharts',

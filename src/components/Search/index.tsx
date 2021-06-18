@@ -3,7 +3,7 @@ import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
 import { FormSchema } from '/@/components/Form'
-import { isNumber, isString } from '/@/utils/is'
+import { isNumber, isString } from '@pinkbin/utils'
 
 import Icon from '/@/components/Icon'
 interface FormProps {

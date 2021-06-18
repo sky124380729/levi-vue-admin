@@ -388,6 +388,16 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@pinkbin/utils@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.nlark.com/@pinkbin/utils/download/@pinkbin/utils-1.0.1.tgz#5872f03f86c2fa4de5624f360c4e363c374a4730"
+  integrity sha1-WHLwP4bC+k3lYk82DE42PDdKRzA=
+
+"@pinkbin/vuehooks@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.nlark.com/@pinkbin/vuehooks/download/@pinkbin/vuehooks-1.0.0.tgz?cache=0&sync_timestamp=1624024665575&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40pinkbin%2Fvuehooks%2Fdownload%2F%40pinkbin%2Fvuehooks-1.0.0.tgz#b9460d13230c2697444ab56aadd5563645fbeaf7"
+  integrity sha1-uUYNEyMMJpdESrVqrdVWNkX76vc=
+
 "@purge-icons/core@^0.5.2":
   version "0.5.2"
   resolved "https://registry.npm.taobao.org/@purge-icons/core/download/@purge-icons/core-0.5.2.tgz#f308ab31772555babc1c425b9adde7d6a3ec9ab9"

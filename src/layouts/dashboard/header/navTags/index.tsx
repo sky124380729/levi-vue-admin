@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import store from '/@/store'
 import Icon from '/@/components/Icon'
 import './index.less'
-import { ft } from '/@/utils'
+import { ft } from '@pinkbin/utils'
 
 interface TagRaw {
     name: string
