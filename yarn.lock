@@ -388,15 +388,15 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@pinkbin/utils@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.nlark.com/@pinkbin/utils/download/@pinkbin/utils-1.0.2.tgz#e864da46506b21adc8251fa76947b662656bcf4a"
-  integrity sha1-6GTaRlBrIa3IJR+naUe2YmVrz0o=
+"@pinkbin/utils@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@pinkbin/utils/-/utils-0.0.4.tgz#4082f25c4936f2792e748607b8d6b28283650b5e"
+  integrity sha512-L9H8t9CvAGE8vCzPCb6mcg/OttdxzDDK82PiRDDkyblOiK/KaycsQNknAMQqwtR17EBYY06QRizkqLNE4KzXkA==
 
-"@pinkbin/vuehooks@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.nlark.com/@pinkbin/vuehooks/download/@pinkbin/vuehooks-1.0.0.tgz?cache=0&sync_timestamp=1624024665575&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40pinkbin%2Fvuehooks%2Fdownload%2F%40pinkbin%2Fvuehooks-1.0.0.tgz#b9460d13230c2697444ab56aadd5563645fbeaf7"
-  integrity sha1-uUYNEyMMJpdESrVqrdVWNkX76vc=
+"@pinkbin/vue-hooks@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@pinkbin/vue-hooks/-/vue-hooks-0.0.4.tgz#de26a5d87239b71d3e9326d231c5d1c25804dcae"
+  integrity sha512-rDgDCSGufEOZxpiBMRQihAIvbcC6hdRGel5AlZHoLcjnqREGwOmFQwWHw6xKyl6GyQxmPYumqTG5qpc38YXrXw==
 
 "@purge-icons/core@^0.5.2":
   version "0.5.2"

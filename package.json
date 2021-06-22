@@ -12,8 +12,8 @@
     },
     "dependencies": {
         "@iconify/iconify": "^2.0.1",
-        "@pinkbin/utils": "^1.0.0",
-        "@pinkbin/vuehooks": "^1.0.0",
+        "@pinkbin/utils": "^0.0.4",
+        "@pinkbin/vue-hooks": "^0.0.4",
         "@vueuse/core": "^5.0.3",
         "ant-design-vue": "^2.1.6",
         "axios": "^0.21.0",

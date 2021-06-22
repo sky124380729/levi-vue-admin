@@ -1,7 +1,7 @@
 import { defineComponent, onActivated, onMounted, PropType, ref, watch } from 'vue'
 import * as echarts from 'echarts'
 import type { EChartsOption, ECharts } from 'echarts'
-import { useWinResize } from '@pinkbin/vuehooks'
+import { useWinResize } from '@pinkbin/vue-hooks'
 import { isNumber } from '@pinkbin/utils'
 
 export default defineComponent({
