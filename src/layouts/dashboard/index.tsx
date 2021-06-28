@@ -9,7 +9,7 @@ import { useRouter } from 'vue-router'
 export default defineComponent({
     name: 'Layout',
     setup() {
-        const isCollapse = computed(() => store.state.isCollapse)
+        const isCollapse = computed(() => store.getters.getCollapse)
         const { currentRoute } = useRouter()
         const isFullscreen = ref<boolean>(false)
         watchEffect(() => {

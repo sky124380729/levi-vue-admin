@@ -388,6 +388,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@pinkbin/storage@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@pinkbin/storage/-/storage-0.0.2.tgz#a96ce02b41193d2dc6eaee3316e1c1bd54301d3e"
+  integrity sha512-4iLwCXwP9niA74KUq17ifq2ra4/6tawpLRch6+Ae/RGtk7p/5y643SlQF03zQFpH/xlTrrWd+Owj/KRpgaQP5A==
+
 "@pinkbin/utils@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@pinkbin/utils/-/utils-0.0.4.tgz#4082f25c4936f2792e748607b8d6b28283650b5e"

@@ -14,7 +14,7 @@ export default defineComponent({
         const { push, currentRoute } = useRouter()
         const selectedKeys = ref<string[]>([])
         const openKeys = ref<string[]>([])
-        const isCollapse = computed(() => store.state.isCollapse)
+        const isCollapse = computed(() => store.getters.getCollapse)
         const menus = useStore().getters.getMenuList
 
         // const subMenuKeys

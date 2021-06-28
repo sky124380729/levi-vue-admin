@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import router from '/@/router'
+import storage from '@pinkbin/storage'
 import type { IResource } from '/@/router/types'
 import { generateRoutes, generateBtns } from '/@/router/helpers/generateAsyncRoutes'
 import resource from '/@/router/menu.json'
@@ -42,13 +43,16 @@ export const createMenuId = (routes: IResource[]) => {
 const store = createStore<GlobalData>({
     state: {
         authorized: false,
-        isCollapse: false,
+        isCollapse: storage.local.get('isCollapse'),
         dict: {},
         accessBtns: [],
         accessRoutes: [],
         cachedViews: []
     },
     getters: {
+        getCollapse(state) {
+            return state.isCollapse
+        },
         getCachedViews(state) {
             return state.cachedViews
         },
@@ -71,6 +75,7 @@ const store = createStore<GlobalData>({
         },
         setCollapse(state, flag) {
             state.isCollapse = flag
+            storage.local.set('isCollapse', flag)
         },
         setCachedViews(state, cachedViews) {
             state.cachedViews = cachedViews

@@ -14,7 +14,7 @@ export default defineComponent({
         const drawerVisible = ref<boolean>(false)
         const themeDark = ref<boolean>(false)
         const setCollapse = () => {
-            store.commit('setCollapse', !store.state.isCollapse)
+            store.commit('setCollapse', !store.getters.getCollapse)
         }
         type MenuKey = 'settings' | 'logout'
         // menu click event
@@ -57,7 +57,7 @@ export default defineComponent({
                     <div class='levi-navbar__content'>
                         <div class='levi-navbar__left'>
                             <span class='collapse-icon' onClick={setCollapse}>
-                                {store.state.isCollapse ? <Icon icon='ri:menu-unfold-fill' /> : <Icon icon='ri:menu-fold-fill' />}
+                                {store.getters.getCollapse ? <Icon icon='ri:menu-unfold-fill' /> : <Icon icon='ri:menu-fold-fill' />}
                             </span>
                             <Breadcrumb></Breadcrumb>
                         </div>

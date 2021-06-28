@@ -1,5 +1,6 @@
-import { defineComponent, onActivated, onMounted, PropType, ref, watch } from 'vue'
+import { defineComponent, nextTick, onActivated, onMounted, PropType, ref, watch } from 'vue'
 import * as echarts from 'echarts'
+import { useStore } from 'vuex'
 import type { EChartsOption, ECharts } from 'echarts'
 import { useWinResize } from '@pinkbin/vue-hooks'
 import { isNumber } from '@pinkbin/utils'
@@ -9,16 +10,18 @@ export default defineComponent({
     props: {
         options: {
             required: true,
-            type: Object as PropType<EChartsOption>
+            type: Object as PropType<EChartsOption>,
+            default: () => ({})
         },
         height: {
             type: [Number, String] as PropType<string | number>,
             default: 300
         }
     },
-    setup(props) {
+    setup(props, { expose }) {
         const wrapper = ref<HTMLDivElement | null>(null)
         let chart: Nullable<ECharts> = null
+        const store = useStore()
         // 初始化函数
         const init = () => {
             if (wrapper.value) {
@@ -34,6 +37,15 @@ export default defineComponent({
             }
         )
 
+        // 菜单栏变化的时候重置大小
+        watch(
+            () => store.getters.getCollapse,
+            async () => {
+                await nextTick()
+                chart && chart.resize()
+            }
+        )
+
         onMounted(() => {
             init()
         })
@@ -44,6 +56,12 @@ export default defineComponent({
 
         useWinResize(() => {
             chart && chart.resize()
+        })
+
+        expose({
+            getInstance() {
+                return chart
+            }
         })
 
         return () => {
