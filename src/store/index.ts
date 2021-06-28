@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import router from '/@/router'
 import type { IResource } from '/@/router/types'
-import generateRoutes from '/@/router/helpers/generateAsyncRoutes'
+import { generateRoutes, generateBtns } from '/@/router/helpers/generateAsyncRoutes'
 import resource from '/@/router/menu.json'
 import { getUserMenuTree } from '/@/apis/modules/menu'
 import { getAllDictMap } from '/@/apis/modules/sysDict'
@@ -11,6 +11,7 @@ import md5 from 'md5'
 export interface GlobalData {
     authorized: boolean
     isCollapse: boolean
+    accessBtns: string[]
     accessRoutes: any[]
     dict: Record<string, any>
     cachedViews: string[]
@@ -22,7 +23,7 @@ const filterResource = (routes: IResource[]) => {
         if (route.children) {
             route.children = filterResource(route.children)
         }
-        return !route.hidden
+        return route.type === 'MENU' && !route.hidden
     })
 }
 
@@ -43,6 +44,7 @@ const store = createStore<GlobalData>({
         authorized: false,
         isCollapse: false,
         dict: {},
+        accessBtns: [],
         accessRoutes: [],
         cachedViews: []
     },
@@ -50,7 +52,7 @@ const store = createStore<GlobalData>({
         getCachedViews(state) {
             return state.cachedViews
         },
-        menuList(state) {
+        getMenuList(state) {
             return filterResource(state.accessRoutes)
         }
     },
@@ -60,6 +62,9 @@ const store = createStore<GlobalData>({
         },
         setAccessRoutes(state, accessRoutes) {
             state.accessRoutes = accessRoutes
+        },
+        setAccessBtns(state, accessBtns) {
+            state.accessBtns = accessBtns
         },
         setDict(state, dict) {
             state.dict = dict
@@ -92,7 +97,6 @@ const store = createStore<GlobalData>({
                         router.addRoute(route)
                     }
                 })
-
                 /* 获取数据字典 */
                 const dictRes = await getAllDictMap()
                 commit('setDict', dictRes.data)
@@ -100,6 +104,7 @@ const store = createStore<GlobalData>({
 
                 commit('setAuthority')
                 commit('setAccessRoutes', data)
+                commit('setAccessBtns', generateBtns(data))
                 resolve()
             })
         }

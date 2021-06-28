@@ -15,7 +15,7 @@ export default defineComponent({
         const selectedKeys = ref<string[]>([])
         const openKeys = ref<string[]>([])
         const isCollapse = computed(() => store.state.isCollapse)
-        const menus = useStore().getters.menuList
+        const menus = useStore().getters.getMenuList
 
         // const subMenuKeys
         const rootSubMenuKeys: string[] = []
@@ -31,7 +31,8 @@ export default defineComponent({
                 selectedKeys.value = []
                 for (let i = arr.length - 1; i >= 0; i--) {
                     const { meta } = arr[i]
-                    const { id, hidden } = meta
+                    const id = meta.id as string
+                    const hidden = meta.hidden as boolean
                     if (hidden) continue
                     selectedKeys.value.push(id)
                     if (rootSubMenuKeys.indexOf(id) !== -1 && openKeys.value.indexOf(id) === -1) {

@@ -50,6 +50,18 @@
                 "icon": "ri:settings-5-line",
                 "children": [
                     {
+                        "title": "权限控制",
+                        "name": "permission",
+                        "type": "MENU",
+                        "path": "permission",
+                        "component": "/function/permission",
+                        "children": [
+                            { "title": "新增", "name": "create", "type": "BUTTON" },
+                            { "title": "修改", "name": "edit", "type": "BUTTON" },
+                            { "title": "删除", "name": "delete", "type": "BUTTON" }
+                        ]
+                    },
+                    {
                         "title": "录屏功能",
                         "name": "screenrecorder",
                         "type": "MENU",
