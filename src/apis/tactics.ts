@@ -1,4 +1,4 @@
-import Cookie from 'js-cookie'
+import storage from '@pinkbin/storage'
 import { message } from 'ant-design-vue'
 import router from '/@/router/index'
 
@@ -100,7 +100,7 @@ export const HTTP_STRATEGY = new Map([
         401,
         () => {
             message.error('授权失败，请重新登录!')
-            Cookie.remove('token')
+            storage.cookie.remove('token')
             router.push('/login')
         }
     ],
@@ -108,7 +108,7 @@ export const HTTP_STRATEGY = new Map([
         403,
         () => {
             message.error('拒绝访问!')
-            Cookie.remove('token')
+            storage.cookie.remove('token')
             router.push('/login')
         }
     ],

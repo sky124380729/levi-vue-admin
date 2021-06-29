@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios'
 import { HTTP_STRATEGY } from './tactics'
-import Cookies from 'js-cookie'
+import storage from '@pinkbin/storage'
 import { message } from 'ant-design-vue'
 import { BASE_URL, API_MOCK } from '/@/config'
 
@@ -12,7 +12,7 @@ const service: AxiosInstance = axios.create({
 // request interceptors
 service.interceptors.request.use(
     (request: AxiosRequestConfig) => {
-        const token = Cookies.get('token')
+        const token = storage.cookie.get('token')
         token && (request.headers.token = token)
         // 如果是post请求没有传body默认给个空的body
         const { method, data } = request

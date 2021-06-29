@@ -4,9 +4,9 @@ import router from './router/index'
 import store from './store/index'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import Cookies from 'js-cookie'
+import storage from '@pinkbin/storage'
 router.beforeEach(async (to, from, next) => {
-    const token = Cookies.get('token')
+    const token = storage.cookie.get('token')
     NProgress.start()
     if (token) {
         if (to.path === '/login') {

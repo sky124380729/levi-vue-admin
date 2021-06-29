@@ -33,7 +33,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import Cookies from 'js-cookie'
+import storage from '@pinkbin/storage'
 import router from '/@/router/index'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { login } from '/@/apis/modules/login'
@@ -55,7 +55,7 @@ export default defineComponent({
                 password
             })
             if (!res) return
-            Cookies.set('token', res.data.token)
+            storage.cookie.set('token', res.data.token)
             router.push('/')
         }
         const schemas = ref([{ key: 'username', component: 'Input' }])

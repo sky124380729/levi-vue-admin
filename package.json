@@ -12,14 +12,13 @@
     },
     "dependencies": {
         "@iconify/iconify": "^2.0.1",
-        "@pinkbin/storage": "^0.0.2",
+        "@pinkbin/storage": "^0.0.3",
         "@pinkbin/utils": "^0.0.4",
         "@pinkbin/vue-hooks": "^0.0.4",
         "@vueuse/core": "^5.0.3",
         "ant-design-vue": "^2.1.6",
         "axios": "^0.21.0",
         "echarts": "^5.1.1",
-        "js-cookie": "^2.2.1",
         "js-yaml": "^4.1.0",
         "marked": "^2.0.3",
         "mitt": "^2.1.0",
@@ -34,7 +33,6 @@
     "devDependencies": {
         "@iconify/json": "^1.1.343",
         "@purge-icons/generated": "^0.4.1",
-        "@types/js-cookie": "^2.2.6",
         "@types/js-yaml": "^4.0.1",
         "@types/marked": "^2.0.2",
         "@types/md5": "^2.3.0",

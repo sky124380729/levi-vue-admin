@@ -3,7 +3,7 @@ import Breadcrumb from './Breadcrumb'
 import Icon from '/@/components/Icon'
 import { Dropdown, Menu, message, Drawer, Divider, Switch } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
-import Cookies from 'js-cookie'
+import storage from '@pinkbin/storage'
 import { useRouter } from 'vue-router'
 import { defineComponent, ref, unref } from 'vue'
 
@@ -22,7 +22,7 @@ export default defineComponent({
             if (key === 'settings') {
                 message.warn('此功能暂未开放')
             } else if (key === 'logout') {
-                Cookies.remove('token')
+                storage.cookie.remove('token')
                 push('/login')
             }
         }
