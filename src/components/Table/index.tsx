@@ -5,7 +5,6 @@ import type { ColumnProps } from 'ant-design-vue/lib/table/interface'
 import { Icon, Search, Page } from '/@/components'
 import { useInCacheFn } from '@pinkbin/vue-hooks'
 import { useStore } from 'vuex'
-import { useExpose } from '@pinkbin/vue-hooks'
 import { useFullscreen } from '@vueuse/core'
 import './index.less'
 
@@ -63,7 +62,7 @@ export default defineComponent({
             default: () => []
         }
     },
-    setup(props, { slots, attrs }) {
+    setup(props, { slots, attrs, expose }) {
         const dictMap: Record<string, any> = useStore().state.dict
         const loading = ref<boolean>(false)
         const data = ref([])
@@ -236,10 +235,6 @@ export default defineComponent({
             ))
         }
 
-        useExpose({
-            reload
-        })
-
         const renderTable = () => {
             const { columns, terms, rowKey } = props
             const { ellipsis, striped, bordered, indexed } = tableSettings
@@ -269,6 +264,10 @@ export default defineComponent({
                 </div>
             )
         }
+
+        expose({
+            reload
+        })
 
         return () => {
             const { title, subTitle } = props
