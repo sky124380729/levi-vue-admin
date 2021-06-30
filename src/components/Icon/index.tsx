@@ -66,6 +66,6 @@ export default defineComponent({
 
         onMounted(update)
 
-        return () => <div ref={elRef} onClick={props.onClick} class={[attrs.class, 'app-iconify anticon']} style={unref(wrapStyleRef)} />
+        return () => <div ref={elRef} onClick={props.onClick} class={[attrs.class, 'app-iconify anticon lv-icon']} style={unref(wrapStyleRef)} />
     }
 })

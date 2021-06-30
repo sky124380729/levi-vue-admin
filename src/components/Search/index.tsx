@@ -2,10 +2,10 @@ import { defineComponent, reactive, ref, unref, h } from 'vue'
 import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
-import { FormSchema } from '/@/components/Form'
+import type { FormSchema } from '/@/components'
+import { Icon } from '/@/components'
 import { isNumber, isString } from '@pinkbin/utils'
 
-import Icon from '/@/components/Icon'
 interface FormProps {
     validate: () => Promise<any>
     resetFields: () => void

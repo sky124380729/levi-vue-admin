@@ -1,7 +1,7 @@
 import { ref, defineComponent, unref, computed, watch } from 'vue'
 import { Menu } from 'ant-design-vue'
 import { useStore } from 'vuex'
-import Icon from '/@/components/Icon'
+import { Icon } from '/@/components'
 import type { IResource } from '/@/router/types'
 import { useRouter } from 'vue-router'
 import LogoImg from '/@/assets/images/logo.png'

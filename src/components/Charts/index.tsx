@@ -53,7 +53,6 @@ export default defineComponent({
         onActivated(() => {
             chart && chart.resize()
         })
-
         useWinResize(() => {
             chart && chart.resize()
         })

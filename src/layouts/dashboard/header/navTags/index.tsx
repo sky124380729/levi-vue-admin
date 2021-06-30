@@ -3,7 +3,7 @@ import { Dropdown, Menu } from 'ant-design-vue'
 import Tag from './Tag'
 import { useRouter } from 'vue-router'
 import store from '/@/store'
-import Icon from '/@/components/Icon'
+import { Icon } from '/@/components'
 import './index.less'
 import { ft } from '@pinkbin/utils'
 

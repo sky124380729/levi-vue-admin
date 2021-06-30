@@ -86,7 +86,6 @@ import { fetchUserList, fetchUserPage } from '/@/apis/modules/user'
 import Form, { FormSchema } from '/@/components/Form'
 import ModalForm from '/@/components/ModalForm'
 import print from '/@/directives/print'
-import storage from '@pinkbin/storage2'
 export default defineComponent({
     components: {
         LvForm: Form,

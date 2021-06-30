@@ -1,6 +1,6 @@
 import store from '/@/store'
 import Breadcrumb from './Breadcrumb'
-import Icon from '/@/components/Icon'
+import { Icon } from '/@/components'
 import { Dropdown, Menu, message, Drawer, Divider, Switch } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 import storage from '@pinkbin/storage'
