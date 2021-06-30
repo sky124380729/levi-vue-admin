@@ -1,7 +1,7 @@
 import store from '/@/store'
 import Breadcrumb from './Breadcrumb'
 import { Icon } from '/@/components'
-import VisitMenu from './visitMenu'
+import VisitedMenu from './visitedMenu'
 import { Dropdown, Menu, message, Drawer, Divider, Switch } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 import storage from '@pinkbin/storage'
@@ -64,7 +64,7 @@ export default defineComponent({
                         </div>
                     </div>
                     <div class='levi-navbar__action'>
-                        <VisitMenu />
+                        <VisitedMenu />
                         <Dropdown trigger={['click']}>
                             {{
                                 default: () => (
