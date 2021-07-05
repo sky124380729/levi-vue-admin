@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<i18n>
+<custom lang="i18n">
 {
     "zh": {
         "language": "中文",
@@ -47,4 +47,4 @@ export default {
         "hello": "Hello World!"
     }
 }
-</i18n>
+</custom>

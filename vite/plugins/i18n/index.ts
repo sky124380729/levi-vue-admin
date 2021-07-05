@@ -1,10 +1,13 @@
 import type { Plugin } from 'vite'
+import { parseVueRequest } from '../../utils/query'
 
 export default function i18n(): Plugin {
     return {
         name: 'vite:i18n',
         transform(code, id) {
-            if (!/vue&type=i18n/.test(id)) return
+            const { query } = parseVueRequest(id)
+            const { type, lang } = query
+            if (!(type === 'custom' && lang === 'i18n')) return
             return `export default type => {
                 type.i18n = ${code}
             }`
