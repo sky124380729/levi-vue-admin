@@ -1,6 +1,8 @@
 @import (reference) '../../styles/index.less';
 
-@--menu-width-fullfilled: 220px;
+@menu-fullfilled-width: 220px;
+@menu-collapsed-width: 80px;
+@menu-dark-bg: #001529;
 
 .levi-layout {
     width: 100vw;
@@ -10,7 +12,7 @@
         position: relative;
         float: left;
         height: 100%;
-        width: @--menu-width-fullfilled;
+        width: @menu-fullfilled-width;
         background-color: @menu-dark-bg;
         // background-image: url(../assets/images/sidebar.png);
         background-size: 100% 100%;
@@ -52,7 +54,7 @@
     }
 
     .levi-main {
-        margin-left: @--menu-width-fullfilled;
+        margin-left: @menu-fullfilled-width;
         overflow-x: auto;
         .levi-header {
             position: relative;
