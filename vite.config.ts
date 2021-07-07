@@ -5,7 +5,7 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
 import vueI18n from './vite/plugins/i18n'
-import vueTheme from './vite/plugins/theme'
+import vueTheme from './vite/plugins/theme/node'
 import modifyVars from './src/styles/theme/vars'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 const { dependencies, devDependencies, name, version } = pkg
@@ -52,7 +52,7 @@ const viteConfig = defineConfig({
     server: {
         host: true,
         port: 3399,
-        open: true
+        open: false
     },
     optimizeDeps: {
         include: ['@ant-design/icons-vue', 'ant-design-vue/es/locale/zh_CN', 'ant-design-vue/es/locale/en_US']

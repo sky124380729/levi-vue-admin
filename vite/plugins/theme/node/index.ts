@@ -8,7 +8,7 @@ const isCSSRequest = (request: string): boolean => cssLangRE.test(request) && !d
 export default function theme({ colors = {} }): Plugin {
     return {
         name: 'vite:theme',
-        enforce: 'post',
+        // enforce: 'post',
         transform(code, id) {
             if (!isCSSRequest(id)) return null
             Object.keys(colors).forEach((key) => {
@@ -25,10 +25,10 @@ export default function theme({ colors = {} }): Plugin {
                 prev += '\n'
                 return prev
             }, '')
-            const str = `:root {${colorVars}}`
+            const str = `:root { ${colorVars} }`
             return {
                 html,
-                tags: [{ tag: 'style', children: str, injectTo: 'head' }]
+                tags: [{ tag: 'style', attrs: { id: 'rootVars' }, children: str, injectTo: 'head' }]
             }
         }
     }

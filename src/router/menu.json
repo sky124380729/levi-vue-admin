@@ -50,6 +50,13 @@
                 "icon": "ri:settings-5-line",
                 "children": [
                     {
+                        "title": "主题切换",
+                        "name": "theme",
+                        "type": "MENU",
+                        "path": "theme",
+                        "component": "/function/theme"
+                    },
+                    {
                         "title": "权限控制",
                         "name": "permission",
                         "type": "MENU",
