@@ -8,13 +8,13 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { replaceCssVars } from '../../../../vite/plugins/theme/client'
+import { replaceCssVars } from '/vt/plugins/antdTheme/client'
 export default defineComponent({
     name: 'function-theme',
     setup() {
-        const color = ref('#008ccf')
+        const color = ref('#1890ff')
         const test = () => {
-            replaceCssVars('primary', color.value)
+            replaceCssVars('blue', color.value)
         }
         return {
             color,
@@ -26,6 +26,6 @@ export default defineComponent({
 
 <style lang="less">
 .theme {
-    background-color: #008ccf;
+    background-color: #1890ff;
 }
 </style>

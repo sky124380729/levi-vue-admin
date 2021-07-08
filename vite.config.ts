@@ -5,8 +5,9 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
 import vueI18n from './vite/plugins/i18n'
-import vueTheme from './vite/plugins/theme/node'
-import modifyVars from './src/styles/theme/vars'
+// import vueTheme from './vite/plugins/theme/node'
+import antdTheme from './vite/plugins/antdTheme'
+// import modifyVars from './src/styles/theme/vars'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 const { dependencies, devDependencies, name, version } = pkg
 import moment from 'moment'
@@ -21,6 +22,10 @@ const viteConfig = defineConfig({
             {
                 find: /\/@\//,
                 replacement: pathResolve('src') + '/'
+            },
+            {
+                find: /\/vt\//,
+                replacement: pathResolve('vite') + '/'
             },
             {
                 find: /\/imgs\//,
@@ -43,7 +48,7 @@ const viteConfig = defineConfig({
                 modifyVars: {
                     // reference:  Avoid repeated references
                     //   hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
-                    ...modifyVars
+                    // ...modifyVars
                 },
                 javascriptEnabled: true
             }
@@ -62,12 +67,14 @@ const viteConfig = defineConfig({
         vueJSX(),
         PurgeIcons(),
         vueI18n(),
-        vueTheme({
-            colors: {
-                primary: '#008ccf',
-                danger: '#ff7873'
-            }
+        antdTheme({
+            a: 11
         })
+        // vueTheme({
+        //     colors: {
+        //         primary: '#1890ff'
+        //     }
+        // })
     ]
 })
 

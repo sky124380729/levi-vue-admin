@@ -5,6 +5,7 @@
         "src/**/*.tsx",
         "src/**/*.vue",
         "src/**/*.json",
+        "vite/**/*.ts"
     ],
     "exclude": [
         "node_modules",
@@ -31,6 +32,9 @@
         "paths": {
             "/@/*": [
                 "src/*"
+            ],
+            "/vt/*": [
+                "vite/*"
             ],
             "/apis/*": [
                 "src/apis/modules/*"
