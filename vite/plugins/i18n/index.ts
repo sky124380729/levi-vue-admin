@@ -6,8 +6,8 @@ export default function i18n(): Plugin {
         name: 'vite:i18n',
         transform(code, id) {
             const { query } = parseVueRequest(id)
-            const { type, lang } = query
-            if (!(type === 'custom' && lang === 'i18n')) return
+            const { type } = query
+            if (type !== 'i18n') return
             return `export default type => {
                 type.i18n = ${code}
             }`

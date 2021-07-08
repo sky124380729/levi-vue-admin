@@ -3,7 +3,7 @@ import qs from 'querystring'
 export interface VueQuery {
     vue?: boolean
     src?: boolean
-    type?: 'script' | 'template' | 'style' | 'custom'
+    type?: 'script' | 'template' | 'style' | string
     index?: number
     lang?: string
     raw?: boolean

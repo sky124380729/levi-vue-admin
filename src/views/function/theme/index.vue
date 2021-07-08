@@ -1,6 +1,5 @@
 <template>
     <div class="theme">
-        <!-- <a-input @></a-input> -->
         <a-input v-model:value="color"></a-input>
         <a-button @click="test">改变primary</a-button>
     </div>
@@ -12,7 +11,7 @@ import { replaceCssVars } from '/vt/plugins/antdTheme/client'
 export default defineComponent({
     name: 'function-theme',
     setup() {
-        const color = ref('#1890ff')
+        const color = ref('red')
         const test = () => {
             replaceCssVars('blue', color.value)
         }

@@ -21,7 +21,7 @@
                         </div>
                         <a-row>
                             <a-button type="primary" :disabled="isStart" class="action_btn_style" @click="onStartBtn">开始录制</a-button>
-                            <a-button type="danger" :disabled="!isStart" class="action_btn_style" @click="onEndBtn">结束录制</a-button>
+                            <a-button type="default" :disabled="!isStart" class="action_btn_style" @click="onEndBtn">结束录制</a-button>
                             <a-button type="primary" :disabled="!isFinish" class="action_btn_style" @click="onDownloadBtn">下载录制结果</a-button>
                         </a-row>
                     </div>

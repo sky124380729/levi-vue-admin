@@ -3,7 +3,7 @@ import { Dropdown, Menu } from 'ant-design-vue'
 import Tag from './Tag'
 import { useRouter } from 'vue-router'
 import store from '/@/store'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 import './index.less'
 import { ft } from '@pinkbin/utils'
 
@@ -118,7 +118,7 @@ export default defineComponent({
                     <Menu.Item key={action.handler}>
                         {() => [
                             <>
-                                <Icon icon={action.icon}></Icon>
+                                <LvIcon icon={action.icon}></LvIcon>
                                 <span>{action.title}</span>
                             </>
                         ]}
@@ -173,7 +173,7 @@ export default defineComponent({
             <>
                 <div class='levi-navTags nav-tag'>
                     <div class={['nav-tag__prev', { 'nav-tag--disabled': !unref(isOverflow) }]} onClick={handleNavClick.bind(null, 'LEFT')}>
-                        <Icon icon='mi:chevron-left'></Icon>
+                        <LvIcon icon='mi:chevron-left'></LvIcon>
                     </div>
                     <div class='nav-tag__content' ref={navTagsRef} onMousewheel={handleMousewheel}>
                         {unref(navTags).map((tag: TagRaw, index: number) => {
@@ -204,11 +204,11 @@ export default defineComponent({
                         })}
                     </div>
                     <div class={['nav-tag__next', { 'nav-tag--disabled': !unref(isOverflow) }]} onClick={handleNavClick.bind(null, 'RIGHT')}>
-                        <Icon icon='mi:chevron-right'></Icon>
+                        <LvIcon icon='mi:chevron-right'></LvIcon>
                     </div>
                     <Dropdown class='nav-tag__action'>
                         {{
-                            default: () => <Icon icon='mi:list'></Icon>,
+                            default: () => <LvIcon icon='mi:list'></LvIcon>,
                             overlay: () => <Menu onClick={({ key }) => handleMenuClick('action', key)}>{renderActionBoard()}</Menu>
                         }}
                     </Dropdown>

@@ -5,9 +5,9 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
 import vueI18n from './vite/plugins/i18n'
-// import vueTheme from './vite/plugins/theme/node'
 import antdTheme from './vite/plugins/antdTheme'
-// import modifyVars from './src/styles/theme/vars'
+import modifyVars from './src/styles/theme/vars'
+import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 const { dependencies, devDependencies, name, version } = pkg
 import moment from 'moment'
@@ -48,7 +48,7 @@ const viteConfig = defineConfig({
                 modifyVars: {
                     // reference:  Avoid repeated references
                     //   hack: `true; @import (reference) "${resolve('src/design/config.less')}";`,
-                    // ...modifyVars
+                    ...modifyVars
                 },
                 javascriptEnabled: true
             }
@@ -68,13 +68,11 @@ const viteConfig = defineConfig({
         PurgeIcons(),
         vueI18n(),
         antdTheme({
-            a: 11
+            blue: '1'
+        }),
+        ViteComponents({
+            customComponentResolvers: [AntDesignVueResolver()]
         })
-        // vueTheme({
-        //     colors: {
-        //         primary: '#1890ff'
-        //     }
-        // })
     ]
 })
 

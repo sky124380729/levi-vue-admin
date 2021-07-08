@@ -35,3 +35,16 @@ export default {
     }
 }
 </script>
+
+<i18n>
+{
+    "zh": {
+        "language": "中文",
+        "hello": "你好，世界！"
+    },
+    "en": {
+        "language": "english",
+        "hello": "Hello World!"
+    }
+}
+</i18n>

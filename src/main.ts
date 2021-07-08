@@ -11,9 +11,6 @@ import './mock'
 // auth
 import './permission'
 
-// Vite does not support partial import yet
-import Antd from 'ant-design-vue'
-
 // global less
 import '/@/styles/index.less'
 
@@ -21,11 +18,11 @@ import '/@/styles/index.less'
 const app = createApp(App)
 app.config.globalProperties.appName = 'Levi'
 
+// register global components
+registerGC(app)
+
 // register directives
 app.use(directives)
 
 // mount
-app.use(Antd).use(router).use(store).mount('#app')
-
-// register global components
-registerGC(app)
+app.use(router).use(store).mount('#app')

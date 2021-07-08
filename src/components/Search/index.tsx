@@ -3,7 +3,7 @@ import './index.less'
 import { Form, Space, Button } from 'ant-design-vue'
 import { componentMap } from '/@/utils/componentMap'
 import type { FormSchema } from '/@/components'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 import { isNumber, isString } from '@pinkbin/utils'
 
 interface FormProps {
@@ -114,13 +114,13 @@ export default defineComponent({
                                 <Button type='primary' shape='round' onClick={() => query(true)}>
                                     {{
                                         default: () => <span>search</span>,
-                                        icon: () => <Icon size={14} icon='uil:search' />
+                                        icon: () => <LvIcon size={14} icon='uil:search' />
                                     }}
                                 </Button>
-                                <Button type='danger' shape='round' onClick={() => query(false)}>
+                                <Button type='primary' danger shape='round' onClick={() => query(false)}>
                                     {{
                                         default: () => <span>reset</span>,
-                                        icon: () => <Icon size={14} icon='ant-design:delete-row-outlined' />
+                                        icon: () => <LvIcon size={14} icon='ant-design:delete-row-outlined' />
                                     }}
                                 </Button>
                             </Space>

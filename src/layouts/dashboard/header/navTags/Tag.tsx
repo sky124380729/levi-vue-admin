@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 
 export default defineComponent({
     name: 'Tag',
@@ -32,9 +32,9 @@ export default defineComponent({
         return () => {
             return (
                 <div {...attrs} class={['nav-tag-btn', { active: props.active }]} onClick={handleClick}>
-                    {props.icon && <Icon icon={props.icon} class='nav-tag-btn__icon'></Icon>}
+                    {props.icon && <LvIcon icon={props.icon} class='nav-tag-btn__icon'></LvIcon>}
                     <span class='nav-tag-btn__title'>{props.title}</span>
-                    {props.closable && <Icon icon='carbon:close' class='nav-tag-btn__close' onClick={handleClose}></Icon>}
+                    {props.closable && <LvIcon icon='carbon:close' class='nav-tag-btn__close' onClick={handleClose}></LvIcon>}
                 </div>
             )
         }

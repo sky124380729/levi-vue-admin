@@ -1,7 +1,7 @@
 import { defineComponent, watch, reactive, computed, ref, unref, Transition } from 'vue'
 import { useRouter } from 'vue-router'
 import { Select } from 'ant-design-vue'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 import storage from '@pinkbin/storage'
 import { filterUniqueByKey } from '@pinkbin/utils'
 import './index.less'
@@ -68,7 +68,7 @@ export default defineComponent({
                 <Transition name='fade-slide' mode='out-in' appear={true}>
                     {!menuShow.value ? (
                         <div class='input-container' onClick={() => toggleVisiteMenu(true)}>
-                            <Icon icon='si-glyph:foot-sign' size={20}></Icon>
+                            <LvIcon icon='si-glyph:foot-sign' size={20}></LvIcon>
                             <span>visited</span>
                         </div>
                     ) : (

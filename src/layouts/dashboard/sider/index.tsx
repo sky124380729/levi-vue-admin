@@ -1,12 +1,11 @@
 import { ref, defineComponent, unref, computed, watch } from 'vue'
 import { Menu } from 'ant-design-vue'
 import { useStore } from 'vuex'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 import type { IResource } from '/@/router/types'
 import { useRouter } from 'vue-router'
 import LogoImg from '/@/assets/images/logo.png'
 import store from '/@/store'
-import { MENU_ACCORDION } from '/@/config'
 
 export default defineComponent({
     name: 'Sidebar',
@@ -55,7 +54,7 @@ export default defineComponent({
                                 default: () => generateMenus(children, newPath),
                                 title: () => [
                                     <>
-                                        <Icon icon={icon || 'mdi:menu'}></Icon>
+                                        <LvIcon icon={icon || 'mdi:menu'}></LvIcon>
                                         <span>{title}</span>
                                     </>
                                 ]
@@ -67,7 +66,7 @@ export default defineComponent({
                         <Menu.Item key={id} title={title}>
                             {() => [
                                 <>
-                                    <Icon icon={icon || 'mdi:menu'}></Icon>
+                                    <LvIcon icon={icon || 'mdi:menu'}></LvIcon>
                                     <span>{title}</span>
                                 </>
                             ]}
@@ -79,7 +78,7 @@ export default defineComponent({
 
         // 根据keyPath的id生成name
         const generateNameList = (keys: string[], resource: IResource[]): string => {
-            const fullName = keys.reduceRight((name, key) => {
+            const fullName = keys.reduce((name, key) => {
                 for (let i = 0; i < resource.length; i++) {
                     if (resource[i].id === key) {
                         name += '-' + resource[i].name
@@ -94,25 +93,17 @@ export default defineComponent({
         }
 
         // menu点击事件
-        const handleMenuClick = ({ keyPath }: any) => {
+        const handleMenuClick = ({ keyPath }: { keyPath: string[] }) => {
             const name = generateNameList(keyPath, menus)
             // 路由跳转
             push({ name })
         }
 
         // submenu点击事件
-        const handleTitleClick = ({ key }: { key: string }) => {
+        const handleTitleClick = (e: MouseEvent, key: string) => {
             const index = openKeys.value.indexOf(key)
-            if (index === -1) {
-                // 手风琴模式开始
-                if (MENU_ACCORDION) {
-                    openKeys.value = [key]
-                } else {
-                    openKeys.value.push(key)
-                }
-            } else {
-                openKeys.value.splice(index, 1)
-            }
+            if (index === -1) openKeys.value = [key]
+            else openKeys.value = []
         }
 
         return () => {

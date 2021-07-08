@@ -1,6 +1,6 @@
 import store from '/@/store'
 import Breadcrumb from './Breadcrumb'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 import VisitedMenu from './visitedMenu'
 import { Dropdown, Menu, message, Drawer, Divider, Switch } from 'ant-design-vue'
 import { DownOutlined } from '@ant-design/icons-vue'
@@ -50,15 +50,15 @@ export default defineComponent({
                         <Divider>主题</Divider>
                         <Switch checked={unref(themeDark)} onChange={themeChange}>
                             {{
-                                checkedChildren: () => <Icon slot='checkedChildren' icon='ic:outline-wb-sunny' />,
-                                unCheckedChildren: () => <Icon slot='checkedChildren' icon='ic:outline-dark-mode' />
+                                checkedChildren: () => <LvIcon slot='checkedChildren' icon='ic:outline-wb-sunny' />,
+                                unCheckedChildren: () => <LvIcon slot='checkedChildren' icon='ic:outline-dark-mode' />
                             }}
                         </Switch>
                     </Drawer>
                     <div class='levi-navbar__content'>
                         <div class='levi-navbar__left'>
                             <span class='collapse-icon' onClick={setCollapse}>
-                                {store.getters.getCollapse ? <Icon icon='ri:menu-unfold-fill' /> : <Icon icon='ri:menu-fold-fill' />}
+                                {store.getters.getCollapse ? <LvIcon icon='ri:menu-unfold-fill' /> : <LvIcon icon='ri:menu-fold-fill' />}
                             </span>
                             <Breadcrumb></Breadcrumb>
                         </div>
@@ -85,7 +85,7 @@ export default defineComponent({
                                 )
                             }}
                         </Dropdown>
-                        <Icon class='settings-icon' onClick={showSettings} icon='ri:settings-4-line' size={18} />
+                        <LvIcon class='settings-icon' onClick={showSettings} icon='ri:settings-4-line' size={18} />
                     </div>
                 </>
             )

@@ -1,6 +1,6 @@
 import { defineComponent, inject, unref } from 'vue'
 import { Divider, Switch } from 'ant-design-vue'
-import { Icon } from '/@/components'
+import { LvIcon } from '/@/components'
 
 export default defineComponent({
     name: 'ThemeChange',
@@ -12,8 +12,8 @@ export default defineComponent({
                 <Divider>主题</Divider>
                 <Switch checked={theme === 'light'} onChange={(val) => changeTheme(val ? 'light' : 'dark')}>
                     {{
-                        checkedChildren: () => <Icon slot='checkedChildren' icon='ic:outline-wb-sunny' />,
-                        unCheckedChildren: () => <Icon slot='checkedChildren' icon='ic:outline-dark-mode' />
+                        checkedChildren: () => <LvIcon slot='checkedChildren' icon='ic:outline-wb-sunny' />,
+                        unCheckedChildren: () => <LvIcon slot='checkedChildren' icon='ic:outline-dark-mode' />
                     }}
                 </Switch>
             </>

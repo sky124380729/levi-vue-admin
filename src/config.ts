@@ -9,6 +9,3 @@ export const API_MOCK = import.meta.env.VITE_API_MOCK === 'true'
 
 // menu mock
 export const MENU_MOCK = import.meta.env.VITE_MENU_MOCK === 'true'
-
-// sidebar accordion mode
-export const MENU_ACCORDION = import.meta.env.VITE_MENU_ACCORDITON === 'true'

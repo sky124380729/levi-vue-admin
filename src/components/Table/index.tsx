@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { defineComponent, reactive, ref, unref, PropType, computed } from 'vue'
-import { Table, Tooltip } from 'ant-design-vue'
+import { Button, Table, Tooltip } from 'ant-design-vue'
 import type { ColumnProps } from 'ant-design-vue/lib/table/interface'
-import { Icon, Search, Page } from '/@/components'
+import { LvIcon, LvSearch, LvPage } from '/@/components'
 import { useInCacheFn } from '@pinkbin/vue-hooks'
 import { useStore } from 'vuex'
 import { useFullscreen } from '@vueuse/core'
@@ -178,12 +178,12 @@ export default defineComponent({
             const { onCreate } = attrs
             typeof onCreate === 'function' &&
                 extraSlots.push(
-                    <a-button type='primary' shape='round' onClick={onCreate}>
+                    <Button type='primary' shape='round' onClick={(...args) => onCreate.apply(this, ...args)}>
                         {{
-                            icon: () => <Icon icon='gridicons:create' />,
+                            icon: () => <LvIcon icon='gridicons:create' />,
                             default: () => <span>create</span>
                         }}
-                    </a-button>
+                    </Button>
                 )
             return () => extraSlots
         }
@@ -228,7 +228,7 @@ export default defineComponent({
             return actions.map((action) => (
                 <Tooltip>
                     {{
-                        default: () => <Icon icon={tableSettings[action.filed] ? action.iconActive : action.iconDeactive} onClick={() => setTable(action.filed)} />,
+                        default: () => <LvIcon icon={tableSettings[action.filed] ? action.iconActive : action.iconDeactive} onClick={() => setTable(action.filed)} />,
                         title: () => action.title
                     }}
                 </Tooltip>
@@ -241,10 +241,10 @@ export default defineComponent({
             return (
                 <div ref={tableRef} class={['levi-table', { 'levi-table--striped': striped, 'levi-table--bordered': bordered }]}>
                     <div class='levi-table__header'>
-                        <div class='levi-table__search'>{terms && <Search terms={terms} onQuery={handleQuery}></Search>}</div>
+                        <div class='levi-table__search'>{terms && <LvSearch terms={terms} onQuery={handleQuery}></LvSearch>}</div>
                         <div class='levi-table__action'>
                             {renderActions()}
-                            <Tooltip>{{ default: () => <Icon icon='ri:refresh-line' onClick={() => reload()} />, title: () => '刷新' }}</Tooltip>
+                            <Tooltip>{{ default: () => <LvIcon icon='ri:refresh-line' onClick={() => reload()} />, title: () => '刷新' }}</Tooltip>
                         </div>
                     </div>
                     <div class='levi-table__body'>
@@ -272,12 +272,12 @@ export default defineComponent({
         return () => {
             const { title, subTitle } = props
             return title || subTitle ? (
-                <Page title={title} subTitle={subTitle}>
+                <LvPage title={title} subTitle={subTitle}>
                     {{
                         header: getExtraSlots(),
                         content: () => renderTable()
                     }}
-                </Page>
+                </LvPage>
             ) : (
                 renderTable()
             )

@@ -1,7 +1,7 @@
 export default {
     //===colors==========
-    'primary-color': '#008ccf',
-    'error-color': '#e94831',
+    // 'primary-color': '#008ccf',
+    // 'error-color': '#e94831',
     //====form===========
     'form-item-margin-bottom': '12px',
     'breadcrumb-base-color': '#fff',

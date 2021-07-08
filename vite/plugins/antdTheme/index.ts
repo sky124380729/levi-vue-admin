@@ -11,7 +11,7 @@ export const STYLESHEET_ID = 'levi-root-vars'
 export default function theme(options = {}): Plugin {
     console.log(options)
     return {
-        name: 'vite:theme',
+        name: 'vite:antd-theme',
         // enforce: 'post',
         transform(code, id) {
             if (!isCSSRequest(id)) return null
