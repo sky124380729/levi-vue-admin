@@ -68,7 +68,12 @@ const viteConfig = defineConfig({
         PurgeIcons(),
         vueI18n(),
         antdTheme({
-            blue: '1'
+            colors: {
+                blue: '#442288',
+                red: '#112233'
+            }
+            // dark: true
+            // backgroundColor: 'red'
         }),
         ViteComponents({
             customComponentResolvers: [AntDesignVueResolver()]

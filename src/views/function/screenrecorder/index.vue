@@ -7,8 +7,7 @@
                         <div class="row">
                             <div>
                                 <div class="record_voice_askbox">
-                                    <label for="audio" class="record_voice_askbox_label">是否录制声音</label>
-                                    <a-input id="audio" v-model="checked" type="checkbox" class="record_voice_checkbox_merge" :disabled="isStart && !isFinish" />
+                                    <a-checkbox v-model:checked="checked">是否录制声音</a-checkbox>
                                 </div>
                             </div>
                         </div>

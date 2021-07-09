@@ -1,7 +1,6 @@
 import { generate } from '@ant-design/colors'
 import { STYLESHEET_ID } from '../index'
-
-type ColorKey = 'red' | 'volcano' | 'orange' | 'gold' | 'yellow' | 'lime' | 'green' | 'cyan' | 'blue' | 'geekblue' | 'purple' | 'magenta'
+import type { ColorKey } from '../index'
 
 export const replaceCssVars = (key: ColorKey, newColor: string) => {
     const stylesheet = document.getElementById(STYLESHEET_ID)
