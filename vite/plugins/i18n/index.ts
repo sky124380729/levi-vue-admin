@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite'
-import { parseVueRequest } from '../../utils/query'
+import { parseVueRequest } from '/vt/utils'
 
 export default function i18n(): Plugin {
     return {

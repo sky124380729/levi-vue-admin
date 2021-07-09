@@ -1,11 +1,15 @@
-import type { Plugin } from 'vite'
+import path from 'path'
+import fs from 'fs'
+import type { Plugin, ResolvedConfig } from 'vite'
 import { generate, presetPalettes } from '@ant-design/colors'
+import { createFileHash } from '/vt/utils'
 const cssLangs = `\\.(css|less|sass|scss|styl|stylus|pcss|postcss)($|\\?)`
 const cssLangRE = new RegExp(cssLangs)
 const directRequestRE = /(\?|&)direct\b/
 const isCSSRequest = (request: string): boolean => cssLangRE.test(request) && !directRequestRE.test(request)
 
-export const STYLESHEET_ID = 'levi-root-vars'
+export const STYLESHEET_ID = '__LEVI_ANTD_THEME_COLORS'
+export const FILENAME = 'levi-antd-theme-colors'
 
 export type ColorKey = 'red' | 'volcano' | 'orange' | 'gold' | 'yellow' | 'lime' | 'green' | 'cyan' | 'blue' | 'geekblue' | 'purple' | 'magenta'
 
@@ -16,6 +20,27 @@ interface AntdThemeOptions {
 }
 
 export default function theme(options: AntdThemeOptions): Plugin {
+    let config: ResolvedConfig
+    const cssOutputName = `${FILENAME}.${createFileHash()}.css`
+    const getCss = () => {
+        const { colors: defaultColors, dark = false, backgroundColor } = options
+        const colorVars = Object.keys(presetPalettes).reduce((prev: string, key: string) => {
+            const colors = Reflect.has(defaultColors, key)
+                ? // @ts-ignore
+                  generate(defaultColors[key], {
+                      theme: dark ? 'dark' : 'default',
+                      backgroundColor
+                  })
+                : presetPalettes[key]
+
+            colors.forEach((color, index) => {
+                prev += `--color-${key}-${index + 1}: ${color};`
+                prev += `\n`
+            })
+            return prev
+        }, '\n')
+        return `:root { ${colorVars} }`
+    }
     return {
         name: 'vite:antd-theme',
         // enforce: 'post',
@@ -30,27 +55,45 @@ export default function theme(options: AntdThemeOptions): Plugin {
             })
             return code
         },
-        transformIndexHtml(html) {
-            const { colors: defaultColors, dark = false, backgroundColor } = options
-            const colorVars = Object.keys(presetPalettes).reduce((prev: string, key: string) => {
-                const colors = Reflect.has(defaultColors, key)
-                    ? // @ts-ignore
-                      generate(defaultColors[key], {
-                          theme: dark ? 'dark' : 'default',
-                          backgroundColor
-                      })
-                    : presetPalettes[key]
-
-                colors.forEach((color, index) => {
-                    prev += `--color-${key}-${index + 1}: ${color};`
-                    prev += `\n`
+        configureServer(server) {
+            return () => {
+                server.middlewares.use((req, res, next) => {
+                    const reg = new RegExp(FILENAME, 'g')
+                    if (reg.test(req.url || '')) {
+                        // console.log(getCss(), 'css')
+                        res.end(getCss())
+                    } else {
+                        next()
+                    }
                 })
-                return prev
-            }, '\n')
-            const str = `:root { ${colorVars} }`
+            }
+        },
+        configResolved(resolvedConfig) {
+            config = resolvedConfig
+        },
+        async writeBundle() {
+            const {
+                root,
+                build: { outDir, assetsDir }
+            } = config
+            const cssOutputPath = path.resolve(root, outDir, assetsDir, cssOutputName)
+            fs.writeFileSync(cssOutputPath, getCss())
+        },
+        transformIndexHtml(html) {
             return {
                 html,
-                tags: [{ tag: 'style', attrs: { id: STYLESHEET_ID, type: 'text/css' }, children: str, injectTo: 'head' }]
+                tags: [
+                    {
+                        tag: 'link',
+                        attrs: {
+                            disabled: false,
+                            id: STYLESHEET_ID,
+                            rel: 'stylesheet',
+                            href: path.posix.join(config.base, config.build.assetsDir, cssOutputName)
+                        }
+                        // injectTo: 'body-prepend'
+                    }
+                ]
             }
         }
     }

@@ -1,4 +1,5 @@
 import qs from 'querystring'
+import { createHash } from 'crypto'
 
 export interface VueQuery {
     vue?: boolean
@@ -31,4 +32,8 @@ export function parseVueRequest(id: string): {
         filename,
         query
     }
+}
+
+export function createFileHash() {
+    return createHash('sha256').digest('hex').substr(0, 8)
 }
