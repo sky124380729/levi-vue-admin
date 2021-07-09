@@ -70,7 +70,7 @@ const viteConfig = defineConfig({
         antdTheme({
             colors: {
                 blue: '#442288',
-                red: '#112233'
+                red: '#333'
             }
             // dark: true
             // backgroundColor: 'red'
