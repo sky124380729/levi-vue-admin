@@ -25,7 +25,7 @@ export default function theme(options: AntdThemeOptions): Plugin {
                 const colors = presetPalettes[key]
                 colors.forEach((color, index) => {
                     const reg = new RegExp(color, 'g')
-                    code = code.replace(reg, `var(--color-${key}-${index})`)
+                    code = code.replace(reg, `var(--color-${key}-${index + 1})`)
                 })
             })
             return code
@@ -42,7 +42,7 @@ export default function theme(options: AntdThemeOptions): Plugin {
                     : presetPalettes[key]
 
                 colors.forEach((color, index) => {
-                    prev += `--color-${key}-${index}: ${color};`
+                    prev += `--color-${key}-${index + 1}: ${color};`
                     prev += `\n`
                 })
                 return prev

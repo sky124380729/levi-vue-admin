@@ -7,7 +7,7 @@ export const replaceCssVars = (key: ColorKey, newColor: string) => {
     if (!stylesheet) return
     const colors = generate(newColor)
     colors.forEach((color, index) => {
-        const reg = new RegExp(`--color-${key}-${index}\s?:(.+)\s?;`, 'g')
+        const reg = new RegExp(`--color-${key}-${index + 1}\s?:(.+)\s?;`, 'g')
         stylesheet.innerHTML = stylesheet.innerHTML.replace(reg, function (match, p) {
             return match.replace(new RegExp(p, 'g'), color)
         })
