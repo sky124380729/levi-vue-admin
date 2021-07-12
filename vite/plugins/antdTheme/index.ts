@@ -8,7 +8,7 @@ const cssLangRE = new RegExp(cssLangs)
 const directRequestRE = /(\?|&)direct\b/
 const isCSSRequest = (request: string): boolean => cssLangRE.test(request) && !directRequestRE.test(request)
 
-export const STYLESHEET_ID = '__LEVI_ANTD_THEME_COLORS'
+export const STYLESHEET_ID = '__LEVI_ANTD_THEME_COLORS__'
 export const FILENAME = 'levi-antd-theme-colors'
 
 export type ColorKey = 'red' | 'volcano' | 'orange' | 'gold' | 'yellow' | 'lime' | 'green' | 'cyan' | 'blue' | 'geekblue' | 'purple' | 'magenta'
