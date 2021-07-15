@@ -10,6 +10,7 @@ const isCSSRequest = (request: string): boolean => cssLangRE.test(request) && !d
 
 export const STYLESHEET_ID = '__LEVI_ANTD_THEME_COLORS__'
 export const FILENAME = 'levi-antd-theme-colors'
+export const CSS_VAR_PREFIX = '--antd-color'
 
 export type ColorKey = 'red' | 'volcano' | 'orange' | 'gold' | 'yellow' | 'lime' | 'green' | 'cyan' | 'blue' | 'geekblue' | 'purple' | 'magenta'
 
@@ -18,7 +19,7 @@ interface AntdThemeOptions {
     dark?: boolean
     backgroundColor?: string
 }
-
+console.log(presetPalettes)
 export default function theme(options: AntdThemeOptions): Plugin {
     let config: ResolvedConfig
     const cssOutputName = `${FILENAME}.${createFileHash()}.css`
@@ -33,7 +34,7 @@ export default function theme(options: AntdThemeOptions): Plugin {
                   })
                 : presetPalettes[key]
             colors.forEach((color, index) => {
-                prev += `--color-${key}-${index + 1}: ${color};`
+                prev += `${CSS_VAR_PREFIX}-${key}-${index + 1}: ${color};`
                 prev += `\n`
             })
             return prev
@@ -49,7 +50,7 @@ export default function theme(options: AntdThemeOptions): Plugin {
                 const colors = presetPalettes[key]
                 colors.forEach((color, index) => {
                     const reg = new RegExp(color, 'g')
-                    code = code.replace(reg, `var(--color-${key}-${index + 1})`)
+                    code = code.replace(reg, `var(${CSS_VAR_PREFIX}-${key}-${index + 1})`)
                 })
             })
             return code
