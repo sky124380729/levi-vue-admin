@@ -13,6 +13,7 @@ import './permission'
 
 // global less
 import '/@/styles/index.less'
+import 'ant-design-vue/dist/antd.dark.css'
 
 // create vue app
 const app = createApp(App)

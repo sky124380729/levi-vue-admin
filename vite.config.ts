@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
 import vueI18n from './vite/plugins/i18n'
 import antdTheme from './vite/plugins/antdTheme'
+import darkTheme from './vite/plugins/antdTheme/dark'
 import modifyVars from './src/styles/theme/vars'
 import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
@@ -67,6 +68,7 @@ const viteConfig = defineConfig({
         vueJSX(),
         PurgeIcons(),
         vueI18n(),
+        darkTheme(),
         antdTheme({
             colors: {
                 blue: '#442288',

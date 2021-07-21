@@ -19,7 +19,6 @@ interface AntdThemeOptions {
     dark?: boolean
     backgroundColor?: string
 }
-console.log(presetPalettes)
 export default function theme(options: AntdThemeOptions): Plugin {
     let config: ResolvedConfig
     const cssOutputName = `${FILENAME}.${createFileHash()}.css`
