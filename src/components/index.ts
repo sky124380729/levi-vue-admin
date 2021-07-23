@@ -9,15 +9,7 @@ import LvTable, { TableFormat } from './Table'
 import LvInput from './Input'
 import LvSelect from './Select'
 
-import { Button, Select, Input, Form, Tabs } from 'ant-design-vue'
-
 export function registerGC(app: App) {
-    // antd compontents
-    app.use(Select)
-    app.use(Button)
-    app.use(Input)
-    app.use(Form)
-    app.use(Tabs)
     // customer components
     app.component(LvCharts.name, LvCharts)
     app.component(LvForm.name, LvForm)
@@ -30,6 +22,6 @@ export function registerGC(app: App) {
     app.component(LvSelect.name, LvSelect)
 }
 
-export { LvCharts, LvForm, LvPage, LvModalForm, LvIcon, LvSearch, LvTable, Button, Input, Select, Form, Tabs }
+export { LvCharts, LvForm, LvPage, LvModalForm, LvIcon, LvSearch, LvTable }
 
 export type { FormSchema, TableFormat }

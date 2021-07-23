@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import directives from './directives'
+import Antd from 'ant-design-vue'
 import { registerGC } from './components'
 
 // mock
@@ -24,6 +25,9 @@ registerGC(app)
 
 // register directives
 app.use(directives)
+
+// register UI components
+app.use(Antd)
 
 // mount
 app.use(router).use(store).mount('#app')
