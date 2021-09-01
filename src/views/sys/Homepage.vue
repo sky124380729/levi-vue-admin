@@ -1,5 +1,11 @@
 <template>
     <a-tabs type="card">
+        <a-tab-pane key="WX" tab="WX">
+            <div style="width: 500px">
+                <a-divider>my we chat</a-divider>
+                <img width="500" height="650" src="./wx.jpg" alt="" />
+            </div>
+        </a-tab-pane>
         <a-tab-pane key="Form" tab="Form">
             <lv-form v-model="model" :label-width="140" :schemas="schemas" :column="2" />
             <a-space>
