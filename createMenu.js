@@ -13,7 +13,7 @@ const path = require('path')
 const chalk = require('chalk')
 const execSync = require('child_process').execSync //同步子进程
 const resolve = (dir) => path.join(__dirname, dir)
-const moment = require('moment')
+const dayjs = require('dayjs')
 // get the Git user name to trace who exported the SQL
 const gitName = execSync('git show -s --format=%cn').toString().trim()
 const md5 = require('md5')
@@ -37,8 +37,8 @@ function createSQL(data, name = '', pid, arr = []) {
         }
         arr.push({
             id: v.id || md5(v.name), // name is unique,so we can use name to generate id
-            created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
-            modified_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+            created_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+            modified_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
             created_by: gitName,
             modified_by: gitName,
             version: 1,

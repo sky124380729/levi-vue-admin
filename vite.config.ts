@@ -7,12 +7,12 @@ import vueJSX from '@vitejs/plugin-vue-jsx'
 import vueI18n from './vite/plugins/i18n'
 import antdTheme from './vite/plugins/antdTheme'
 import modifyVars from './src/styles/theme/vars'
+import dayjs from 'dayjs'
 const pathResolve = (dir: string) => resolve(__dirname, '.', dir)
 const { dependencies, devDependencies, name, version } = pkg
-import moment from 'moment'
 const __APP_INFO__ = {
     pkg: { dependencies, devDependencies, name, version },
-    lastBuildTime: moment().format('YYYY-MM-DD HH:mm:ss')
+    lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
 }
 const viteConfig = defineConfig({
     // the key **must start and end with a slash**
